@@ -127,8 +127,15 @@ def _normalize_mutation_target(
                             "behavior": behavior,
                         })
                     continue
-            if opname == "change_behavior" and aid in added_actor_ids and not op.get("behavior"):
-                continue
+            if opname == "change_behavior" and not op.get("behavior"):
+                actor_data = op.get("actor")
+                if isinstance(actor_data, dict) and actor_data.get("behavior"):
+                    op["behavior"] = actor_data["behavior"]
+                    if not aid and actor_data.get("id"):
+                        op["actor_id"] = actor_data["id"]
+                    op["actor"] = None
+                elif aid in added_actor_ids:
+                    continue
             if opname == "set_speed" and aid in added_actor_ids:
                 continue
             if opname == "shift_position" and aid in added_actor_ids:
