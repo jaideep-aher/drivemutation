@@ -1,0 +1,109 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+env:
+  ESMINI_VERSION: v2.35.0
+
+jobs:
+  tests:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # test_backend.py and test_stage3_openai.py target the superseded
+      # pre-SignalForge mutation API, whose endpoints no longer exist. They fail
+      # on a clean checkout too, so they are excluded here rather than silently
+      # masked — retiring them is separate work.
+      - name: Run tests
+        run: |
+          python -m pytest tests/ -q \
+            --ignore=tests/test_backend.py \
+            --ignore=tests/test_stage3_openai.py
+
+  esmini:
+    name: OpenSCENARIO export runs in esmini
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Only the binaries are needed. Exported bundles carry their own road and
+      # inline entity definitions, so esmini's resources directory is not used —
+      # which is precisely the property this job exists to prove.
+      - name: Install esmini
+        run: |
+          set -euo pipefail
+          curl -sSfL -o esmini.zip \
+            "https://github.com/esmini/esmini/releases/download/${ESMINI_VERSION}/esmini-bin_Linux.zip"
+          unzip -q esmini.zip -d "$RUNNER_TEMP/esmini"
+          chmod +x "$RUNNER_TEMP/esmini/esmini/bin/"*
+          echo "ESMINI=$RUNNER_TEMP/esmini/esmini" >> "$GITHUB_ENV"
+
+      - name: esmini smoke check
+        run: |
+          "$ESMINI/bin/esmini" --help > /dev/null
+          echo "esmini ${ESMINI_VERSION} ready"
+
+      - name: Export every scenario family
+        run: |
+          python scripts/export_xosc.py \
+            --from-catalog \
+            --limit 60 \
+            --out "$RUNNER_TEMP/xosc"
+
+      # Gate 1: every exported bundle loads and runs cleanly.
+      - name: Scenarios load and run
+        run: python scripts/validate_xosc.py --check load --limit 60
+
+      # Gate 2: trajectory-mode exports must reproduce the simulated motion
+      # essentially exactly. This is what makes the published criticality
+      # metrics reproducible in a third-party simulator.
+      - name: Trajectory export reproduces the simulation
+        run: |
+          python scripts/validate_xosc.py \
+            --check fidelity \
+            --trajectory-mode \
+            --limit 60 \
+            --json "$RUNNER_TEMP/fidelity-exact.json"
+
+      # Gate 3: the default semantic export uses native OpenSCENARIO actions,
+      # so the player integrates braking itself. Held to a looser but still
+      # meaningful bound.
+      - name: Semantic export stays within tolerance
+        run: |
+          python scripts/validate_xosc.py \
+            --check fidelity \
+            --limit 60 \
+            --json "$RUNNER_TEMP/fidelity-semantic.json"
+
+      - name: Upload fidelity reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fidelity-reports
+          path: ${{ runner.temp }}/fidelity-*.json
+          if-no-files-found: ignore
