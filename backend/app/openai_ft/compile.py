@@ -89,11 +89,35 @@ def _normalize_mutation_target(parsed: dict[str, Any]) -> dict[str, Any]:
 
     mutation = d.get("mutation")
     if isinstance(mutation, dict):
-        for op in mutation.get("operations", []):
-            if isinstance(op, dict) and op.get("op") not in _VALID_OPS:
+        ops = mutation.get("operations", [])
+        added_actor_ids: set[str] = set()
+
+        for op in ops:
+            if not isinstance(op, dict):
+                continue
+            if op.get("op") not in _VALID_OPS:
                 canonical = _OP_ALIASES.get(op["op"])
                 if canonical:
                     op["op"] = canonical
+            if op.get("op") == "add_actor" and isinstance(op.get("actor"), dict):
+                added_actor_ids.add(op["actor"].get("id", ""))
+
+        cleaned: list[dict[str, Any]] = []
+        for op in ops:
+            if not isinstance(op, dict):
+                cleaned.append(op)
+                continue
+            opname = op.get("op")
+            aid = op.get("actor_id")
+            if opname == "change_behavior" and aid in added_actor_ids and not op.get("behavior"):
+                continue
+            if opname == "set_speed" and aid in added_actor_ids:
+                continue
+            if opname == "shift_position" and aid in added_actor_ids:
+                continue
+            cleaned.append(op)
+        mutation["operations"] = cleaned
+
     return d
 
 
