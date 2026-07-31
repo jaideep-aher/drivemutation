@@ -193,6 +193,89 @@ button.accent {
   color: var(--accent-2);
 }
 
+button.ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--muted);
+  padding-inline: 0.55rem;
+}
+
+button.ghost:hover:not(:disabled) {
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.simple-flow {
+  margin-bottom: 1rem;
+}
+
+.simple-flow > label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+
+.simple-actions {
+  margin-top: 0.25rem;
+}
+
+.compile-plain {
+  margin: 0 0 0.45rem;
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
+.soft-details {
+  margin-top: 0.55rem;
+  border-top: 1px solid var(--line);
+  padding-top: 0.45rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.soft-details summary {
+  cursor: pointer;
+  color: var(--ink);
+  list-style: none;
+}
+
+.soft-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.soft-details summary::before {
+  content: "> ";
+  color: var(--accent-2);
+}
+
+.soft-details[open] summary::before {
+  content: "v ";
+}
+
+.advanced-block {
+  margin: 0.85rem 0 1rem;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.75rem 0.9rem;
+}
+
+.advanced-block .lab-grid {
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+}
+
+.viz-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  margin: 0 0 0.55rem;
+}
+
 .scenario-desc {
   color: var(--muted);
   font-size: 0.85rem;

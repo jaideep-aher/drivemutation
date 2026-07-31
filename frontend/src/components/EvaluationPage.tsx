@@ -18,13 +18,13 @@ const METRIC_KEYS = [
 ] as const;
 
 function fmtRate(v: unknown): string {
-  if (typeof v !== "number" || Number.isNaN(v)) return "—";
+  if (typeof v !== "number" || Number.isNaN(v)) return " - ";
   return `${(v * 100).toFixed(1)}%`;
 }
 
 function fmtLatency(metrics: Record<string, unknown> | undefined): string {
   const lat = metrics?.latency as { mean_s?: number } | undefined;
-  if (!lat || lat.mean_s == null) return "—";
+  if (!lat || lat.mean_s == null) return " - ";
   return `${lat.mean_s.toFixed(2)} s`;
 }
 
@@ -41,7 +41,7 @@ export function EvaluationPage({
           <h2>Measured evaluation</h2>
           <p className="muted">
             Only real measurements from offline evaluation artifacts. Missing files
-            show as unavailable — never as invented scores.
+            show as unavailable  -  never as invented scores.
           </p>
         </div>
         <button type="button" onClick={onRefresh} disabled={loading}>
@@ -72,19 +72,19 @@ export function EvaluationPage({
           <dl className="kv">
             <div>
               <dt>Test set</dt>
-              <dd>{summary.methodology.test_set ?? "—"}</dd>
+              <dd>{summary.methodology.test_set ?? " - "}</dd>
             </div>
             <div>
               <dt>Size</dt>
-              <dd>{summary.methodology.test_set_size ?? "—"}</dd>
+              <dd>{summary.methodology.test_set_size ?? " - "}</dd>
             </div>
             <div>
               <dt>Temperature</dt>
-              <dd>{summary.methodology.temperature ?? "—"}</dd>
+              <dd>{summary.methodology.temperature ?? " - "}</dd>
             </div>
             <div>
               <dt>Protocol</dt>
-              <dd>{summary.methodology.protocol ?? "—"}</dd>
+              <dd>{summary.methodology.protocol ?? " - "}</dd>
             </div>
           </dl>
           {summary.methodology.notes && (
@@ -133,8 +133,8 @@ function EvalColumn({
       <h3>{title}</h3>
       <p className="mono-sm">{block.model}</p>
       <p className="muted">
-        n={block.n ?? (metrics.n as number | undefined) ?? "—"} ·{" "}
-        {block.created_at ?? "—"}
+        n={block.n ?? (metrics.n as number | undefined) ?? " - "} ·{" "}
+        {block.created_at ?? " - "}
       </p>
       <table className="metric-table">
         <tbody>
@@ -153,7 +153,7 @@ function EvalColumn({
             <td>
               {(
                 metrics.token_use as { total_tokens?: number } | undefined
-              )?.total_tokens ?? "—"}
+              )?.total_tokens ?? " - "}
             </td>
           </tr>
         </tbody>

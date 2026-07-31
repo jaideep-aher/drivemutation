@@ -307,7 +307,7 @@ describe("App integration", () => {
     await waitFor(() =>
       expect(screen.getByTestId("scenario-description")).toHaveTextContent("Head-on"),
     );
-    expect(screen.getByTestId("model-status")).toHaveTextContent("configured");
+    expect(screen.getByTestId("model-status")).toHaveTextContent("OpenAI");
     expect(screen.getByTestId("scene-editor")).toBeInTheDocument();
 
     fireEvent.click(screen.getByTestId("run-simulate"));
@@ -316,7 +316,9 @@ describe("App integration", () => {
 
     fireEvent.click(screen.getByTestId("compile-base"));
     await waitFor(() =>
-      expect(screen.getByTestId("compile-panel-base")).toHaveTextContent("accepted"),
+      expect(screen.getByTestId("compile-panel-stock-gpt-(base)")).toHaveTextContent(
+        "Compiled",
+      ),
     );
 
     fireEvent.click(screen.getByTestId("nav-eval"));
