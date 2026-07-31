@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { api } from "./api/client";
 import { PointCloudViewer } from "./components/PointCloudViewer";
 import type {
@@ -27,13 +27,43 @@ const FAMILIES = [
   "sensor_degradation",
 ];
 
+const QUICK_FAMILIES = [
+  "all",
+  "cut_in",
+  "rear_end",
+  "pedestrian",
+  "vru_crossing",
+  "sensor_degradation",
+  "lane_change",
+];
+
 const WEATHERS = ["all", "clear", "rain", "fog", "snow"];
 const DIFFS = ["all", "easy", "medium", "hard", "unpreventable"];
 
 type Navigate = (path: string) => void;
 
+function labelFamily(f: string) {
+  if (f === "all") return "All families";
+  return f.replace(/_/g, " ");
+}
+
+function labelWeather(w: string) {
+  if (w === "all") return "All weather";
+  return w;
+}
+
+function labelDifficulty(d: string) {
+  if (d === "all") return "All levels";
+  return d;
+}
+
+function missing(value: string | number | null | undefined) {
+  if (value == null || value === "") return "-";
+  return String(value);
+}
+
 export default function App({ onNavigate }: { onNavigate?: Navigate } = {}) {
-  const [health, setHealth] = useState<string>("…");
+  const [health, setHealth] = useState<string>("...");
   const [list, setList] = useState<ScenarioSummary[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [detail, setDetail] = useState<ConcreteScenario | null>(null);
@@ -50,6 +80,8 @@ export default function App({ onNavigate }: { onNavigate?: Navigate } = {}) {
   const [difficulty, setDifficulty] = useState("all");
   const [q, setQ] = useState("");
   const [tab, setTab] = useState<"viewer" | "coverage" | "gaps">("viewer");
+  const listRef = useRef<HTMLDivElement>(null);
+  const selectedRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     api
@@ -66,6 +98,9 @@ export default function App({ onNavigate }: { onNavigate?: Navigate } = {}) {
       .then((rows) => {
         setList(rows);
         if (!selectedId && rows.length) setSelectedId(rows[0].id);
+        if (selectedId && rows.length && !rows.some((r) => r.id === selectedId)) {
+          setSelectedId(rows[0].id);
+        }
       })
       .catch((e) => setError(String(e)));
   }, [family, weather, difficulty, q, selectedId]);
@@ -73,6 +108,11 @@ export default function App({ onNavigate }: { onNavigate?: Navigate } = {}) {
   useEffect(() => {
     refreshList();
   }, [family, weather, difficulty]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    const id = window.setTimeout(() => refreshList(), 220);
+    return () => clearTimeout(id);
+  }, [q]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadScenario = useCallback(async (id: string) => {
     setLoading(true);
@@ -106,6 +146,10 @@ export default function App({ onNavigate }: { onNavigate?: Navigate } = {}) {
     return () => clearInterval(id);
   }, [playing, frames.length]);
 
+  useEffect(() => {
+    selectedRef.current?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  }, [selectedId]);
+
   const frame = frames[frameIdx] ?? null;
 
   const familyBars = useMemo(() => {
@@ -116,6 +160,26 @@ export default function App({ onNavigate }: { onNavigate?: Navigate } = {}) {
     const max = Math.max(...entries.map(([, n]) => n as number), 1);
     return entries.map(([k, n]) => ({ k, n: n as number, pct: (100 * (n as number)) / max }));
   }, [coverage]);
+
+  const hasActiveFilters =
+    family !== "all" || weather !== "all" || difficulty !== "all" || q.trim().length > 0;
+
+  const clearFilters = () => {
+    setFamily("all");
+    setWeather("all");
+    setDifficulty("all");
+    setQ("");
+  };
+
+  const selectByOffset = (delta: number) => {
+    if (!list.length) return;
+    const idx = Math.max(
+      0,
+      list.findIndex((s) => s.id === selectedId)
+    );
+    const next = list[(idx + delta + list.length) % list.length];
+    if (next) setSelectedId(next.id);
+  };
 
   const goHome = () => {
     if (onNavigate) onNavigate("/");
@@ -157,60 +221,210 @@ export default function App({ onNavigate }: { onNavigate?: Navigate } = {}) {
       {tab === "viewer" && (
         <div className="sf-main">
           <aside className="sf-sidebar">
-            <div className="filters">
-              <input
-                placeholder="Search…"
-                value={q}
-                onChange={(e) => setQ(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && refreshList()}
-              />
-              <select value={family} onChange={(e) => setFamily(e.target.value)}>
-                {FAMILIES.map((f) => (
-                  <option key={f} value={f}>
-                    {f}
-                  </option>
-                ))}
-              </select>
-              <select value={weather} onChange={(e) => setWeather(e.target.value)}>
-                {WEATHERS.map((w) => (
-                  <option key={w} value={w}>
-                    {w}
-                  </option>
-                ))}
-              </select>
-              <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)}>
-                {DIFFS.map((d) => (
-                  <option key={d} value={d}>
-                    {d}
-                  </option>
-                ))}
-              </select>
+            <section className="filters" aria-labelledby="filters-heading">
+              <div className="filter-head">
+                <h2 id="filters-heading">Filters</h2>
+                {hasActiveFilters ? (
+                  <button type="button" className="filter-clear" onClick={clearFilters}>
+                    Clear all
+                  </button>
+                ) : (
+                  <span className="filter-head-hint">Narrow the catalog</span>
+                )}
+              </div>
+
+              <label className="filter-field">
+                <span className="filter-label">Search</span>
+                <input
+                  className="filter-input"
+                  placeholder="Search by name or id"
+                  value={q}
+                  onChange={(e) => setQ(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && refreshList()}
+                  aria-label="Search scenarios"
+                />
+              </label>
+
+              <div className="filter-block">
+                <div className="filter-block-label">
+                  <span className="filter-label">Family</span>
+                  <span className="filter-block-hint">Quick picks</span>
+                </div>
+                <div className="family-rail" role="listbox" aria-label="Quick family filters">
+                  {QUICK_FAMILIES.map((f) => (
+                    <button
+                      key={f}
+                      type="button"
+                      role="option"
+                      aria-selected={family === f}
+                      className={`family-chip ${family === f ? "active" : ""}`}
+                      onClick={() => setFamily(f)}
+                    >
+                      {f === "all" ? "All" : f.replace(/_/g, " ")}
+                    </button>
+                  ))}
+                </div>
+                <label className="filter-field filter-field-flush">
+                  <span className="visually-hidden">All families</span>
+                  <select
+                    className="filter-select"
+                    value={family}
+                    onChange={(e) => setFamily(e.target.value)}
+                    aria-label="Scenario family"
+                  >
+                    {FAMILIES.map((f) => (
+                      <option key={f} value={f}>
+                        {labelFamily(f)}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+
+              <div className="filter-grid">
+                <label className="filter-field">
+                  <span className="filter-label">Weather</span>
+                  <select
+                    className="filter-select"
+                    value={weather}
+                    onChange={(e) => setWeather(e.target.value)}
+                    aria-label="Weather"
+                  >
+                    {WEATHERS.map((w) => (
+                      <option key={w} value={w}>
+                        {labelWeather(w)}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="filter-field">
+                  <span className="filter-label">Difficulty</span>
+                  <select
+                    className="filter-select"
+                    value={difficulty}
+                    onChange={(e) => setDifficulty(e.target.value)}
+                    aria-label="Difficulty"
+                  >
+                    {DIFFS.map((d) => (
+                      <option key={d} value={d}>
+                        {labelDifficulty(d)}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+
+              {hasActiveFilters && (
+                <div className="filter-active" aria-live="polite">
+                  {q.trim() && (
+                    <button type="button" className="filter-tag" onClick={() => setQ("")}>
+                      Search: {q.trim()}
+                      <span aria-hidden="true"> ×</span>
+                    </button>
+                  )}
+                  {family !== "all" && (
+                    <button type="button" className="filter-tag" onClick={() => setFamily("all")}>
+                      {family.replace(/_/g, " ")}
+                      <span aria-hidden="true"> ×</span>
+                    </button>
+                  )}
+                  {weather !== "all" && (
+                    <button type="button" className="filter-tag" onClick={() => setWeather("all")}>
+                      {weather}
+                      <span aria-hidden="true"> ×</span>
+                    </button>
+                  )}
+                  {difficulty !== "all" && (
+                    <button
+                      type="button"
+                      className="filter-tag"
+                      onClick={() => setDifficulty("all")}
+                    >
+                      {difficulty}
+                      <span aria-hidden="true"> ×</span>
+                    </button>
+                  )}
+                </div>
+              )}
+            </section>
+
+            <div className="scenario-list-head">
+              <h2 id="scenario-list-heading">Scenarios</h2>
+              <span className="filter-count">{list.length} shown</span>
             </div>
-            <div className="scenario-list">
-              {list.map((s) => (
-                <button
-                  key={s.id}
-                  className={`scenario-row ${selectedId === s.id ? "selected" : ""}`}
-                  onClick={() => setSelectedId(s.id)}
-                >
-                  <div className="row-top">
-                    <span className="family">{s.family}</span>
-                    <span className={`diff ${s.difficulty ?? ""}`}>{s.difficulty ?? "—"}</span>
-                  </div>
-                  <div className="row-name">{s.name}</div>
-                  <div className="row-meta">
-                    {s.weather} · {s.lighting}
-                    {s.min_ttc_s != null ? ` · TTC ${s.min_ttc_s.toFixed(2)}s` : ""}
-                  </div>
-                </button>
-              ))}
-              {list.length === 0 && <p className="empty">No scenarios match filters.</p>}
+
+            <div
+              className="scenario-list"
+              ref={listRef}
+              role="listbox"
+              aria-labelledby="scenario-list-heading"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "ArrowDown") {
+                  e.preventDefault();
+                  selectByOffset(1);
+                } else if (e.key === "ArrowUp") {
+                  e.preventDefault();
+                  selectByOffset(-1);
+                } else if (e.key === "Home") {
+                  e.preventDefault();
+                  if (list[0]) setSelectedId(list[0].id);
+                } else if (e.key === "End") {
+                  e.preventDefault();
+                  if (list.length) setSelectedId(list[list.length - 1].id);
+                }
+              }}
+            >
+              {list.map((s) => {
+                const selected = selectedId === s.id;
+                return (
+                  <button
+                    key={s.id}
+                    ref={selected ? selectedRef : undefined}
+                    type="button"
+                    role="option"
+                    aria-selected={selected}
+                    className={`scenario-row ${selected ? "selected" : ""}`}
+                    onClick={() => setSelectedId(s.id)}
+                  >
+                    <span className="scenario-row-accent" aria-hidden="true" />
+                    <span className="scenario-row-body">
+                      <span className="row-top">
+                        <span className="family">{s.family.replace(/_/g, " ")}</span>
+                        <span className={`diff ${s.difficulty ?? ""}`}>
+                          {missing(s.difficulty)}
+                        </span>
+                      </span>
+                      <span className="row-name">{s.name}</span>
+                      <span className="row-meta">
+                        <span>
+                          <span className="meta-dot" aria-hidden="true" />
+                          {s.weather}
+                        </span>
+                        <span>
+                          <span className="meta-dot" aria-hidden="true" />
+                          {s.lighting}
+                        </span>
+                        {s.min_ttc_s != null && (
+                          <span>
+                            <span className="meta-dot" aria-hidden="true" />
+                            TTC {s.min_ttc_s.toFixed(2)}s
+                          </span>
+                        )}
+                      </span>
+                    </span>
+                  </button>
+                );
+              })}
+              {list.length === 0 && (
+                <p className="empty">No scenarios match these filters. Try clearing a filter.</p>
+              )}
             </div>
           </aside>
 
           <section className="sf-stage">
             <div className="viewer-wrap">
-              {loading && <div className="overlay">Rendering lidar…</div>}
+              {loading && <div className="overlay">Rendering lidar...</div>}
               {error && <div className="overlay error">{error}</div>}
               <PointCloudViewer frame={frame} showRadar={showRadar} />
             </div>
@@ -258,36 +472,36 @@ export default function App({ onNavigate }: { onNavigate?: Navigate } = {}) {
                   </dl>
                   <p className="hint">
                     Every scenario traces to a regulation clause, crash typology, HAZOP derivation,
-                    or real ADS incident — never free-invented.
+                    or real ADS incident: never free-invented.
                   </p>
                 </div>
                 <div className="card metrics">
                   <h3>Criticality</h3>
                   <dl>
                     <dt>Difficulty</dt>
-                    <dd>{detail.difficulty ?? "—"}</dd>
+                    <dd>{missing(detail.difficulty)}</dd>
                     <dt>Min TTC</dt>
                     <dd>
                       {detail.metrics?.min_ttc_s != null
                         ? `${detail.metrics.min_ttc_s.toFixed(2)} s`
-                        : "—"}
+                        : "-"}
                     </dd>
                     <dt>Min distance</dt>
                     <dd>
                       {detail.metrics?.min_distance_m != null
                         ? `${detail.metrics.min_distance_m.toFixed(2)} m`
-                        : "—"}
+                        : "-"}
                     </dd>
                     <dt>Required decel</dt>
                     <dd>
                       {detail.metrics?.required_decel_mps2 != null
                         ? `${detail.metrics.required_decel_mps2.toFixed(2)} m/s²`
-                        : "—"}
+                        : "-"}
                     </dd>
                     <dt>Preventable (R157 model)</dt>
                     <dd>
                       {detail.metrics?.preventable == null
-                        ? "—"
+                        ? "-"
                         : detail.metrics.preventable
                           ? "yes"
                           : "no"}

@@ -1,0 +1,151 @@
+/**
+ * Waymo design tokens — extracted from https://www.waymo.com (live CSS + computed styles, Jul 2026).
+ *
+ * Primary sources:
+ *   - Computed: body font GT-Walsheim stack; body text rgb(35,35,60)=#23233c
+ *   - CTA / skip-link bg #006fee; brand blue sections/stats #0077ff; deep map blue #033098
+ *   - Mint accent #00e89d; marker teal #00929d; dark navy surfaces #050f1e / #132237
+ *   - Page bg #000; light footer #f2f2f2; muted #7c899a / #a2abb9; border #ccd3dc
+ *   - Fonts self-hosted at /fonts (same files Waymo serves from /fonts/*.woff2)
+ *   - Public mono fallback also loaded on waymo.com: Roboto Mono (Google Fonts)
+ *
+ * THIS FILE IS THE SOURCE OF TRUTH for SignalForge theme vars. Overwrite conflicting :root theme.
+ */
+
+@font-face {
+  font-family: "GT-Walsheim";
+  src: url("/fonts/GT-Walsheim-Light-subset.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GT-Walsheim";
+  src: url("/fonts/GT-Walsheim-Regular-subset.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GT-Walsheim";
+  src: url("/fonts/GT-Walsheim-Medium-subset.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Simplon BP";
+  src: url("/fonts/SimplonBP-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Simplon BP";
+  src: url("/fonts/SimplonBP-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Simplon BP";
+  src: url("/fonts/SimplonBP-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Simplon BP";
+  src: url("/fonts/SimplonBP-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Simplon Mono";
+  src: url("/fonts/SimplonMono-Regular-subset.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Simplon Mono";
+  src: url("/fonts/SimplonMono-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Exact hex from waymo.com */
+  --waymo-white: #ffffff;
+  --waymo-black: #000000;
+  --waymo-ink: #23233c; /* body text */
+  --waymo-navy: #050f1e; /* extra-dark-navy sections */
+  --waymo-navy-2: #132237; /* --main-image-background-color */
+  --waymo-navy-3: #1f2a39; /* rgb(31,42,57) */
+  --waymo-navy-4: #2f3e4f; /* rgb(47,62,79) */
+  --waymo-blue: #006fee; /* primary CTA */
+  --waymo-blue-bright: #0077ff; /* brand / stats / map active */
+  --waymo-blue-deep: #033098; /* map upcoming / popover border */
+  --waymo-blue-panel: #061e4d; /* deep blue card */
+  --waymo-teal: #00e89d; /* signature mint */
+  --waymo-teal-2: #00eba7;
+  --waymo-teal-deep: #00929d; /* --marker-color */
+  --waymo-muted: #5d6e83;
+  --waymo-muted-2: #7c899a; /* groups border */
+  --waymo-muted-3: #949a9f;
+  --waymo-muted-4: #a2abb9; /* group text */
+  --waymo-border: #ccd3dc; /* --pill-color */
+  --waymo-border-soft: #e5e9f0;
+  --waymo-surface: #fafafb;
+  --waymo-surface-2: #f4f6f9;
+  --waymo-surface-3: #f2f2f2; /* footer */
+  --waymo-danger: #ea0000;
+  --waymo-warn: #ffcd55;
+  --waymo-ok: #1e7e34;
+  --waymo-mist: #ecf0f6;
+  --waymo-teal-mist: #ecf3f0;
+
+  /* Typography — exact stacks from waymo.com computed styles */
+  --waymo-font-sans: "GT-Walsheim", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --waymo-font-display: "Simplon BP", "GT-Walsheim", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  --waymo-font-mono: "Simplon Mono", "Roboto Mono", Menlo, Monaco, monospace;
+
+  /*
+   * App semantic aliases — dark Waymo surfaces (homepage hero / navy sections).
+   * Only Waymo hex values; no amber/purple/cream invents.
+   */
+  color-scheme: dark;
+  --bg: var(--waymo-black);
+  --bg-elevated: var(--waymo-navy);
+  --panel: var(--waymo-navy-2);
+  --panel-2: var(--waymo-navy-3);
+  --border: var(--waymo-navy-4);
+  --border-strong: var(--waymo-muted-2);
+  --text: var(--waymo-white);
+  --muted: var(--waymo-muted-4);
+  --accent: var(--waymo-blue);
+  --accent-soft: color-mix(in srgb, var(--waymo-blue) 18%, transparent);
+  --accent-2: var(--waymo-teal);
+  --navy: var(--waymo-navy);
+  --warn: var(--waymo-warn);
+  --danger: var(--waymo-danger);
+  --ok: var(--waymo-teal-deep);
+  --ink: var(--waymo-black);
+  --road: var(--waymo-navy-2);
+  --font-display: var(--waymo-font-display);
+  --font-body: var(--waymo-font-sans);
+  --font-mono: var(--waymo-font-mono);
+  font-family: var(--font-body);
+}

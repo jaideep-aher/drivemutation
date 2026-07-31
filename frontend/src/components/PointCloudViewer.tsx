@@ -38,7 +38,7 @@ export function PointCloudViewer({ frame, showRadar = true }: Props) {
     try {
       renderer = new THREE.WebGLRenderer({ antialias: true });
     } catch {
-      mount.innerHTML = '<div style="padding:1rem;color:#8fa3b8">WebGL unavailable</div>';
+      mount.innerHTML = '<div style="padding:1rem;color:#a2abb9">WebGL unavailable</div>';
       return;
     }
 

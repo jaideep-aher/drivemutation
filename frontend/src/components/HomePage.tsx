@@ -57,10 +57,12 @@ export function HomePage({ onNavigate }: { onNavigate: Navigate }) {
 
       <section className="sf-hero">
         <div className="sf-hero-copy">
-          <p className="sf-brand-hero">SignalForge</p>
+          <p className="sf-brand-hero">
+            Signal<span>Forge</span>
+          </p>
           <h1>Grounded AV scenarios you can audit end to end.</h1>
           <p className="sf-hero-lead">
-            Synthetic lidar and radar over 2,200 concrete cases — each traced to regulation,
+            Synthetic lidar and radar over 2,200 concrete cases, each traced to regulation,
             crash typology, or a real ADS incident.
           </p>
           <div className="sf-cta-group">
@@ -87,7 +89,7 @@ export function HomePage({ onNavigate }: { onNavigate: Navigate }) {
           <h2>What it is</h2>
           <p>
             SignalForge is an AV scenario benchmark built for teams that need coverage they can
-            defend. Logical families expand into concrete ODD variants with kinematic criticality —
+            defend. Logical families expand into concrete ODD variants with kinematic criticality,
             then a NumPy lidar/radar layer renders the scene for inspection.
           </p>
         </div>
@@ -99,7 +101,7 @@ export function HomePage({ onNavigate }: { onNavigate: Navigate }) {
           <p>
             No free-invented prompts. Every scenario links to NHTSA pre-crash typology, UNECE R157
             parameters, Euro NCAP VRU protocols, HAZOP sensor degradation, or NHTSA SGO incident
-            narratives — including an explicit gap list for unmatched reports.
+            narratives, including an explicit gap list for unmatched reports.
           </p>
           <ul className="sf-source-list">
             <li>NHTSA pre-crash groups + crash-frequency weights</li>
@@ -117,15 +119,15 @@ export function HomePage({ onNavigate }: { onNavigate: Navigate }) {
           <p>Live counts from the SignalForge API.</p>
           <div className="sf-coverage-row" role="list">
             <div className="sf-coverage-item" role="listitem">
-              <span className="sf-coverage-n">{count ?? "—"}</span>
+              <span className="sf-coverage-n">{count ?? "-"}</span>
               <span className="sf-coverage-l">concrete scenarios</span>
             </div>
             <div className="sf-coverage-item" role="listitem">
-              <span className="sf-coverage-n">{logical ?? "—"}</span>
+              <span className="sf-coverage-n">{logical ?? "-"}</span>
               <span className="sf-coverage-l">logical families</span>
             </div>
             <div className="sf-coverage-item" role="listitem">
-              <span className="sf-coverage-n">{gaps ?? "—"}</span>
+              <span className="sf-coverage-n">{gaps ?? "-"}</span>
               <span className="sf-coverage-l">SGO gap candidates</span>
             </div>
           </div>

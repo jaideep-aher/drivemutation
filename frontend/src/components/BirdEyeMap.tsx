@@ -1,10 +1,11 @@
 import type { ActorFrameState, RoadLayout, SimulationFrame } from "../types/scenario";
 
+/* Waymo palette only — from waymo.com */
 const ACTOR_COLORS: Record<string, string> = {
-  ego: "#00a3e0",
-  vehicle: "#f5a623",
-  cyclist: "#2dd4a8",
-  pedestrian: "#ff5a5a",
+  ego: "#0077ff",
+  vehicle: "#006fee",
+  cyclist: "#00e89d",
+  pedestrian: "#ea0000",
 };
 
 interface BirdEyeProps {
@@ -50,11 +51,11 @@ export function BirdEyeMap({
     >
       <defs>
         <linearGradient id="asphalt" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#1c1c1c" />
-          <stop offset="100%" stopColor="#121212" />
+          <stop offset="0%" stopColor="#132237" />
+          <stop offset="100%" stopColor="#050f1e" />
         </linearGradient>
       </defs>
-      <rect x={0} y={0} width={width} height={height} fill="#050505" />
+      <rect x={0} y={0} width={width} height={height} fill="#000000" />
       <rect
         x={sx(0)}
         y={sy(maxY)}
@@ -71,7 +72,7 @@ export function BirdEyeMap({
             y1={sy(lane.center_y)}
             x2={sx(worldW)}
             y2={sy(lane.center_y)}
-            stroke="#c9d1d9"
+            stroke="#a2abb9"
             strokeWidth={1}
             strokeDasharray="8 10"
             opacity={0.55}
@@ -81,7 +82,7 @@ export function BirdEyeMap({
             y1={sy(laneLeft(lane.center_y, lane.width))}
             x2={sx(worldW)}
             y2={sy(laneLeft(lane.center_y, lane.width))}
-            stroke="#e6edf5"
+            stroke="#ccd3dc"
             strokeWidth={1.2}
             opacity={0.28}
           />
@@ -90,7 +91,7 @@ export function BirdEyeMap({
             y1={sy(laneRight(lane.center_y, lane.width))}
             x2={sx(worldW)}
             y2={sy(laneRight(lane.center_y, lane.width))}
-            stroke="#e6edf5"
+            stroke="#ccd3dc"
             strokeWidth={1.2}
             opacity={0.28}
           />
@@ -111,8 +112,8 @@ export function BirdEyeMap({
               sy(road.intersection_center[1] - road.intersection_size) -
               sy(road.intersection_center[1] + road.intersection_size)
             }
-            fill="#4a5058"
-            stroke="#c9a227"
+            fill="#2f3e4f"
+            stroke="#0077ff"
             strokeWidth={1.5}
             opacity={0.9}
           />
@@ -122,7 +123,7 @@ export function BirdEyeMap({
         if (pts.length < 2) return null;
         const d = pts.map((p, i) => `${i === 0 ? "M" : "L"} ${sx(p[0])} ${sy(p[1])}`).join(" ");
         const actor = frame?.actors.find((a) => a.id === id);
-        const color = ACTOR_COLORS[actor?.actor_type ?? "vehicle"] ?? "#888";
+        const color = ACTOR_COLORS[actor?.actor_type ?? "vehicle"] ?? "#7c899a";
         return (
           <path
             key={`traj-${id}`}
@@ -151,7 +152,7 @@ function ActorRect({
   sx: (x: number) => number;
   sy: (y: number) => number;
 }) {
-  const color = ACTOR_COLORS[actor.actor_type] ?? "#666";
+  const color = ACTOR_COLORS[actor.actor_type] ?? "#7c899a";
   const cx = sx(actor.x);
   const cy = sy(actor.y);
   const metre = Math.abs(sx(1) - sx(0));
@@ -165,7 +166,7 @@ function ActorRect({
         width={w}
         height={h}
         fill={color}
-        stroke="#111"
+        stroke="#050f1e"
         strokeWidth={0.8}
         rx={1.5}
         opacity={0.95}
@@ -174,7 +175,7 @@ function ActorRect({
       >
         <title>{`${actor.id} (${actor.actor_type})`}</title>
       </rect>
-      <line x1={0} y1={0} x2={w * 0.45} y2={0} stroke="#fff" strokeWidth={1.5} />
+      <line x1={0} y1={0} x2={w * 0.45} y2={0} stroke="#ffffff" strokeWidth={1.5} />
     </g>
   );
 }
