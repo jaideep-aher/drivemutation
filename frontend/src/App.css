@@ -1,0 +1,270 @@
+:root {
+  --bg: #e7ebe4;
+  --ink: #1a1f24;
+  --muted: #5c6670;
+  --panel: #f4f6f2;
+  --accent: #1f6feb;
+  --fail: #9b2226;
+  --pass: #2a9d8f;
+  --road: #2b3036;
+  --font-display: "Space Grotesk", "Avenir Next", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-mono);
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse 80% 50% at 10% 0%, #d5ddd4 0%, transparent 55%),
+    radial-gradient(ellipse 60% 40% at 90% 10%, #cfd8d0 0%, transparent 50%),
+    var(--bg);
+}
+
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+}
+
+.hero {
+  margin-bottom: 1.5rem;
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  animation: rise 0.7s ease-out both;
+}
+
+.tagline {
+  margin: 0.6rem 0 0;
+  color: var(--muted);
+  max-width: 36rem;
+  font-size: 0.92rem;
+  animation: rise 0.7s ease-out 0.08s both;
+}
+
+.controls-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  align-items: end;
+  margin-bottom: 0.75rem;
+}
+
+.controls-bar label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+select {
+  font: inherit;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid #b7c0b8;
+  background: var(--panel);
+  min-width: 16rem;
+  color: var(--ink);
+}
+
+button {
+  font: inherit;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid #8a948c;
+  background: #dfe5df;
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: #d2dad2;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button.primary {
+  background: var(--accent);
+  border-color: #1550b5;
+  color: #fff;
+}
+
+.scenario-desc {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 0 0 1rem;
+  max-width: 48rem;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 240px;
+  gap: 1rem;
+  align-items: start;
+}
+
+@media (max-width: 840px) {
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+}
+
+.viz {
+  background: var(--panel);
+  border: 1px solid #c5cdc4;
+  padding: 0.75rem;
+  animation: fade 0.5s ease both;
+}
+
+.bird-eye {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #e7ebe4;
+}
+
+.playback {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.playback-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.scrub {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.scrub input {
+  width: 100%;
+}
+
+.metrics {
+  background: var(--panel);
+  border: 1px solid #c5cdc4;
+  padding: 0.9rem;
+  font-size: 0.82rem;
+}
+
+.metrics h2,
+.metrics h3 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  margin: 0 0 0.6rem;
+}
+
+.metrics h3 {
+  margin-top: 1rem;
+}
+
+.metrics dl {
+  margin: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.metrics dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  border-bottom: 1px solid #d5ddd4;
+  padding-bottom: 0.25rem;
+}
+
+.metrics dt {
+  color: var(--muted);
+}
+
+.metrics dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.oracles {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.oracles .pass strong {
+  color: var(--pass);
+}
+
+.oracles .fail strong {
+  color: var(--fail);
+}
+
+.errors ul {
+  padding-left: 1.1rem;
+  margin: 0.4rem 0 0;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.banner.error {
+  background: #f6e4e4;
+  border: 1px solid #d9a0a0;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 0.75rem;
+}
+
+.placeholder {
+  min-height: 240px;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
