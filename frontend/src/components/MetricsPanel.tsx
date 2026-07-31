@@ -29,15 +29,15 @@ export function MetricsPanel({ result, egoSpeed, frameMinTtc }: MetricsPanelProp
           <dl>
             <div>
               <dt>Ego speed</dt>
-              <dd>{egoSpeed != null ? `${egoSpeed.toFixed(2)} m/s` : "—"}</dd>
+              <dd>{egoSpeed != null ? `${egoSpeed.toFixed(2)} m/s` : " - "}</dd>
             </div>
             <div>
               <dt>Min TTC (frame)</dt>
-              <dd>{frameMinTtc != null ? `${frameMinTtc.toFixed(2)} s` : "—"}</dd>
+              <dd>{frameMinTtc != null ? `${frameMinTtc.toFixed(2)} s` : " - "}</dd>
             </div>
             <div>
               <dt>Min TTC (run)</dt>
-              <dd>{metrics.min_ttc != null ? `${metrics.min_ttc.toFixed(2)} s` : "—"}</dd>
+              <dd>{metrics.min_ttc != null ? `${metrics.min_ttc.toFixed(2)} s` : " - "}</dd>
             </div>
             <div>
               <dt>Collisions</dt>

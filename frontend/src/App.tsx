@@ -160,7 +160,7 @@ export default function App() {
       setResult(sim);
       setFrameIndex(0);
       if (sim.valid) setPlaying(true);
-      else setError("Simulation rejected — see validation issues.");
+      else setError("Simulation rejected  -  see validation issues.");
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
     } finally {
@@ -296,8 +296,8 @@ export default function App() {
           <div>
             <div className="brand">DriveMutation</div>
             <p className="tagline">
-              Local counterfactual AV test compiler — base versus fine-tuned stress
-              mutations. Not a vehicle controller. Not a safety proof.
+              Type a stress-test goal. Compare stock GPT vs your fine-tuned model.
+              Watch the scenario play. Not a real car controller.
             </p>
           </div>
           <nav className="nav" aria-label="Primary">
@@ -307,7 +307,7 @@ export default function App() {
               onClick={() => navigate("lab")}
               data-testid="nav-lab"
             >
-              Lab
+              Demo
             </button>
             <button
               type="button"
@@ -315,23 +315,22 @@ export default function App() {
               onClick={() => navigate("eval")}
               data-testid="nav-eval"
             >
-              Evaluation
+              Scores
             </button>
           </nav>
         </div>
         {modelStatus && (
           <p className="model-status" data-testid="model-status">
-            Base {modelStatus.base_model}
-            {" · "}
-            FT{" "}
-            {modelStatus.fine_tuned_model ??
-              (modelStatus.job_pending
-                ? `pending (${modelStatus.fine_tuning_status})`
-                : modelStatus.job_failed
-                  ? "failed"
-                  : "not configured")}
-            {" · "}
-            API {modelStatus.api_key_configured ? "configured" : "missing"}
+            {modelStatus.api_key_configured
+              ? "OpenAI connected"
+              : "OpenAI key missing"}
+            {modelStatus.fine_tuned_ready
+              ? " · fine-tuned model ready"
+              : modelStatus.job_pending
+                ? " · fine-tune still training"
+                : modelStatus.fine_tuned_model
+                  ? " · fine-tuned model set"
+                  : " · fine-tuned model not ready"}
           </p>
         )}
       </header>
@@ -345,9 +344,9 @@ export default function App() {
         />
       ) : (
         <main className="stage">
-          <section className="controls-bar">
+          <section className="simple-flow">
             <label>
-              Seed scenario
+              1. Scenario
               <select
                 value={selectedId}
                 onChange={(e) => setSelectedId(e.target.value)}
@@ -355,67 +354,74 @@ export default function App() {
               >
                 {presets.map((p) => (
                   <option key={p.id} value={p.id}>
-                    {p.kind === "impossible" ? `⚠ ${p.name}` : p.name}
+                    {p.kind === "impossible" ? `! ${p.name}` : p.name}
                   </option>
                 ))}
               </select>
             </label>
-            <button
-              type="button"
-              className="primary"
-              onClick={runSimulation}
-              disabled={!scenario || loading || !!sceneError}
-              data-testid="run-simulate"
-            >
-              {busy === "simulate" ? "Simulating…" : "Simulate seed"}
-            </button>
-            <button
-              type="button"
-              onClick={() => runCompile("base")}
-              disabled={!scenario || loading || !!sceneError}
-              data-testid="compile-base"
-            >
-              {busy === "base" ? "Running base…" : "Run base"}
-            </button>
-            <button
-              type="button"
-              onClick={() => runCompile("fine-tuned")}
-              disabled={
-                !scenario ||
-                loading ||
-                !!sceneError ||
-                modelStatus?.job_pending === true
-              }
-              data-testid="compile-finetuned"
-            >
-              {busy === "fine-tuned" ? "Running FT…" : "Run fine-tuned"}
-            </button>
-            <button
-              type="button"
-              className="accent"
-              onClick={runCompare}
-              disabled={!scenario || loading || !!sceneError}
-              data-testid="compare-both"
-            >
-              {busy === "compare" ? "Comparing…" : "Compare both"}
-            </button>
+
+            {selectedMeta && (
+              <p className="scenario-desc" data-testid="scenario-description">
+                {selectedMeta.description}
+              </p>
+            )}
+
+            <label className="goal-field">
+              2. What should go wrong?
+              <textarea
+                value={testingGoal}
+                onChange={(e) => setTestingGoal(e.target.value)}
+                rows={2}
+                data-testid="testing-goal"
+                placeholder="e.g. occluded pedestrian pops out and kills TTC"
+              />
+            </label>
+
+            <div className="controls-bar simple-actions">
+              <button
+                type="button"
+                className="accent"
+                onClick={runCompare}
+                disabled={!scenario || loading || !!sceneError}
+                data-testid="compare-both"
+              >
+                {busy === "compare"
+                  ? "Calling OpenAI..."
+                  : "3. Compare base vs fine-tuned"}
+              </button>
+              <button
+                type="button"
+                onClick={runSimulation}
+                disabled={!scenario || loading || !!sceneError}
+                data-testid="run-simulate"
+              >
+                {busy === "simulate" ? "Simulating..." : "Just play seed"}
+              </button>
+              <button
+                type="button"
+                className="ghost"
+                onClick={() => runCompile("base")}
+                disabled={!scenario || loading || !!sceneError}
+                data-testid="compile-base"
+              >
+                {busy === "base" ? "..." : "Base only"}
+              </button>
+              <button
+                type="button"
+                className="ghost"
+                onClick={() => runCompile("fine-tuned")}
+                disabled={
+                  !scenario ||
+                  loading ||
+                  !!sceneError ||
+                  modelStatus?.job_pending === true
+                }
+                data-testid="compile-finetuned"
+              >
+                {busy === "fine-tuned" ? "..." : "Fine-tuned only"}
+              </button>
+            </div>
           </section>
-
-          {selectedMeta && (
-            <p className="scenario-desc" data-testid="scenario-description">
-              {selectedMeta.description}
-            </p>
-          )}
-
-          <label className="goal-field">
-            Natural-language stress-testing goal
-            <textarea
-              value={testingGoal}
-              onChange={(e) => setTestingGoal(e.target.value)}
-              rows={3}
-              data-testid="testing-goal"
-            />
-          </label>
 
           {modelStatus?.job_pending && (
             <StatusBanner
@@ -434,7 +440,7 @@ export default function App() {
             !modelStatus.fine_tuned_model && (
               <StatusBanner
                 code="missing_api_key"
-                message="OPENAI_API_KEY not configured — compile endpoints will fail."
+                message="OPENAI_API_KEY not configured - compile will fail."
               />
             )}
           {error && (
@@ -443,37 +449,40 @@ export default function App() {
             </div>
           )}
 
-          <div className="lab-grid">
-            <SceneEditor
-              value={sceneText}
-              onChange={onSceneChange}
-              parseError={sceneError}
+          <div className="compare-row">
+            <CompilePanel
+              title="Stock GPT (base)"
+              result={baseCompile}
+              loading={busy === "base" || busy === "compare"}
             />
-            <div className="compare-col">
-              <div className="compare-row">
-                <CompilePanel
-                  title="Base"
-                  result={baseCompile}
-                  loading={busy === "base" || busy === "compare"}
-                />
-                <CompilePanel
-                  title="Fine-tuned"
-                  result={ftCompile}
-                  loading={busy === "fine-tuned" || busy === "compare"}
-                />
-              </div>
+            <CompilePanel
+              title="Fine-tuned"
+              result={ftCompile}
+              loading={busy === "fine-tuned" || busy === "compare"}
+            />
+          </div>
+
+          <details className="soft-details advanced-block">
+            <summary>Advanced: scene JSON and diff</summary>
+            <div className="lab-grid">
+              <SceneEditor
+                value={sceneText}
+                onChange={onSceneChange}
+                parseError={sceneError}
+              />
               <section className="diff-section">
-                <h3>Structured JSON diff</h3>
+                <h3>JSON diff</h3>
                 <JsonDiff
                   left={baseCompile?.parsed ?? null}
                   right={ftCompile?.parsed ?? null}
                 />
               </section>
             </div>
-          </div>
+          </details>
 
           <div className="workspace">
             <div className="viz">
+              <h3 className="viz-title">Playback</h3>
               {scenario ? (
                 <BirdEyeMap
                   road={scenario.road}
@@ -498,9 +507,7 @@ export default function App() {
                   setFrameIndex(i);
                 }}
               />
-              <p className="kbd-hint">
-                Keyboard: Space play/pause · ←/→ scrub · R restart
-              </p>
+              <p className="kbd-hint">Space play/pause · left/right scrub · R restart</p>
             </div>
             <MetricsPanel
               result={result}

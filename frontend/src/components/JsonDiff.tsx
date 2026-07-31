@@ -8,7 +8,7 @@ interface JsonDiffProps {
 }
 
 function preview(v: unknown): string {
-  if (v === undefined) return "—";
+  if (v === undefined) return " - ";
   try {
     const s = JSON.stringify(v);
     return s.length > 120 ? `${s.slice(0, 117)}…` : s;
