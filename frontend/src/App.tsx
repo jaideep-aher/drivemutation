@@ -6,16 +6,10 @@ import {
   fetchModelsStatus,
   fetchPreset,
   fetchPresets,
-  simulateScenario,
 } from "./api/client";
 import { BirdEyeMap } from "./components/BirdEyeMap";
-import { CompilePanel } from "./components/CompilePanel";
 import { EvaluationPage } from "./components/EvaluationPage";
-import { JsonDiff } from "./components/JsonDiff";
-import { MetricsPanel } from "./components/MetricsPanel";
 import { PlaybackControls } from "./components/PlaybackControls";
-import { SceneEditor } from "./components/SceneEditor";
-import { StatusBanner } from "./components/StatusBanner";
 import type {
   CompileResponse,
   EvaluationSummary,
@@ -26,29 +20,28 @@ import type {
 } from "./types/scenario";
 import "./App.css";
 
-type Page = "lab" | "eval";
-type Busy = null | "simulate" | "base" | "fine-tuned" | "compare";
+type Page = "home" | "demo" | "scores";
+type Busy = null | "compare";
 
 function readHashPage(): Page {
   const h = window.location.hash.replace(/^#\/?/, "");
-  return h === "eval" ? "eval" : "lab";
+  if (h === "demo" || h === "lab") return "demo";
+  if (h === "scores" || h === "eval") return "scores";
+  return "home";
 }
 
-function applyPlaybackSelection(
-  compiled: CompileResponse,
-  setResult: (r: SimulateResponse | null) => void,
-  setFrameIndex: (n: number) => void,
-  setPlaying: (b: boolean) => void,
-) {
-  if (compiled.simulation?.valid && compiled.ok && compiled.physical_valid) {
-    setResult(compiled.simulation);
-    setFrameIndex(0);
-    setPlaying(true);
-  } else if (compiled.simulation) {
-    setResult(compiled.simulation);
-    setFrameIndex(0);
-    setPlaying(false);
-  }
+function verdict(c: CompileResponse | null): "win" | "lose" | "idle" {
+  if (!c) return "idle";
+  if (c.ok && (c.physical_valid || c.target_kind === "rejection")) return "win";
+  return "lose";
+}
+
+function verdictLabel(c: CompileResponse | null): string {
+  if (!c) return "Waiting";
+  if (c.ok && c.target_kind === "rejection") return "Correctly rejected";
+  if (c.ok && c.physical_valid) return "Worked";
+  if (c.json_parse_ok && !c.schema_valid) return "Wrong JSON shape";
+  return c.error_code ?? "Failed";
 }
 
 export default function App() {
@@ -56,8 +49,6 @@ export default function App() {
   const [presets, setPresets] = useState<PresetSummary[]>([]);
   const [selectedId, setSelectedId] = useState("");
   const [scenario, setScenario] = useState<ScenarioSpec | null>(null);
-  const [sceneText, setSceneText] = useState("");
-  const [sceneError, setSceneError] = useState<string | null>(null);
   const [testingGoal, setTestingGoal] = useState("");
   const [result, setResult] = useState<SimulateResponse | null>(null);
   const [frameIndex, setFrameIndex] = useState(0);
@@ -72,7 +63,8 @@ export default function App() {
   const [evalError, setEvalError] = useState<string | null>(null);
 
   const navigate = useCallback((p: Page) => {
-    window.location.hash = p === "eval" ? "#/eval" : "#/lab";
+    const hash = p === "home" ? "#/" : p === "demo" ? "#/demo" : "#/scores";
+    window.location.hash = hash;
     setPage(p);
   }, []);
 
@@ -82,21 +74,6 @@ export default function App() {
     return () => window.removeEventListener("hashchange", onHash);
   }, []);
 
-  const refreshModels = useCallback(() => {
-    fetchModelsStatus()
-      .then(setModelStatus)
-      .catch(() => setModelStatus(null));
-  }, []);
-
-  const refreshEval = useCallback(() => {
-    setEvalLoading(true);
-    setEvalError(null);
-    fetchEvaluationSummary()
-      .then(setEvalSummary)
-      .catch((err: Error) => setEvalError(err.message))
-      .finally(() => setEvalLoading(false));
-  }, []);
-
   useEffect(() => {
     fetchPresets()
       .then((list) => {
@@ -104,12 +81,21 @@ export default function App() {
         if (list.length > 0) setSelectedId(list[0].id);
       })
       .catch((err: Error) => setError(err.message));
-    refreshModels();
-  }, [refreshModels]);
+    fetchModelsStatus()
+      .then(setModelStatus)
+      .catch(() => setModelStatus(null));
+  }, []);
 
   useEffect(() => {
-    if (page === "eval") refreshEval();
-  }, [page, refreshEval]);
+    if (page === "scores") {
+      setEvalLoading(true);
+      setEvalError(null);
+      fetchEvaluationSummary()
+        .then(setEvalSummary)
+        .catch((err: Error) => setEvalError(err.message))
+        .finally(() => setEvalLoading(false));
+    }
+  }, [page]);
 
   useEffect(() => {
     if (!selectedId) return;
@@ -122,103 +108,33 @@ export default function App() {
     fetchPreset(selectedId)
       .then((sc) => {
         setScenario(sc);
-        setSceneText(JSON.stringify(sc, null, 2));
-        setSceneError(null);
         const meta = presets.find((p) => p.id === selectedId);
-        if (meta?.default_testing_goal) {
-          setTestingGoal(meta.default_testing_goal);
-        }
+        if (meta?.default_testing_goal) setTestingGoal(meta.default_testing_goal);
       })
       .catch((err: Error) => setError(err.message));
   }, [selectedId, presets]);
 
-  const parseScene = useCallback((text: string): ScenarioSpec | null => {
-    try {
-      const obj = JSON.parse(text) as ScenarioSpec;
-      setSceneError(null);
-      setScenario(obj);
-      return obj;
-    } catch (err) {
-      setSceneError(err instanceof Error ? err.message : String(err));
-      return null;
-    }
-  }, []);
-
-  const onSceneChange = (text: string) => {
-    setSceneText(text);
-    parseScene(text);
-  };
-
-  const runSimulation = useCallback(async () => {
-    const sc = parseScene(sceneText);
-    if (!sc) return;
-    setBusy("simulate");
-    setError(null);
-    setPlaying(false);
-    try {
-      const sim = await simulateScenario(sc);
-      setResult(sim);
-      setFrameIndex(0);
-      if (sim.valid) setPlaying(true);
-      else setError("Simulation rejected  -  see validation issues.");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
-    } finally {
-      setBusy(null);
-    }
-  }, [parseScene, sceneText]);
-
-  const runCompile = useCallback(
-    async (mode: "base" | "fine-tuned") => {
-      const sc = parseScene(sceneText);
-      if (!sc || !testingGoal.trim()) {
-        setError("Valid scene JSON and a testing goal are required.");
-        return;
-      }
-      setBusy(mode);
-      setError(null);
-      setPlaying(false);
-      try {
-        const compiled =
-          mode === "base"
-            ? await compileBase(sc, testingGoal.trim())
-            : await compileFineTuned(sc, testingGoal.trim());
-        if (mode === "base") setBaseCompile(compiled);
-        else setFtCompile(compiled);
-        applyPlaybackSelection(compiled, setResult, setFrameIndex, setPlaying);
-        if (!compiled.ok && compiled.error_code) {
-          setError(`${compiled.error_code}: ${compiled.error ?? "compile failed"}`);
-        }
-        refreshModels();
-      } catch (err) {
-        setError(err instanceof Error ? err.message : String(err));
-      } finally {
-        setBusy(null);
-      }
-    },
-    [parseScene, sceneText, testingGoal, refreshModels],
-  );
-
   const runCompare = useCallback(async () => {
-    const sc = parseScene(sceneText);
-    if (!sc || !testingGoal.trim()) {
-      setError("Valid scene JSON and a testing goal are required.");
+    if (!scenario || !testingGoal.trim()) {
+      setError("Pick a scenario and write a goal first.");
       return;
     }
     setBusy("compare");
     setError(null);
     setPlaying(false);
+    setResult(null);
+    setBaseCompile(null);
+    setFtCompile(null);
     try {
-      const base = await compileBase(sc, testingGoal.trim());
+      const base = await compileBase(scenario, testingGoal.trim());
       setBaseCompile(base);
       let ft: CompileResponse | null = null;
       try {
-        ft = await compileFineTuned(sc, testingGoal.trim());
+        ft = await compileFineTuned(scenario, testingGoal.trim());
         setFtCompile(ft);
       } catch (err) {
-        setFtCompile(null);
         setError(
-          `Fine-tuned compile failed: ${err instanceof Error ? err.message : String(err)}`,
+          `Fine-tuned call failed: ${err instanceof Error ? err.message : String(err)}`,
         );
       }
       const preferred =
@@ -227,14 +143,20 @@ export default function App() {
           : base.ok && base.physical_valid
             ? base
             : ft ?? base;
-      applyPlaybackSelection(preferred, setResult, setFrameIndex, setPlaying);
-      refreshModels();
+      if (preferred?.simulation?.valid) {
+        setResult(preferred.simulation);
+        setFrameIndex(0);
+        setPlaying(true);
+      } else if (preferred?.simulation) {
+        setResult(preferred.simulation);
+        setFrameIndex(0);
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setBusy(null);
     }
-  }, [parseScene, sceneText, testingGoal, refreshModels]);
+  }, [scenario, testingGoal]);
 
   useEffect(() => {
     if (!playing || !result?.frames.length) return;
@@ -252,7 +174,7 @@ export default function App() {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (page !== "lab") return;
+      if (page !== "demo") return;
       const tag = (e.target as HTMLElement | null)?.tagName;
       if (tag === "TEXTAREA" || tag === "INPUT" || tag === "SELECT") return;
       if (e.code === "Space") {
@@ -267,9 +189,7 @@ export default function App() {
         e.preventDefault();
         setPlaying(false);
         setFrameIndex((i) =>
-          result?.frames.length
-            ? Math.min(result.frames.length - 1, i + 1)
-            : i,
+          result?.frames.length ? Math.min(result.frames.length - 1, i + 1) : i,
         );
       } else if (e.code === "KeyR") {
         e.preventDefault();
@@ -286,67 +206,105 @@ export default function App() {
     return result.frames[Math.min(frameIndex, result.frames.length - 1)] ?? null;
   }, [result, frameIndex]);
 
-  const loading = busy !== null;
+  const metrics = result?.metrics;
   const selectedMeta = presets.find((p) => p.id === selectedId);
 
   return (
     <div className="app">
-      <header className="hero">
-        <div className="hero-top">
-          <div>
-            <div className="brand">DriveMutation</div>
-            <p className="tagline">
-              Type a stress-test goal. Compare stock GPT vs your fine-tuned model.
-              Watch the scenario play. Not a real car controller.
-            </p>
-          </div>
-          <nav className="nav" aria-label="Primary">
-            <button
-              type="button"
-              className={page === "lab" ? "nav-active" : ""}
-              onClick={() => navigate("lab")}
-              data-testid="nav-lab"
-            >
-              Demo
-            </button>
-            <button
-              type="button"
-              className={page === "eval" ? "nav-active" : ""}
-              onClick={() => navigate("eval")}
-              data-testid="nav-eval"
-            >
-              Scores
-            </button>
-          </nav>
-        </div>
-        {modelStatus && (
-          <p className="model-status" data-testid="model-status">
-            {modelStatus.api_key_configured
-              ? "OpenAI connected"
-              : "OpenAI key missing"}
-            {modelStatus.fine_tuned_ready
-              ? " · fine-tuned model ready"
-              : modelStatus.job_pending
-                ? " · fine-tune still training"
-                : modelStatus.fine_tuned_model
-                  ? " · fine-tuned model set"
-                  : " · fine-tuned model not ready"}
-          </p>
-        )}
+      <header className="topbar">
+        <button type="button" className="brand-link" onClick={() => navigate("home")}>
+          DriveMutation
+        </button>
+        <nav className="nav" aria-label="Primary">
+          <button
+            type="button"
+            className={page === "home" ? "nav-active" : ""}
+            onClick={() => navigate("home")}
+            data-testid="nav-home"
+          >
+            Home
+          </button>
+          <button
+            type="button"
+            className={page === "demo" ? "nav-active" : ""}
+            onClick={() => navigate("demo")}
+            data-testid="nav-lab"
+          >
+            Demo
+          </button>
+          <button
+            type="button"
+            className={page === "scores" ? "nav-active" : ""}
+            onClick={() => navigate("scores")}
+            data-testid="nav-eval"
+          >
+            Scores
+          </button>
+        </nav>
       </header>
 
-      {page === "eval" ? (
+      {page === "home" && (
+        <section className="home" data-testid="home-page">
+          <p className="home-kicker">AIPI hackathon demo</p>
+          <h1 className="home-title">DriveMutation</h1>
+          <p className="home-lead">
+            We taught an AI to write dangerous driving test scenarios from plain English.
+          </p>
+          <div className="home-steps">
+            <div>
+              <strong>1. You type a goal</strong>
+              <span>like &quot;occluded pedestrian pops out&quot;</span>
+            </div>
+            <div>
+              <strong>2. Two models answer</strong>
+              <span>stock GPT vs our fine-tuned model</span>
+            </div>
+            <div>
+              <strong>3. Only valid JSON runs</strong>
+              <span>then you watch the crash / near-miss on a map</span>
+            </div>
+          </div>
+          <p className="home-note">
+            Stock GPT usually invents the wrong JSON. The fine-tuned model learned our schema.
+            Not a real car. Not a safety certificate.
+          </p>
+          <button
+            type="button"
+            className="home-cta"
+            onClick={() => navigate("demo")}
+            data-testid="home-cta"
+          >
+            Open the demo
+          </button>
+          {modelStatus?.api_key_configured && (
+            <p className="home-status" data-testid="model-status">
+              OpenAI connected
+              {modelStatus.fine_tuned_ready ? " · fine-tuned model ready" : ""}
+            </p>
+          )}
+        </section>
+      )}
+
+      {page === "scores" && (
         <EvaluationPage
           summary={evalSummary}
           loading={evalLoading}
           error={evalError}
-          onRefresh={refreshEval}
+          onRefresh={() => {
+            setEvalLoading(true);
+            fetchEvaluationSummary()
+              .then(setEvalSummary)
+              .catch((err: Error) => setEvalError(err.message))
+              .finally(() => setEvalLoading(false));
+          }}
         />
-      ) : (
-        <main className="stage">
-          <section className="simple-flow">
+      )}
+
+      {page === "demo" && (
+        <main className="demo" data-testid="demo-page">
+          <section className="demo-controls">
             <label>
-              1. Scenario
+              Scenario
               <select
                 value={selectedId}
                 onChange={(e) => setSelectedId(e.target.value)}
@@ -359,138 +317,47 @@ export default function App() {
                 ))}
               </select>
             </label>
-
-            {selectedMeta && (
-              <p className="scenario-desc" data-testid="scenario-description">
-                {selectedMeta.description}
-              </p>
-            )}
-
             <label className="goal-field">
-              2. What should go wrong?
+              What should go wrong?
               <textarea
                 value={testingGoal}
                 onChange={(e) => setTestingGoal(e.target.value)}
                 rows={2}
                 data-testid="testing-goal"
-                placeholder="e.g. occluded pedestrian pops out and kills TTC"
               />
             </label>
-
-            <div className="controls-bar simple-actions">
-              <button
-                type="button"
-                className="accent"
-                onClick={runCompare}
-                disabled={!scenario || loading || !!sceneError}
-                data-testid="compare-both"
-              >
-                {busy === "compare"
-                  ? "Calling OpenAI..."
-                  : "3. Compare base vs fine-tuned"}
-              </button>
-              <button
-                type="button"
-                onClick={runSimulation}
-                disabled={!scenario || loading || !!sceneError}
-                data-testid="run-simulate"
-              >
-                {busy === "simulate" ? "Simulating..." : "Just play seed"}
-              </button>
-              <button
-                type="button"
-                className="ghost"
-                onClick={() => runCompile("base")}
-                disabled={!scenario || loading || !!sceneError}
-                data-testid="compile-base"
-              >
-                {busy === "base" ? "..." : "Base only"}
-              </button>
-              <button
-                type="button"
-                className="ghost"
-                onClick={() => runCompile("fine-tuned")}
-                disabled={
-                  !scenario ||
-                  loading ||
-                  !!sceneError ||
-                  modelStatus?.job_pending === true
-                }
-                data-testid="compile-finetuned"
-              >
-                {busy === "fine-tuned" ? "..." : "Fine-tuned only"}
-              </button>
-            </div>
+            <button
+              type="button"
+              className="home-cta demo-run"
+              onClick={runCompare}
+              disabled={!scenario || busy !== null}
+              data-testid="compare-both"
+            >
+              {busy === "compare" ? "Calling OpenAI..." : "Run comparison"}
+            </button>
+            {selectedMeta && (
+              <p className="scenario-desc" data-testid="scenario-description">
+                {selectedMeta.description}
+              </p>
+            )}
+            {error && (
+              <div className="status-banner tone-error" role="alert" data-testid="error-banner">
+                {error}
+              </div>
+            )}
           </section>
 
-          {modelStatus?.job_pending && (
-            <StatusBanner
-              code="fine_tuning_pending"
-              message={`Fine-tuning job ${modelStatus.fine_tuning_status ?? "pending"}`}
-            />
-          )}
-          {modelStatus?.job_failed && (
-            <StatusBanner
-              code="fine_tuning_failed"
-              message={modelStatus.fine_tuning_error ?? "Fine-tuning failed"}
-            />
-          )}
-          {modelStatus &&
-            !modelStatus.api_key_configured &&
-            !modelStatus.fine_tuned_model && (
-              <StatusBanner
-                code="missing_api_key"
-                message="OPENAI_API_KEY not configured - compile will fail."
-              />
-            )}
-          {error && (
-            <div className="status-banner tone-error" role="alert" data-testid="error-banner">
-              {error}
-            </div>
-          )}
-
-          <div className="compare-row">
-            <CompilePanel
-              title="Stock GPT (base)"
-              result={baseCompile}
-              loading={busy === "base" || busy === "compare"}
-            />
-            <CompilePanel
-              title="Fine-tuned"
-              result={ftCompile}
-              loading={busy === "fine-tuned" || busy === "compare"}
-            />
-          </div>
-
-          <details className="soft-details advanced-block">
-            <summary>Advanced: scene JSON and diff</summary>
-            <div className="lab-grid">
-              <SceneEditor
-                value={sceneText}
-                onChange={onSceneChange}
-                parseError={sceneError}
-              />
-              <section className="diff-section">
-                <h3>JSON diff</h3>
-                <JsonDiff
-                  left={baseCompile?.parsed ?? null}
-                  right={ftCompile?.parsed ?? null}
-                />
-              </section>
-            </div>
-          </details>
-
-          <div className="workspace">
-            <div className="viz">
-              <h3 className="viz-title">Playback</h3>
+          <section className="stage-visual" data-testid="visual-stage">
+            <div className="viz big-viz">
               {scenario ? (
                 <BirdEyeMap
                   road={scenario.road}
                   frame={frame}
                   trajectories={result?.trajectories ?? {}}
+                  height={420}
                 />
               ) : (
-                <div className="placeholder">Select a scenario</div>
+                <div className="placeholder">Loading scenario...</div>
               )}
               <PlaybackControls
                 playing={playing}
@@ -507,14 +374,67 @@ export default function App() {
                   setFrameIndex(i);
                 }}
               />
-              <p className="kbd-hint">Space play/pause · left/right scrub · R restart</p>
             </div>
-            <MetricsPanel
-              result={result}
-              egoSpeed={frame?.ego_speed ?? null}
-              frameMinTtc={frame?.min_ttc ?? null}
-            />
-          </div>
+
+            <div className="result-hero" data-testid="result-hero">
+              <div className="score-cards">
+                <article className={`score-card ${verdict(baseCompile)}`}>
+                  <h3>Stock GPT</h3>
+                  <p className="score-big" data-testid="compile-panel-stock-gpt-(base)">
+                    {busy === "compare" && !baseCompile
+                      ? "..."
+                      : verdictLabel(baseCompile)}
+                  </p>
+                </article>
+                <article className={`score-card ${verdict(ftCompile)}`}>
+                  <h3>Fine-tuned</h3>
+                  <p className="score-big" data-testid="compile-panel-fine-tuned">
+                    {busy === "compare" && !ftCompile
+                      ? "..."
+                      : verdictLabel(ftCompile)}
+                  </p>
+                </article>
+              </div>
+
+              <div className="metric-hero" data-testid="metrics-panel">
+                <div>
+                  <span className="metric-label">Collisions</span>
+                  <strong className="metric-value">
+                    {metrics ? metrics.collision_count : "-"}
+                  </strong>
+                </div>
+                <div>
+                  <span className="metric-label">Min TTC</span>
+                  <strong className="metric-value">
+                    {metrics?.min_ttc != null ? `${metrics.min_ttc.toFixed(1)}s` : "-"}
+                  </strong>
+                </div>
+                <div>
+                  <span className="metric-label">Speed</span>
+                  <strong className="metric-value">
+                    {frame?.ego_speed != null ? `${frame.ego_speed.toFixed(0)}` : "-"}
+                    <small> m/s</small>
+                  </strong>
+                </div>
+              </div>
+
+              {metrics && (
+                <ul className="oracle-row" data-testid="oracle-results">
+                  {metrics.oracle_results.map((o) => (
+                    <li key={o.id} className={o.passed ? "pass" : "fail"}>
+                      {o.passed ? "PASS" : "FAIL"} {o.type.replace(/_/g, " ")}
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              {!result && busy === null && (
+                <p className="muted center-hint">
+                  Hit Run comparison. The map and numbers show up here.
+                </p>
+              )}
+            </div>
+          </section>
         </main>
       )}
     </div>

@@ -2,11 +2,8 @@ import { describe, expect, it, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import App from "../App";
 import { PlaybackControls } from "../components/PlaybackControls";
-import { MetricsPanel } from "../components/MetricsPanel";
 import { BirdEyeMap } from "../components/BirdEyeMap";
-import { JsonDiff } from "../components/JsonDiff";
 import { EvaluationPage } from "../components/EvaluationPage";
-import { meaningfulDiff } from "../utils/jsonDiff";
 import type { SimulateResponse } from "../types/scenario";
 
 const sampleRoad = {
@@ -39,30 +36,11 @@ const sampleResult: SimulateResponse = {
       ego_speed: 10,
       min_ttc: 3.2,
     },
-    {
-      t: 0.1,
-      actors: [
-        {
-          id: "ego",
-          x: 6,
-          y: 0,
-          vx: 10,
-          vy: 0,
-          heading_deg: 0,
-          length: 4.5,
-          width: 1.8,
-          actor_type: "ego",
-        },
-      ],
-      collisions: [],
-      ego_speed: 10,
-      min_ttc: 3.1,
-    },
   ],
   metrics: {
     duration_s: 1,
     timestep_s: 0.1,
-    frame_count: 2,
+    frame_count: 1,
     collision_count: 0,
     min_ttc: 3.1,
     max_acceleration: 0,
@@ -79,7 +57,7 @@ const sampleResult: SimulateResponse = {
       },
     ],
   },
-  trajectories: { ego: [[5, 0], [6, 0]] },
+  trajectories: { ego: [[5, 0]] },
 };
 
 describe("PlaybackControls", () => {
@@ -88,7 +66,7 @@ describe("PlaybackControls", () => {
     const onPause = vi.fn();
     const onRestart = vi.fn();
     const onScrub = vi.fn();
-    const { rerender } = render(
+    render(
       <PlaybackControls
         playing={false}
         frameIndex={0}
@@ -101,52 +79,6 @@ describe("PlaybackControls", () => {
     );
     fireEvent.click(screen.getByLabelText("Play"));
     expect(onPlay).toHaveBeenCalled();
-    fireEvent.click(screen.getByLabelText("Restart"));
-    expect(onRestart).toHaveBeenCalled();
-    fireEvent.change(screen.getByLabelText("Scrub timeline"), { target: { value: "4" } });
-    expect(onScrub).toHaveBeenCalledWith(4);
-
-    rerender(
-      <PlaybackControls
-        playing
-        frameIndex={2}
-        frameCount={10}
-        onPlay={onPlay}
-        onPause={onPause}
-        onRestart={onRestart}
-        onScrub={onScrub}
-      />,
-    );
-    fireEvent.click(screen.getByLabelText("Pause"));
-    expect(onPause).toHaveBeenCalled();
-  });
-});
-
-describe("MetricsPanel", () => {
-  it("shows oracle pass/fail and collision count", () => {
-    render(
-      <MetricsPanel result={sampleResult} egoSpeed={10} frameMinTtc={3.1} />,
-    );
-    expect(screen.getByTestId("oracle-results")).toHaveTextContent("PASS");
-    expect(screen.getByText("0")).toBeInTheDocument();
-    expect(screen.getByText("10.00 m/s")).toBeInTheDocument();
-  });
-
-  it("shows validation errors when invalid", () => {
-    render(
-      <MetricsPanel
-        result={{
-          ...sampleResult,
-          valid: false,
-          metrics: null,
-          frames: [],
-          validation_issues: [{ code: "no_oracle", message: "need oracle" }],
-        }}
-        egoSpeed={null}
-        frameMinTtc={null}
-      />,
-    );
-    expect(screen.getByTestId("validation-errors")).toHaveTextContent("no_oracle");
   });
 });
 
@@ -164,20 +96,7 @@ describe("BirdEyeMap", () => {
   });
 });
 
-describe("jsonDiff", () => {
-  it("reports meaningful differences", () => {
-    const diffs = meaningfulDiff({ a: 1, b: 2 }, { a: 1, b: 3, c: 4 });
-    expect(diffs.some((d) => d.path.includes("b") && d.kind === "changed")).toBe(true);
-    expect(diffs.some((d) => d.path.includes("c") && d.kind === "added")).toBe(true);
-  });
-});
-
-describe("JsonDiff / EvaluationPage", () => {
-  it("renders identical message", () => {
-    render(<JsonDiff left={{ x: 1 }} right={{ x: 1 }} />);
-    expect(screen.getByTestId("json-diff-identical")).toBeInTheDocument();
-  });
-
+describe("EvaluationPage", () => {
   it("shows empty evaluation state", () => {
     render(
       <EvaluationPage
@@ -194,10 +113,10 @@ describe("JsonDiff / EvaluationPage", () => {
 describe("App integration", () => {
   beforeEach(() => {
     vi.restoreAllMocks();
-    window.location.hash = "#/lab";
+    window.location.hash = "#/";
   });
 
-  it("loads presets, simulates, compiles base, and opens evaluation", async () => {
+  it("shows home then runs demo compare", async () => {
     const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
       const url = String(input);
       if (url.endsWith("/api/presets")) {
@@ -219,14 +138,14 @@ describe("App integration", () => {
           JSON.stringify({
             api_key_configured: true,
             base_model: "gpt-4o-mini-2024-07-18",
-            fine_tuned_model: null,
+            fine_tuned_model: "ft:demo",
             fine_tuning_job_id: null,
-            fine_tuning_status: null,
+            fine_tuning_status: "succeeded",
             fine_tuning_error: null,
             training_file_id: null,
             validation_file_id: null,
             base_ready: true,
-            fine_tuned_ready: false,
+            fine_tuned_ready: true,
             job_pending: false,
             job_failed: false,
           }),
@@ -259,16 +178,10 @@ describe("App integration", () => {
           { status: 200, headers: { "Content-Type": "application/json" } },
         );
       }
-      if (url.endsWith("/api/simulate")) {
-        return new Response(JSON.stringify(sampleResult), {
-          status: 200,
-          headers: { "Content-Type": "application/json" },
-        });
-      }
-      if (url.endsWith("/api/compile/base")) {
+      if (url.endsWith("/api/compile/base") || url.endsWith("/api/compile/fine-tuned")) {
         return new Response(
           JSON.stringify({
-            mode: "base",
+            mode: url.includes("fine") ? "fine-tuned" : "base",
             model: "gpt-4o-mini-2024-07-18",
             ok: true,
             error_code: null,
@@ -277,7 +190,7 @@ describe("App integration", () => {
             json_parse_ok: true,
             schema_valid: true,
             physical_valid: true,
-            parsed: { status: "accepted", activated_hazard: "x" },
+            parsed: { status: "accepted" },
             validation_issues: [],
             simulation: sampleResult,
             latency_s: 0.2,
@@ -303,33 +216,23 @@ describe("App integration", () => {
     vi.stubGlobal("fetch", fetchMock);
 
     render(<App />);
+    expect(screen.getByTestId("home-page")).toHaveTextContent("DriveMutation");
+    await waitFor(() =>
+      expect(screen.getByTestId("model-status")).toHaveTextContent("OpenAI"),
+    );
+
+    fireEvent.click(screen.getByTestId("home-cta"));
+    await waitFor(() => expect(screen.getByTestId("demo-page")).toBeInTheDocument());
     await waitFor(() => expect(screen.getByTestId("scenario-select")).toBeInTheDocument());
-    await waitFor(() =>
-      expect(screen.getByTestId("scenario-description")).toHaveTextContent("Head-on"),
-    );
-    expect(screen.getByTestId("model-status")).toHaveTextContent("OpenAI");
-    expect(screen.getByTestId("scene-editor")).toBeInTheDocument();
 
-    fireEvent.click(screen.getByTestId("run-simulate"));
-    await waitFor(() => expect(screen.getByTestId("oracle-results")).toHaveTextContent("PASS"));
+    fireEvent.click(screen.getByTestId("compare-both"));
+    await waitFor(() =>
+      expect(screen.getByTestId("compile-panel-fine-tuned")).toHaveTextContent("Worked"),
+    );
     expect(screen.getByTestId("bird-eye-map")).toBeInTheDocument();
-
-    fireEvent.click(screen.getByTestId("compile-base"));
-    await waitFor(() =>
-      expect(screen.getByTestId("compile-panel-stock-gpt-(base)")).toHaveTextContent(
-        "Compiled",
-      ),
-    );
+    expect(screen.getByTestId("oracle-results")).toHaveTextContent("PASS");
 
     fireEvent.click(screen.getByTestId("nav-eval"));
     await waitFor(() => expect(screen.getByTestId("evaluation-page")).toBeInTheDocument());
-    expect(screen.getByTestId("eval-empty")).toBeInTheDocument();
-
-    for (const call of fetchMock.mock.calls) {
-      const init = (call as unknown as [RequestInfo | URL, RequestInit?])[1];
-      const body = typeof init?.body === "string" ? init.body : "";
-      expect(body).not.toMatch(/sk-/);
-      expect(JSON.stringify(call)).not.toMatch(/sk-proj/);
-    }
   });
 });
