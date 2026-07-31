@@ -10,9 +10,12 @@ from openai import APIError, APITimeoutError, OpenAI, RateLimitError
 from pydantic import ValidationError
 
 from backend.app.dataset.schemas import (
+    FAMILY_TO_HAZARD,
+    HazardKind,
     SYSTEM_PROMPT,
     MutationTarget,
     RejectionTarget,
+    ScenarioFamily,
     build_sft_messages,
 )
 from backend.app.openai_ft.client import MissingAPIKeyError, get_client
@@ -48,6 +51,27 @@ def _parse_assistant_json(text: str) -> tuple[dict[str, Any] | None, str | None]
     return obj, None
 
 
+_HAZARD_TO_FAMILY: dict[str, str] = {h.value: f.value for f, h in FAMILY_TO_HAZARD.items()}
+
+
+def _normalize_mutation_target(parsed: dict[str, Any]) -> dict[str, Any]:
+    """Fix common model mix-ups (hazard value in scenario_family slot, etc.)."""
+    d = dict(parsed)
+    sf = d.get("scenario_family", "")
+    if sf and sf not in {m.value for m in ScenarioFamily}:
+        if sf in _HAZARD_TO_FAMILY:
+            d["scenario_family"] = _HAZARD_TO_FAMILY[sf]
+    ah = d.get("activated_hazard", "")
+    if ah and ah not in {m.value for m in HazardKind}:
+        if ah in {m.value for m in ScenarioFamily}:
+            mapped = FAMILY_TO_HAZARD.get(ScenarioFamily(ah))
+            if mapped:
+                d["activated_hazard"] = mapped.value
+    if "status" not in d and "mutation" in d:
+        d["status"] = "accepted"
+    return d
+
+
 def _validate_target(
     parsed: dict[str, Any],
 ) -> tuple[MutationTarget | RejectionTarget | None, list[ValidationIssue]]:
@@ -55,13 +79,13 @@ def _validate_target(
     try:
         if parsed.get("status") == "rejected":
             return RejectionTarget.model_validate(parsed), issues
-        if parsed.get("status") == "accepted" or "mutation" in parsed:
-            return MutationTarget.model_validate(parsed), issues
-        # Try both
+        normalized = _normalize_mutation_target(parsed)
+        if normalized.get("status") == "accepted" or "mutation" in normalized:
+            return MutationTarget.model_validate(normalized), issues
         try:
             return RejectionTarget.model_validate(parsed), issues
         except ValidationError:
-            return MutationTarget.model_validate(parsed), issues
+            return MutationTarget.model_validate(normalized), issues
     except ValidationError as exc:
         issues.append(
             ValidationIssue(
