@@ -1,0 +1,7 @@
+# Fine-tuned model pointer (hosted on OpenAI)
+
+base_model=gpt-4o-mini-2024-07-18
+fine_tuned_model=ft:gpt-4o-mini-2024-07-18:thriftyspark:drivemutation:E7YyEAA8
+fine_tuning_job_id=ftjob-62wUmuc0ZyTZcWdRVH6nGaqa
+
+Weights stay on OpenAI. Set OPENAI_FINE_TUNED_MODEL in the deploy environment.
