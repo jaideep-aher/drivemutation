@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create supervised fine-tuning job (idempotent — never duplicates paid jobs)."""
+"""Create supervised fine-tuning job (idempotent  -  never duplicates paid jobs)."""
 
 from __future__ import annotations
 

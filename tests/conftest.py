@@ -1,4 +1,4 @@
-"""Pytest configuration — ensure repo root is on sys.path."""
+"""Pytest configuration  -  ensure repo root is on sys.path."""
 
 import sys
 from pathlib import Path

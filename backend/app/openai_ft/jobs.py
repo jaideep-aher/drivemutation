@@ -28,7 +28,7 @@ def _job_public(job: Any) -> dict[str, Any]:
     if err is not None:
         error_msg = getattr(err, "message", None)
         if not error_msg:
-            # SDK may return an empty Error object — treat as no error
+            # SDK may return an empty Error object  -  treat as no error
             code = getattr(err, "code", None)
             if code:
                 error_msg = str(err)
@@ -66,7 +66,7 @@ def upload_training_files(
         and state.validation_file_id
         and state.fine_tuning_job_id
     ):
-        # Already uploaded for an existing job — keep IDs
+        # Already uploaded for an existing job  -  keep IDs
         return state
 
     if not force and state.training_file_id and state.validation_file_id:
@@ -112,7 +112,7 @@ def create_or_resume_finetuning_job(
         try:
             job = cli.fine_tuning.jobs.retrieve(job_id)
         except Exception as exc:  # noqa: BLE001
-            # Stale / invalid job id — clear and fall through to create
+            # Stale / invalid job id  -  clear and fall through to create
             msg = str(exc)
             if "not_found" in msg or "Could not find" in msg or "404" in msg:
                 state.fine_tuning_job_id = None
@@ -138,7 +138,7 @@ def create_or_resume_finetuning_job(
 
     if not state.training_file_id or not state.validation_file_id:
         raise RuntimeError(
-            "training/validation file IDs missing — run upload_training_data first"
+            "training/validation file IDs missing  -  run upload_training_data first"
         )
 
     # Search recent jobs for same training file to avoid duplicate paid jobs

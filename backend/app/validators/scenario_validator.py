@@ -16,7 +16,7 @@ MAX_SPEED_MPS = {
     "cyclist": 15.0,
     "pedestrian": 4.0,
 }
-MAX_ACCEL_DECLARED = 8.0  # m/s² — reserved for future accel profiles
+MAX_ACCEL_DECLARED = 8.0  # m/s²  -  reserved for future accel profiles
 MIN_ACTOR_SIZE = 0.2  # m
 MAX_ACTOR_LENGTH = 12.0
 MAX_ACTOR_WIDTH = 3.0
@@ -27,7 +27,7 @@ def validate_scenario(scenario: ScenarioSpec) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     try:
         scenario = apply_mutations(scenario)
-    except Exception as exc:  # noqa: BLE001 — surface mutation errors as validation
+    except Exception as exc:  # noqa: BLE001  -  surface mutation errors as validation
         issues.append(
             ValidationIssue(code="mutation_error", message=str(exc), path="mutation")
         )
@@ -316,6 +316,6 @@ def _check_contradictions(scenario: ScenarioSpec) -> list[ValidationIssue]:
             # If mostly longitudinal motion, check sign vs lane direction
             if abs(actor.velocity.vx) > abs(actor.velocity.vy) + 1e-6:
                 if actor.velocity.vx * lane.direction < -1e-6:
-                    # Allowed for wrong-way scenarios — not a contradiction by itself.
+                    # Allowed for wrong-way scenarios  -  not a contradiction by itself.
                     pass
     return issues

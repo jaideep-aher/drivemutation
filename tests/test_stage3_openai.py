@@ -1,4 +1,4 @@
-"""Stage 3 OpenAI fine-tuning / compile tests (mocked SDK — no real API calls)."""
+"""Stage 3 OpenAI fine-tuning / compile tests (mocked SDK  -  no real API calls)."""
 
 from __future__ import annotations
 

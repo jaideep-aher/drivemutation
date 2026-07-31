@@ -1,4 +1,4 @@
-"""Actor schemas — ego, vehicles, cyclists, pedestrians."""
+"""Actor schemas  -  ego, vehicles, cyclists, pedestrians."""
 
 from __future__ import annotations
 

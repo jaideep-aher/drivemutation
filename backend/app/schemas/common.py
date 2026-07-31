@@ -1,4 +1,4 @@
-"""DriveMutation — shared geometry and SI unit primitives.
+"""DriveMutation  -  shared geometry and SI unit primitives.
 
 All quantities use SI units: metres (m), seconds (s), m/s, m/s².
 """

@@ -1,4 +1,4 @@
-"""Mutation application — deterministic, ordered."""
+"""Mutation application  -  deterministic, ordered."""
 
 from __future__ import annotations
 

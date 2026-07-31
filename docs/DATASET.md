@@ -4,7 +4,7 @@ DriveMutation Stage 2 builds a **reproducible supervised fine-tuning (SFT) datas
 
 ## Design principles
 
-- **Canonical targets are deterministic code only** — never LLM-authored labels, numbers, mutations, or expected answers.
+- **Canonical targets are deterministic code only**  -  never LLM-authored labels, numbers, mutations, or expected answers.
 - Optional Claude paraphrase is used **only** to rephrase the user-facing testing goal when `ANTHROPIC_API_KEY` is present in `.env.local`. If absent, deterministic templates are used.
 - Splits are by **scenario composition** `(road_layout, actor, trigger, hazard)`, not by paraphrase. The test set contains compositions unseen in train/validation.
 

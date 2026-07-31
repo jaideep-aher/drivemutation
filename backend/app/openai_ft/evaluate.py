@@ -179,7 +179,7 @@ def load_latest_eval_summary(outputs_dir: Path) -> dict[str, Any]:
             "schema/physics validation, and offline metrics for base and fine-tuned."
         ),
         "notes": (
-            "Metrics are measured only. If a file is missing, that block is null — "
+            "Metrics are measured only. If a file is missing, that block is null  -  "
             "not a zero score."
         ),
     }

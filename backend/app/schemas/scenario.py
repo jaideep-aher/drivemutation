@@ -119,7 +119,7 @@ class PresetSummary(StrictModel):
     default_testing_goal: str = ""
     kind: str = Field(
         default="scenario",
-        description="scenario | impossible — demo classification for the UI",
+        description="scenario | impossible  -  demo classification for the UI",
     )
 
 

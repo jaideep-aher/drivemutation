@@ -1,4 +1,4 @@
-"""Road layout schemas — straight roads and four-way intersections."""
+"""Road layout schemas  -  straight roads and four-way intersections."""
 
 from __future__ import annotations
 
