@@ -6,6 +6,8 @@ from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from backend.app.openai_ft.compile import compile_scenario
 from backend.app.openai_ft.config import ROOT, load_config
@@ -28,22 +30,18 @@ from backend.app.simulator import simulate
 from backend.app.validators import validate_scenario
 
 APP_VERSION = "0.4.0"
+FRONTEND_DIST = ROOT / "frontend" / "dist"
 
 app = FastAPI(
     title="DriveMutation",
-    description="Local counterfactual AV test compiler — base vs fine-tuned demo",
+    description="Local counterfactual AV test compiler - base vs fine-tuned demo",
     version=APP_VERSION,
 )
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:4173",
-        "http://127.0.0.1:4173",
-    ],
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -185,3 +183,23 @@ def api_models_status() -> dict:
 def api_evaluation_summary() -> dict:
     outputs = Path(ROOT) / "data" / "outputs"
     return load_latest_eval_summary(outputs)
+
+
+if FRONTEND_DIST.is_dir():
+    assets = FRONTEND_DIST / "assets"
+    if assets.is_dir():
+        app.mount("/assets", StaticFiles(directory=assets), name="assets")
+
+    @app.get("/")
+    def spa_index() -> FileResponse:
+        return FileResponse(FRONTEND_DIST / "index.html")
+
+    @app.get("/{full_path:path}")
+    def spa_fallback(full_path: str) -> FileResponse:
+        # Keep API routes ahead of this catch-all.
+        if full_path.startswith("api/"):
+            raise HTTPException(status_code=404, detail="Not found")
+        candidate = FRONTEND_DIST / full_path
+        if candidate.is_file():
+            return FileResponse(candidate)
+        return FileResponse(FRONTEND_DIST / "index.html")

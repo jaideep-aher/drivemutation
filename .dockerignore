@@ -1,0 +1,14 @@
+node_modules
+.venv
+.git
+frontend/dist
+**/__pycache__
+*.pyc
+.env
+.env.local
+data/outputs/.openai*
+data/outputs/openai_staging
+data/processed/*.jsonl
+.pytest_cache
+.mypy_cache
+.DS_Store
