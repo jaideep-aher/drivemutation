@@ -10,7 +10,6 @@ from backend.app.dataset.schemas import (
     ActorKind,
     CompositionKey,
     FAMILY_TO_HAZARD,
-    HazardKind,
     RoadLayoutKind,
     ScenarioFamily,
     TriggerKind,
@@ -35,124 +34,80 @@ class ExamplePlan:
 
 def _family_actor_prefs(family: ScenarioFamily) -> list[ActorKind]:
     if family == ScenarioFamily.OCCLUDED_PEDESTRIAN:
-        return [ActorKind.PEDESTRIAN, ActorKind.PEDESTRIAN, ActorKind.PASSENGER_VEHICLE]
+        return [ActorKind.PEDESTRIAN, ActorKind.PASSENGER_VEHICLE, ActorKind.CYCLIST, ActorKind.EMERGENCY_VEHICLE]
     if family == ScenarioFamily.OCCLUDED_CYCLIST:
-        return [ActorKind.CYCLIST, ActorKind.CYCLIST, ActorKind.PASSENGER_VEHICLE]
+        return [ActorKind.CYCLIST, ActorKind.PASSENGER_VEHICLE, ActorKind.PEDESTRIAN, ActorKind.EMERGENCY_VEHICLE]
     if family == ScenarioFamily.EMERGENCY_VEHICLE:
-        return [ActorKind.EMERGENCY_VEHICLE, ActorKind.EMERGENCY_VEHICLE, ActorKind.PASSENGER_VEHICLE]
-    if family in {
-        ScenarioFamily.AGGRESSIVE_CUT_IN,
-        ScenarioFamily.MERGE,
-        ScenarioFamily.WRONG_WAY_VEHICLE,
-        ScenarioFamily.CONSTRUCTION_ZONE,
-        ScenarioFamily.UNPROTECTED_LEFT,
-    }:
-        return [ActorKind.PASSENGER_VEHICLE, ActorKind.EMERGENCY_VEHICLE, ActorKind.CYCLIST]
-    return [ActorKind.PASSENGER_VEHICLE]
+        return [ActorKind.EMERGENCY_VEHICLE, ActorKind.PASSENGER_VEHICLE, ActorKind.CYCLIST, ActorKind.PEDESTRIAN]
+    return [ActorKind.PASSENGER_VEHICLE, ActorKind.EMERGENCY_VEHICLE, ActorKind.CYCLIST, ActorKind.PEDESTRIAN]
 
 
 def _family_roads(family: ScenarioFamily) -> list[RoadLayoutKind]:
     if family == ScenarioFamily.UNPROTECTED_LEFT:
-        return [RoadLayoutKind.FOUR_WAY, RoadLayoutKind.FOUR_WAY, RoadLayoutKind.STRAIGHT_TRIPLE]
-    if family in {ScenarioFamily.OCCLUDED_PEDESTRIAN, ScenarioFamily.OCCLUDED_CYCLIST}:
-        return [RoadLayoutKind.STRAIGHT_TRIPLE, RoadLayoutKind.STRAIGHT_DUAL, RoadLayoutKind.FOUR_WAY]
+        # Prefer four-way but allow others for composition diversity
+        return [RoadLayoutKind.FOUR_WAY, RoadLayoutKind.STRAIGHT_TRIPLE, RoadLayoutKind.STRAIGHT_DUAL]
     return [RoadLayoutKind.STRAIGHT_DUAL, RoadLayoutKind.STRAIGHT_TRIPLE, RoadLayoutKind.FOUR_WAY]
 
 
 def _family_triggers(family: ScenarioFamily) -> list[TriggerKind]:
     if family == ScenarioFamily.WRONG_WAY_VEHICLE:
-        return [TriggerKind.NONE, TriggerKind.TIME, TriggerKind.EGO_DISTANCE]
-    if family == ScenarioFamily.UNPROTECTED_LEFT:
-        return [TriggerKind.EGO_ENTER_REGION, TriggerKind.TIME, TriggerKind.EGO_DISTANCE]
+        return [TriggerKind.NONE, TriggerKind.TIME, TriggerKind.EGO_DISTANCE, TriggerKind.EGO_ENTER_REGION]
     if family in {ScenarioFamily.AGGRESSIVE_CUT_IN, ScenarioFamily.MERGE}:
-        # Cut-in requires a trigger in Stage-1 behaviors; avoid NONE.
+        # Cut-in behaviors require a trigger id in Stage 1.
         return [TriggerKind.TIME, TriggerKind.EGO_DISTANCE, TriggerKind.EGO_ENTER_REGION]
+    if family == ScenarioFamily.UNPROTECTED_LEFT:
+        return [TriggerKind.EGO_ENTER_REGION, TriggerKind.TIME, TriggerKind.EGO_DISTANCE, TriggerKind.NONE]
     return [TriggerKind.TIME, TriggerKind.EGO_DISTANCE, TriggerKind.EGO_ENTER_REGION, TriggerKind.NONE]
 
 
-def build_composition_catalog(seed: int = DEFAULT_SEED) -> list[tuple[ScenarioFamily, CompositionKey, int, bool]]:
-    """Build exactly 180 unique composition plans with balanced families.
-
-    Returns list of (family, composition, variant, is_rejection).
-    """
+def build_composition_catalog(
+    seed: int = DEFAULT_SEED,
+) -> list[tuple[ScenarioFamily, CompositionKey, int, bool]]:
+    """Build exactly 180 examples with unique composition fingerprints."""
     rng = random.Random(seed)
     families = list(ScenarioFamily)
     per_family = N_TOTAL // len(families)  # 22
     remainder = N_TOTAL % len(families)  # 4
-
-    # First 4 families get 23 examples; rest get 22.
     counts = {f: per_family + (1 if i < remainder else 0) for i, f in enumerate(families)}
 
-    # Rejection budget: 30 total, spread across families (~3-4 each).
     rejection_budget = 30
-    rej_per = {f: 0 for f in families}
-    for i, f in enumerate(families):
-        rej_per[f] = rejection_budget // len(families) + (1 if i < rejection_budget % len(families) else 0)
+    rej_per = {
+        f: rejection_budget // len(families)
+        + (1 if i < rejection_budget % len(families) else 0)
+        for i, f in enumerate(families)
+    }
 
+    used: set[str] = set()
     catalog: list[tuple[ScenarioFamily, CompositionKey, int, bool]] = []
-    used_fps: set[str] = set()
 
     for family in families:
         hazard = FAMILY_TO_HAZARD[family]
         roads = _family_roads(family)
         actors = _family_actor_prefs(family)
         triggers = _family_triggers(family)
-        combos = list(itertools.product(roads, actors, triggers))
+        combos = [
+            CompositionKey(road_layout=r, actor=a, trigger=t, hazard=hazard)
+            for r, a, t in itertools.product(roads, actors, triggers)
+        ]
         rng.shuffle(combos)
-
+        available = [c for c in combos if c.fingerprint() not in used]
         n_needed = counts[family]
+        if len(available) < n_needed:
+            raise RuntimeError(
+                f"Insufficient unique compositions for {family.value}: "
+                f"{len(available)} < {n_needed}"
+            )
+
+        chosen = available[:n_needed]
         n_rej = rej_per[family]
-        n_acc = n_needed - n_rej
-        variant = 0
+        # Mark last n_rej as rejections (deterministic after shuffle)
+        for i, key in enumerate(chosen):
+            used.add(key.fingerprint())
+            is_rej = i >= (n_needed - n_rej)
+            catalog.append((family, key, i, is_rej))
 
-        # Accepted first
-        for road, actor, trig in combos:
-            if len([c for c in catalog if c[0] == family and not c[3]]) >= n_acc:
-                break
-            key = CompositionKey(road_layout=road, actor=actor, trigger=trig, hazard=hazard)
-            # Disambiguate duplicates with variant-tagged synthetic actor rotation
-            fp = key.fingerprint()
-            if fp in used_fps:
-                # Create uniqueness by cycling unused trigger/road if possible
-                alt_trig = triggers[(variant + 1) % len(triggers)]
-                key = CompositionKey(
-                    road_layout=road,
-                    actor=actor,
-                    trigger=alt_trig,
-                    hazard=hazard,
-                )
-                fp = f"{key.fingerprint()}|v{variant}"
-                # Store unique via fingerprint extension in used set
-            else:
-                fp = key.fingerprint()
-            if fp in used_fps:
-                fp = f"{key.fingerprint()}|uniq{variant}"
-            used_fps.add(fp)
-            catalog.append((family, key, variant, False))
-            variant += 1
-
-        # Pad accepted if product space exhausted
-        while len([c for c in catalog if c[0] == family and not c[3]]) < n_acc:
-            road = roads[variant % len(roads)]
-            actor = actors[variant % len(actors)]
-            trig = triggers[variant % len(triggers)]
-            key = CompositionKey(road_layout=road, actor=actor, trigger=trig, hazard=hazard)
-            fp = f"{key.fingerprint()}|pad{variant}"
-            used_fps.add(fp)
-            catalog.append((family, key, variant, False))
-            variant += 1
-
-        # Rejections — use distinct composition fingerprints with same hazard family
-        for j in range(n_rej):
-            road = roads[(variant + j) % len(roads)]
-            actor = actors[(variant + j + 1) % len(actors)]
-            trig = triggers[(variant + j + 2) % len(triggers)]
-            key = CompositionKey(road_layout=road, actor=actor, trigger=trig, hazard=hazard)
-            fp = f"{key.fingerprint()}|rej{variant + j}"
-            used_fps.add(fp)
-            catalog.append((family, key, variant + j, True))
-
-    assert len(catalog) == N_TOTAL, len(catalog)
+    assert len(catalog) == N_TOTAL
+    assert len(used) == N_TOTAL
     rng.shuffle(catalog)
     return catalog
 
@@ -161,62 +116,75 @@ def assign_splits(
     catalog: list[tuple[ScenarioFamily, CompositionKey, int, bool]],
     seed: int = DEFAULT_SEED,
 ) -> list[ExamplePlan]:
-    """Assign train/val/test by composition fingerprint (not paraphrase).
-
-    Ensures test compositions are unseen in train+val (using base fingerprint
-    without rejection/pad suffixes when possible; padded uniques also held out).
-    """
+    """Assign splits by unique composition — no fingerprint appears in two splits."""
     rng = random.Random(seed + 1)
+    items = list(catalog)
+    rng.shuffle(items)
 
-    # Group by base composition fingerprint (road|actor|trigger|hazard)
-    groups: dict[str, list[tuple[ScenarioFamily, CompositionKey, int, bool]]] = {}
-    for item in catalog:
-        family, key, variant, is_rej = item
-        base_fp = key.fingerprint()
-        groups.setdefault(base_fp, []).append(item)
+    # Stratify lightly by family while filling exact quotas
+    train: list = []
+    val: list = []
+    test: list = []
 
-    group_keys = list(groups.keys())
-    rng.shuffle(group_keys)
+    # Round-robin families into buckets then slice
+    by_family: dict[ScenarioFamily, list] = {f: [] for f in ScenarioFamily}
+    for item in items:
+        by_family[item[0]].append(item)
 
-    # Allocate whole composition groups to splits to prevent leakage.
-    plans: list[ExamplePlan] = []
-    split_counts = {"train": 0, "validation": 0, "test": 0}
+    # Take proportional test/val from each family first
+    for family in ScenarioFamily:
+        bucket = by_family[family]
+        rng.shuffle(bucket)
+        # ~1/6 to test, ~1/6 to val, rest train (180 total → 30/30/120)
+        n = len(bucket)
+        n_test = max(1, round(n * N_TEST / N_TOTAL))
+        n_val = max(1, round(n * N_VAL / N_TOTAL))
+        # Adjust later for exact totals
+        test.extend(bucket[:n_test])
+        val.extend(bucket[n_test : n_test + n_val])
+        train.extend(bucket[n_test + n_val :])
+
+    def _trim(dst: list, target: int, spill: list) -> None:
+        while len(dst) > target:
+            spill.append(dst.pop())
+
+    def _fill(dst: list, target: int, source: list) -> None:
+        while len(dst) < target and source:
+            dst.append(source.pop())
+
+    # Fix exact counts: prefer moving between train <-> val/test
+    _trim(test, N_TEST, train)
+    _trim(val, N_VAL, train)
+    _fill(test, N_TEST, train)
+    _fill(val, N_VAL, train)
+    # If still short (shouldn't), pull from the other holdout
+    if len(test) < N_TEST:
+        _fill(test, N_TEST, val)
+    if len(val) < N_VAL:
+        _fill(val, N_VAL, test if len(test) > N_TEST else train)
+
+    # Final surgical balance
+    pools = {"train": train, "validation": val, "test": test}
     targets = {"train": N_TRAIN, "validation": N_VAL, "test": N_TEST}
+    for _ in range(1000):
+        if all(len(pools[s]) == targets[s] for s in targets):
+            break
+        over = next(s for s in targets if len(pools[s]) > targets[s])
+        under = next(s for s in targets if len(pools[s]) < targets[s])
+        pools[under].append(pools[over].pop())
 
-    def pick_split() -> str:
-        # Prefer filling test/val with exclusive groups first when remaining capacity fits.
-        for name in ("test", "validation", "train"):
-            if split_counts[name] < targets[name]:
-                return name
-        return "train"
+    assert len(train) == N_TRAIN and len(val) == N_VAL and len(test) == N_TEST
 
-    # Greedy: assign groups to the most under-filled split that can take the group size.
-    for gk in group_keys:
-        items = groups[gk]
-        size = len(items)
-        # Choose split with remaining capacity >= size when possible
-        candidates = [
-            s
-            for s in ("test", "validation", "train")
-            if split_counts[s] + size <= targets[s]
-        ]
-        if not candidates:
-            # Overflow into train if somehow over — should not happen with exact 180
-            split = "train"
-            # If train also full, put into whichever has most remaining
-            remaining = {s: targets[s] - split_counts[s] for s in targets}
-            split = max(remaining, key=remaining.get)
-        else:
-            # Prefer test then val then train among those that fit
-            for pref in ("test", "validation", "train"):
-                if pref in candidates:
-                    split = pref
-                    break
-        for family, key, variant, is_rej in items:
-            idx = len(plans)
+    plans: list[ExamplePlan] = []
+    for split, bucket in (
+        ("train", train),
+        ("validation", val),
+        ("test", test),
+    ):
+        for family, key, variant, is_rej in bucket:
             plans.append(
                 ExamplePlan(
-                    index=idx,
+                    index=len(plans),
                     split=split,
                     family=family,
                     composition=key,
@@ -224,138 +192,10 @@ def assign_splits(
                     is_rejection=is_rej,
                 )
             )
-            split_counts[split] += 1
-
-    # Rebalance if counts drifted due to group sizes
-    plans = _rebalance(plans, seed)
-    assert len(plans) == N_TOTAL
-    assert sum(1 for p in plans if p.split == "train") == N_TRAIN
-    assert sum(1 for p in plans if p.split == "validation") == N_VAL
-    assert sum(1 for p in plans if p.split == "test") == N_TEST
     return plans
 
 
-def _rebalance(plans: list[ExamplePlan], seed: int) -> list[ExamplePlan]:
-    """Move whole-composition bundles only when needed to hit exact split sizes."""
-    rng = random.Random(seed + 2)
-    by_split: dict[str, list[ExamplePlan]] = {"train": [], "validation": [], "test": []}
-    for p in plans:
-        by_split[p.split].append(p)
-
-    def count(s: str) -> int:
-        return len(by_split[s])
-
-    targets = {"train": N_TRAIN, "validation": N_VAL, "test": N_TEST}
-
-    # Index by composition fingerprint within each split
-    def fps(split: str) -> dict[str, list[ExamplePlan]]:
-        out: dict[str, list[ExamplePlan]] = {}
-        for p in by_split[split]:
-            out.setdefault(p.composition.fingerprint(), []).append(p)
-        return out
-
-    # Move singleton composition groups from overfull → underfull
-    for _ in range(10000):
-        over = [s for s in targets if count(s) > targets[s]]
-        under = [s for s in targets if count(s) < targets[s]]
-        if not over or not under:
-            break
-        src = over[0]
-        dst = under[0]
-        need = targets[dst] - count(dst)
-        src_groups = fps(src)
-        # Prefer moving a group whose size fits remaining need
-        movable = [(fp, g) for fp, g in src_groups.items() if 1 <= len(g) <= need]
-        if not movable:
-            movable = [(fp, g) for fp, g in src_groups.items() if len(g) == 1]
-        if not movable:
-            # last resort: move one example (may weaken leakage guarantee for that fp)
-            p = by_split[src].pop()
-            by_split[dst].append(
-                ExamplePlan(
-                    index=p.index,
-                    split=dst,
-                    family=p.family,
-                    composition=p.composition,
-                    variant=p.variant,
-                    is_rejection=p.is_rejection,
-                )
-            )
-            continue
-        rng.shuffle(movable)
-        fp, group = movable[0]
-        for p in group:
-            by_split[src].remove(p)
-            by_split[dst].append(
-                ExamplePlan(
-                    index=p.index,
-                    split=dst,
-                    family=p.family,
-                    composition=p.composition,
-                    variant=p.variant,
-                    is_rejection=p.is_rejection,
-                )
-            )
-
-    # Final exact trim/fill with singletons
-    all_plans: list[ExamplePlan] = []
-    for split in ("train", "validation", "test"):
-        items = by_split[split]
-        rng.shuffle(items)
-        for p in items:
-            all_plans.append(
-                ExamplePlan(
-                    index=len(all_plans),
-                    split=split,
-                    family=p.family,
-                    composition=p.composition,
-                    variant=p.variant,
-                    is_rejection=p.is_rejection,
-                )
-            )
-
-    # If still wrong sizes, surgically move singles
-    def recount() -> dict[str, list[ExamplePlan]]:
-        d: dict[str, list[ExamplePlan]] = {"train": [], "validation": [], "test": []}
-        for p in all_plans:
-            d[p.split].append(p)
-        return d
-
-    d = recount()
-    for _ in range(1000):
-        if all(len(d[s]) == targets[s] for s in targets):
-            break
-        over = next(s for s in targets if len(d[s]) > targets[s])
-        under = next(s for s in targets if len(d[s]) < targets[s])
-        p = d[over].pop()
-        moved = ExamplePlan(
-            index=p.index,
-            split=under,
-            family=p.family,
-            composition=p.composition,
-            variant=p.variant,
-            is_rejection=p.is_rejection,
-        )
-        d[under].append(moved)
-
-    out: list[ExamplePlan] = []
-    for split in ("train", "validation", "test"):
-        for p in d[split]:
-            out.append(
-                ExamplePlan(
-                    index=len(out),
-                    split=split,
-                    family=p.family,
-                    composition=p.composition,
-                    variant=p.variant,
-                    is_rejection=p.is_rejection,
-                )
-            )
-    return out
-
-
 def leakage_check(plans: list[ExamplePlan]) -> dict:
-    """Report composition fingerprints overlapping across splits."""
     split_fps: dict[str, set[str]] = {"train": set(), "validation": set(), "test": set()}
     for p in plans:
         split_fps[p.split].add(p.composition.fingerprint())
@@ -369,5 +209,6 @@ def leakage_check(plans: list[ExamplePlan]) -> dict:
         "validation_test_overlap": sorted(val_test),
         "has_train_test_leakage": bool(train_test),
         "has_any_cross_split_leakage": bool(train_val or train_test or val_test),
+        "unique_compositions": len(split_fps["train"] | split_fps["validation"] | split_fps["test"]),
         "counts": {k: len(v) for k, v in split_fps.items()},
     }
