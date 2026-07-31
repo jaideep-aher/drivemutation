@@ -1,6 +1,6 @@
 # DriveMutation
 
-Local **counterfactual autonomous-vehicle test compiler**. Stage 1 is a fully deterministic 2D scenario simulator and validator — no LLM, no external APIs, no CARLA/Unreal.
+Local **counterfactual autonomous-vehicle test compiler**. Stage 1 is a fully deterministic 2D scenario simulator and validator. Stage 2 adds a reproducible SFT dataset + offline evaluation harness for compiling seed scenes + natural-language goals into canonical mutations (deterministic targets only).
 
 ## What Stage 1 does
 
@@ -14,11 +14,12 @@ Local **counterfactual autonomous-vehicle test compiler**. Stage 1 is a fully de
 ## Layout
 
 ```
-backend/app/          FastAPI app, schemas, simulator, validators, presets
+backend/app/          FastAPI app, schemas, simulator, validators, presets, dataset/, eval/
 frontend/             React + TypeScript + Vite UI
-tests/                pytest suite
-scripts/              local run helpers
-data/                 raw / processed / outputs (gitkept)
+tests/                pytest suite (Stage 1 + Stage 2)
+scripts/              local run helpers + dataset generation / offline eval
+docs/DATASET.md       Stage 2 dataset documentation
+data/                 raw / processed / outputs (generated JSONL is regenerable)
 models/               reserved for later stages
 ```
 
@@ -34,7 +35,7 @@ pip install -r requirements.txt
 cd frontend && npm install && cd ..
 ```
 
-Copy `.env.example` to `.env` if you want local placeholders. **Stage 1 does not require any API keys.**
+Copy `.env.example` to `.env` / `.env.local` for placeholders. **No API keys are required.** If `ANTHROPIC_API_KEY` is set in `.env.local`, Stage 2 may optionally paraphrase testing goals only — never labels, numbers, mutations, or expected answers.
 
 ## Run locally
 
@@ -79,8 +80,21 @@ pytest -q
 cd frontend && npm test && npm run build
 ```
 
+## Stage 2 — SFT dataset
+
+See [docs/DATASET.md](docs/DATASET.md) for full details.
+
+```bash
+export PYTHONPATH=.
+python scripts/generate_dataset.py --seed 20260730
+python scripts/evaluate_offline.py --split test
+```
+
+Produces `data/processed/{train,validation,test}.jsonl` (120/30/30), plus `data/outputs/dataset_report.json` and `leakage_report.json`. Eight scenario families; splits by composition (road × actor × trigger × hazard) with no train/test leakage. Same seed → identical files.
+
 ## Design notes
 
 - Same scenario input → identical frames and metrics (deterministic).
 - Explicit `assumptions` and `unknowns` travel with every scenario.
 - Mutation ops are structured and applied before simulation; Stage 1 does not invent scenarios via LLM.
+- Stage 2 canonical targets are always produced and validated by deterministic code.
