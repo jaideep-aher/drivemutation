@@ -458,6 +458,52 @@ button.accent {
   margin: 0 0 0.75rem;
 }
 
+.metrics dl div,
+.metrics-panel dl div {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+  padding: 0.2rem 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.8rem;
+}
+
+.metrics dt {
+  color: var(--muted);
+}
+
+.metrics dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.oracles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.oracles li {
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.78rem;
+}
+
+.oracles li.pass strong {
+  color: var(--pass);
+}
+
+.oracles li.fail strong {
+  color: var(--fail);
+}
+
+.errors ul {
+  margin: 0.25rem 0 0;
+  padding-left: 1.1rem;
+  color: #fecaca;
+  font-size: 0.78rem;
+}
+
 .playback {
   display: flex;
   flex-wrap: wrap;
