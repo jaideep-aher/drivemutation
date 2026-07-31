@@ -25,17 +25,33 @@ from backend.app.openai_ft.config import (
     Stage3Config,
     load_config,
 )
+from backend.app.schemas.common import MutationOp
 from backend.app.schemas.scenario import ScenarioSpec, ValidationIssue
 from backend.app.simulator import simulate
 from backend.app.validators import validate_scenario
 
 CompileMode = Literal["base", "fine-tuned"]
 
+_VALID_OPS = {m.value for m in MutationOp}
+
+_OP_ALIASES: dict[str, str] = {
+    "set_actor_behavior": "change_behavior",
+    "modify_behavior": "change_behavior",
+    "update_behavior": "change_behavior",
+    "set_behavior": "change_behavior",
+    "move_actor": "shift_position",
+    "set_position": "shift_position",
+    "set_velocity": "set_speed",
+    "change_speed": "set_speed",
+    "spawn_actor": "add_actor",
+    "delete_actor": "remove_actor",
+    "set_trigger_time": "change_trigger_time",
+}
+
 
 def _parse_assistant_json(text: str) -> tuple[dict[str, Any] | None, str | None]:
     raw = text.strip()
     if raw.startswith("```"):
-        # Strip accidental markdown fences
         lines = raw.splitlines()
         if lines and lines[0].startswith("```"):
             lines = lines[1:]
@@ -55,8 +71,9 @@ _HAZARD_TO_FAMILY: dict[str, str] = {h.value: f.value for f, h in FAMILY_TO_HAZA
 
 
 def _normalize_mutation_target(parsed: dict[str, Any]) -> dict[str, Any]:
-    """Fix common model mix-ups (hazard value in scenario_family slot, etc.)."""
-    d = dict(parsed)
+    """Fix common model mix-ups before strict validation."""
+    d = json.loads(json.dumps(parsed))
+
     sf = d.get("scenario_family", "")
     if sf and sf not in {m.value for m in ScenarioFamily}:
         if sf in _HAZARD_TO_FAMILY:
@@ -69,6 +86,14 @@ def _normalize_mutation_target(parsed: dict[str, Any]) -> dict[str, Any]:
                 d["activated_hazard"] = mapped.value
     if "status" not in d and "mutation" in d:
         d["status"] = "accepted"
+
+    mutation = d.get("mutation")
+    if isinstance(mutation, dict):
+        for op in mutation.get("operations", []):
+            if isinstance(op, dict) and op.get("op") not in _VALID_OPS:
+                canonical = _OP_ALIASES.get(op["op"])
+                if canonical:
+                    op["op"] = canonical
     return d
 
 
