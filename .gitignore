@@ -36,7 +36,7 @@ data/outputs/*
 data/processed/*
 !data/processed/.gitkeep
 
-# Local OpenAI / fine-tuning state (job IDs, file IDs — untracked)
+# Local OpenAI / fine-tuning state (job IDs, file IDs  -  untracked)
 data/outputs/.openai_ft_state.json
 data/outputs/.openai_*
 models/local/*

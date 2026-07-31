@@ -1,4 +1,4 @@
-"""Deterministic 2D scenario simulator — fixed 0.1 s timestep."""
+"""Deterministic 2D scenario simulator  -  fixed 0.1 s timestep."""
 
 from __future__ import annotations
 

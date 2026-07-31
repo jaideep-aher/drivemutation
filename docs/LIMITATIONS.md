@@ -12,7 +12,7 @@
 - Planar 2D kinematics only (no elevation, weather, sensors, planners).
 - Fixed 0.1 s timestep; constant-velocity segments between triggers.
 - Roads: straight segments and simplified four-way intersections.
-- Oracles are scripted proxies (collision, TTC, lane keep, initial overlap) — not full safety cases.
+- Oracles are scripted proxies (collision, TTC, lane keep, initial overlap)  -  not full safety cases.
 - LLM outputs may be malformed, schema-invalid, or physically invalid; the pipeline must reject them before simulation.
 - Dataset scale is hackathon-sized (180 examples); generalization is limited.
 - Fine-tuning cost/latency and model availability depend on external OpenAI access.
@@ -36,5 +36,5 @@ Any scenario used for engineering decisions must be reviewed by a qualified huma
 
 - Public software: FastAPI, Pydantic, React, Vite, OpenAI Python SDK, pytest, Vitest.
 - Scenario families and metrics are original to this project (hackathon).
-- Stage 2 natural-language goals: deterministic templates by default; optional Anthropic paraphrase if `ANTHROPIC_API_KEY` is set — **paraphrase only**, never labels or numeric targets.
+- Stage 2 natural-language goals: deterministic templates by default; optional Anthropic paraphrase if `ANTHROPIC_API_KEY` is set  -  **paraphrase only**, never labels or numeric targets.
 - Stage 3 inference/fine-tuning uses OpenAI APIs when configured; secrets stay in local `.env.local` and are never committed.

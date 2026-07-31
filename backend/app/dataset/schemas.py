@@ -1,4 +1,4 @@
-"""Stage 2 dataset schemas — examples, rejections, composition keys."""
+"""Stage 2 dataset schemas  -  examples, rejections, composition keys."""
 
 from __future__ import annotations
 

@@ -1,4 +1,4 @@
-"""OpenAI client factory — API key never returned to callers beyond the SDK client."""
+"""OpenAI client factory  -  API key never returned to callers beyond the SDK client."""
 
 from __future__ import annotations
 

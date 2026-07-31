@@ -4,7 +4,7 @@
    AV teams need counterfactual stress tests, but turning a natural-language testing goal into an executable scene mutation is brittle. Base LLMs often emit invalid JSON, physically impossible placements, or fail to reject contradictory asks.
 
 2. **Why fine-tuning (30s)**  
-   We need a compiler that speaks our strict schema and respects deterministic physics/oracle contracts — not free-form storytelling.
+   We need a compiler that speaks our strict schema and respects deterministic physics/oracle contracts  -  not free-form storytelling.
 
 3. **Training strategy (45s)**  
    Build a reproducible 180-example SFT set with composition-based splits (no paraphrase leakage). Canonical answers are generated and validated by code. Optional paraphrase models never write labels.
@@ -22,4 +22,4 @@
    Not a vehicle controller. Not a crash reconstructor. Not a safety proof. Requires human review. 2D kinematics only.
 
 8. **Closing takeaway (15s)**  
-   Fine-tuning helps when the target language is a validated domain DSL — and deterministic oracles keep the demo honest.
+   Fine-tuning helps when the target language is a validated domain DSL  -  and deterministic oracles keep the demo honest.

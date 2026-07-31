@@ -133,7 +133,7 @@ def chat_complete(
             "text": None,
             "usage": None,
         }
-    except Exception as exc:  # noqa: BLE001 — surface as api_failure
+    except Exception as exc:  # noqa: BLE001  -  surface as api_failure
         return {
             "ok": False,
             "error_code": "api_failure",
@@ -251,7 +251,7 @@ def compile_scenario(
     if isinstance(target, RejectionTarget):
         result["target_kind"] = "rejection"
         result["ok"] = True
-        result["physical_valid"] = False  # N/A — not simulated
+        result["physical_valid"] = False  # N/A  -  not simulated
         return result
 
     result["target_kind"] = "mutation"
