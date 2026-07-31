@@ -1,84 +1,75 @@
-# DriveMutation
+# SignalForge
 
-Small local app that turns a driving scene plus an English stress-test goal into a structured mutation, then plays it in a 2D SVG view.
+Grounded AV test scenarios with synthetic **lidar** and **radar**, full **provenance**, and a Three.js viewer.
 
-It fine-tunes OpenAI `gpt-4o-mini` so the model learns our mutation JSON schema. The demo compares stock GPT vs the fine-tuned model side by side.
+**Live:** [https://web-production-58352.up.railway.app](https://web-production-58352.up.railway.app) · Scenario viewer: [/app](https://web-production-58352.up.railway.app/app)
 
-This is a research / class prototype. It does not control a car and it is not a safety proof.
+## Pitch
 
-## Quick start (local)
+2,000+ auditable driving scenarios traced to:
+
+- **NHTSA** pre-crash typology (9 groups + crash-frequency weights)
+- **UNECE R157** cut-in / cut-out / deceleration (exact regulatory parameters)
+- **Euro NCAP** VRU protocols (CPNA / CPFA / CPTA)
+- **HAZOP** sensor-degradation derivations
+- **NHTSA SGO** real ADS incident narratives (classified into families + gap list)
+
+No scenario is free-invented by an LLM. Click any scenario to see the regulation clause or incident report behind it.
+
+## Quick start
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
+# Backend deps
+python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cd frontend && npm install && cd ..
-cp .env.example .env.local
-# put OPENAI_API_KEY and OPENAI_FINE_TUNED_MODEL in .env.local
 
-export PYTHONPATH=.
-python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000
-# other terminal
-cd frontend && npm run dev
+# Generate catalog + ~2200 concrete scenarios + SGO ingest
+python scripts/generate_signalforge.py --target 2200
+
+# Optional: precompute lidar for showcase subset
+python scripts/precompute_showcase.py --count 40
+
+# API
+uvicorn backend.app.main:app --reload --port 8000
+
+# Frontend (separate terminal)
+cd frontend && npm install && npm run dev
 ```
 
-Open http://127.0.0.1:5173
+Open http://localhost:5173 — homepage at `/`, scenario viewer at `/app`.
 
-Or build the frontend and let FastAPI serve it:
+## Production / Railway
+
+Multi-stage `Dockerfile` builds the Vite frontend into `frontend/dist` and serves it from FastAPI (`backend.app.main:app`). Health check: `GET /api/health`.
 
 ```bash
-cd frontend && npm run build && cd ..
-export PYTHONPATH=.
-python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000
+railway up
 ```
 
-## Env vars
+## API
 
-| Name | Notes |
-|------|--------|
-| OPENAI_API_KEY | required for compile / fine-tune scripts |
-| OPENAI_BASE_MODEL | default gpt-4o-mini-2024-07-18 |
-| OPENAI_FINE_TUNED_MODEL | your ft:... model id |
-| OPENAI_FINE_TUNING_JOB_ID | optional, for resume |
-| DATASET_SEED | default 20260730 |
+| Endpoint | Description |
+|----------|-------------|
+| `GET /api/health` | Service status + counts |
+| `GET /api/catalog` | Logical scenarios |
+| `GET /api/scenarios` | Filterable concrete list |
+| `GET /api/scenarios/{id}` | Full scenario + metrics + provenance |
+| `POST /api/render` | On-demand lidar/radar point clouds |
+| `GET /api/coverage` | Family / weather / difficulty coverage |
+| `GET /api/gaps` | SGO incidents with no catalog match |
 
-Secrets stay in `.env.local`. Do not commit them.
+## Architecture
 
-## Fine-tune / eval scripts
-
-```bash
-export PYTHONPATH=.
-python scripts/generate_dataset.py --seed 20260730
-python scripts/run_baseline.py
-python scripts/upload_training_data.py
-python scripts/create_finetuning_job.py
-python scripts/check_finetuning_job.py --poll
-python scripts/evaluate_model.py --which fine-tuned
-python scripts/compare_models.py
+```
+logical catalog (19)
+   → constraint-checked combinatorial ODD expansion
+   → kinematic sim (TTC, PET, required decel, R157 preventability)
+   → NumPy lidar raycaster + radar RCS/Doppler + degradation layer
+   → Three.js viewer with provenance panel
 ```
 
-Model id pointer: `models/MODEL_CARD.txt`
+Point clouds are generated **on demand** (and optionally cached for a showcase subset). Scenario definitions are tiny JSON — no terabyte sensor dump required to run the demo.
 
-## Deploy
+## What this is not
 
-Dockerfile builds the UI and runs one uvicorn process.
-
-Railway: connect this repo, set the env vars above, deploy.
-
-Hugging Face Spaces: create a Docker space from this repo, set the same secrets, port 7860. See `README_SPACE.md`.
-
-## Tests
-
-```bash
-export PYTHONPATH=.
-pytest -q
-cd frontend && npm test && npm run build
-```
-
-## Docs
-
-- docs/ARCHITECTURE.md
-- docs/DATASET.md
-- docs/MODEL_CARD.md
-- docs/PITCH.md
-- docs/LIMITATIONS.md
+A publishable sensor-accurate benchmark. Lidar is geometrically plausible, not calibrated to a real Velodyne. There is no photorealistic camera. Parameter ranges come from regulations, not fitted real-world log distributions. It demonstrates the provenance-first approach end-to-end.

@@ -1,441 +1,408 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import {
-  compileBase,
-  compileFineTuned,
-  fetchEvaluationSummary,
-  fetchModelsStatus,
-  fetchPreset,
-  fetchPresets,
-} from "./api/client";
-import { BirdEyeMap } from "./components/BirdEyeMap";
-import { EvaluationPage } from "./components/EvaluationPage";
-import { PlaybackControls } from "./components/PlaybackControls";
+import { api } from "./api/client";
+import { PointCloudViewer } from "./components/PointCloudViewer";
 import type {
-  CompileResponse,
-  EvaluationSummary,
-  ModelsStatus,
-  PresetSummary,
-  ScenarioSpec,
-  SimulateResponse,
-} from "./types/scenario";
-import "./App.css";
+  ConcreteScenario,
+  CoverageStats,
+  GapItem,
+  PointCloudFrame,
+  ScenarioSummary,
+} from "./types/signalforge";
 
-type Page = "home" | "demo" | "scores";
-type Busy = null | "compare";
+const FAMILIES = [
+  "all",
+  "rear_end",
+  "cut_in",
+  "cut_out",
+  "deceleration",
+  "pedestrian",
+  "vru_crossing",
+  "crossing_paths",
+  "lane_change",
+  "opposite_direction",
+  "road_departure",
+  "control_loss",
+  "animal",
+  "pedalcyclist",
+  "sensor_degradation",
+];
 
-function readHashPage(): Page {
-  const h = window.location.hash.replace(/^#\/?/, "");
-  if (h === "demo" || h === "lab") return "demo";
-  if (h === "scores" || h === "eval") return "scores";
-  return "home";
-}
+const WEATHERS = ["all", "clear", "rain", "fog", "snow"];
+const DIFFS = ["all", "easy", "medium", "hard", "unpreventable"];
 
-function verdict(c: CompileResponse | null): "win" | "lose" | "idle" {
-  if (!c) return "idle";
-  if (c.ok && (c.physical_valid || c.target_kind === "rejection")) return "win";
-  return "lose";
-}
+type Navigate = (path: string) => void;
 
-function verdictLabel(c: CompileResponse | null): string {
-  if (!c) return "Waiting";
-  if (c.ok && c.target_kind === "rejection") return "Correctly rejected";
-  if (c.ok && c.physical_valid) return "Worked";
-  if (c.json_parse_ok && !c.schema_valid) return "Wrong JSON shape";
-  return c.error_code ?? "Failed";
-}
-
-export default function App() {
-  const [page, setPage] = useState<Page>(() => readHashPage());
-  const [presets, setPresets] = useState<PresetSummary[]>([]);
-  const [selectedId, setSelectedId] = useState("");
-  const [scenario, setScenario] = useState<ScenarioSpec | null>(null);
-  const [testingGoal, setTestingGoal] = useState("");
-  const [result, setResult] = useState<SimulateResponse | null>(null);
-  const [frameIndex, setFrameIndex] = useState(0);
+export default function App({ onNavigate }: { onNavigate?: Navigate } = {}) {
+  const [health, setHealth] = useState<string>("…");
+  const [list, setList] = useState<ScenarioSummary[]>([]);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [detail, setDetail] = useState<ConcreteScenario | null>(null);
+  const [frames, setFrames] = useState<PointCloudFrame[]>([]);
+  const [frameIdx, setFrameIdx] = useState(0);
   const [playing, setPlaying] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [busy, setBusy] = useState<Busy>(null);
-  const [baseCompile, setBaseCompile] = useState<CompileResponse | null>(null);
-  const [ftCompile, setFtCompile] = useState<CompileResponse | null>(null);
-  const [modelStatus, setModelStatus] = useState<ModelsStatus | null>(null);
-  const [evalSummary, setEvalSummary] = useState<EvaluationSummary | null>(null);
-  const [evalLoading, setEvalLoading] = useState(false);
-  const [evalError, setEvalError] = useState<string | null>(null);
-
-  const navigate = useCallback((p: Page) => {
-    const hash = p === "home" ? "#/" : p === "demo" ? "#/demo" : "#/scores";
-    window.location.hash = hash;
-    setPage(p);
-  }, []);
+  const [coverage, setCoverage] = useState<CoverageStats | null>(null);
+  const [gaps, setGaps] = useState<GapItem[]>([]);
+  const [showRadar, setShowRadar] = useState(true);
+  const [family, setFamily] = useState("all");
+  const [weather, setWeather] = useState("all");
+  const [difficulty, setDifficulty] = useState("all");
+  const [q, setQ] = useState("");
+  const [tab, setTab] = useState<"viewer" | "coverage" | "gaps">("viewer");
 
   useEffect(() => {
-    const onHash = () => setPage(readHashPage());
-    window.addEventListener("hashchange", onHash);
-    return () => window.removeEventListener("hashchange", onHash);
+    api
+      .health()
+      .then((h) => setHealth(`${h.service} v${h.version} · ${h.concrete_count} scenarios`))
+      .catch(() => setHealth("API offline"));
+    api.coverage().then(setCoverage).catch(() => undefined);
+    api.gaps().then(setGaps).catch(() => undefined);
   }, []);
 
-  useEffect(() => {
-    fetchPresets()
-      .then((list) => {
-        setPresets(list);
-        if (list.length > 0) setSelectedId(list[0].id);
+  const refreshList = useCallback(() => {
+    api
+      .scenarios({ family, weather, difficulty, q, limit: 120 })
+      .then((rows) => {
+        setList(rows);
+        if (!selectedId && rows.length) setSelectedId(rows[0].id);
       })
-      .catch((err: Error) => setError(err.message));
-    fetchModelsStatus()
-      .then(setModelStatus)
-      .catch(() => setModelStatus(null));
-  }, []);
+      .catch((e) => setError(String(e)));
+  }, [family, weather, difficulty, q, selectedId]);
 
   useEffect(() => {
-    if (page === "scores") {
-      setEvalLoading(true);
-      setEvalError(null);
-      fetchEvaluationSummary()
-        .then(setEvalSummary)
-        .catch((err: Error) => setEvalError(err.message))
-        .finally(() => setEvalLoading(false));
-    }
-  }, [page]);
+    refreshList();
+  }, [family, weather, difficulty]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => {
-    if (!selectedId) return;
-    setPlaying(false);
-    setResult(null);
-    setBaseCompile(null);
-    setFtCompile(null);
-    setFrameIndex(0);
-    setError(null);
-    fetchPreset(selectedId)
-      .then((sc) => {
-        setScenario(sc);
-        const meta = presets.find((p) => p.id === selectedId);
-        if (meta?.default_testing_goal) setTestingGoal(meta.default_testing_goal);
-      })
-      .catch((err: Error) => setError(err.message));
-  }, [selectedId, presets]);
-
-  const runCompare = useCallback(async () => {
-    if (!scenario || !testingGoal.trim()) {
-      setError("Pick a scenario and write a goal first.");
-      return;
-    }
-    setBusy("compare");
+  const loadScenario = useCallback(async (id: string) => {
+    setLoading(true);
     setError(null);
     setPlaying(false);
-    setResult(null);
-    setBaseCompile(null);
-    setFtCompile(null);
     try {
-      const base = await compileBase(scenario, testingGoal.trim());
-      setBaseCompile(base);
-      let ft: CompileResponse | null = null;
-      try {
-        ft = await compileFineTuned(scenario, testingGoal.trim());
-        setFtCompile(ft);
-      } catch (err) {
-        setError(
-          `Fine-tuned call failed: ${err instanceof Error ? err.message : String(err)}`,
-        );
-      }
-      const preferred =
-        ft && ft.ok && ft.physical_valid
-          ? ft
-          : base.ok && base.physical_valid
-            ? base
-            : ft ?? base;
-      if (preferred?.simulation?.valid) {
-        setResult(preferred.simulation);
-        setFrameIndex(0);
-        setPlaying(true);
-      } else if (preferred?.simulation) {
-        setResult(preferred.simulation);
-        setFrameIndex(0);
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
+      const [sc, fr] = await Promise.all([
+        api.scenario(id),
+        api.render(id, { max_frames: 16, lidar_beams: 24, lidar_azimuth: 160 }),
+      ]);
+      setDetail(sc);
+      setFrames(fr);
+      setFrameIdx(0);
+    } catch (e) {
+      setError(String(e));
+      setFrames([]);
     } finally {
-      setBusy(null);
+      setLoading(false);
     }
-  }, [scenario, testingGoal]);
+  }, []);
 
   useEffect(() => {
-    if (!playing || !result?.frames.length) return;
+    if (selectedId) loadScenario(selectedId);
+  }, [selectedId, loadScenario]);
+
+  useEffect(() => {
+    if (!playing || frames.length === 0) return;
     const id = window.setInterval(() => {
-      setFrameIndex((i) => {
-        if (i >= result.frames.length - 1) {
-          setPlaying(false);
-          return i;
-        }
-        return i + 1;
-      });
-    }, 100);
-    return () => window.clearInterval(id);
-  }, [playing, result]);
+      setFrameIdx((i) => (i + 1) % frames.length);
+    }, 180);
+    return () => clearInterval(id);
+  }, [playing, frames.length]);
 
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (page !== "demo") return;
-      const tag = (e.target as HTMLElement | null)?.tagName;
-      if (tag === "TEXTAREA" || tag === "INPUT" || tag === "SELECT") return;
-      if (e.code === "Space") {
-        e.preventDefault();
-        if (!result?.valid) return;
-        setPlaying((p) => !p);
-      } else if (e.code === "ArrowLeft") {
-        e.preventDefault();
-        setPlaying(false);
-        setFrameIndex((i) => Math.max(0, i - 1));
-      } else if (e.code === "ArrowRight") {
-        e.preventDefault();
-        setPlaying(false);
-        setFrameIndex((i) =>
-          result?.frames.length ? Math.min(result.frames.length - 1, i + 1) : i,
-        );
-      } else if (e.code === "KeyR") {
-        e.preventDefault();
-        setFrameIndex(0);
-        if (result?.valid) setPlaying(true);
-      }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [page, result]);
+  const frame = frames[frameIdx] ?? null;
 
-  const frame = useMemo(() => {
-    if (!result?.frames.length) return null;
-    return result.frames[Math.min(frameIndex, result.frames.length - 1)] ?? null;
-  }, [result, frameIndex]);
+  const familyBars = useMemo(() => {
+    if (!coverage) return [] as { k: string; n: number; pct: number }[];
+    const entries = Object.entries(coverage.by_family).sort(
+      (a, b) => (b[1] as number) - (a[1] as number)
+    );
+    const max = Math.max(...entries.map(([, n]) => n as number), 1);
+    return entries.map(([k, n]) => ({ k, n: n as number, pct: (100 * (n as number)) / max }));
+  }, [coverage]);
 
-  const metrics = result?.metrics;
-  const selectedMeta = presets.find((p) => p.id === selectedId);
+  const goHome = () => {
+    if (onNavigate) onNavigate("/");
+    else window.location.href = "/";
+  };
 
   return (
-    <div className="app">
-      <header className="topbar">
-        <button type="button" className="brand-link" onClick={() => navigate("home")}>
-          DriveMutation
-        </button>
-        <nav className="nav" aria-label="Primary">
-          <button
-            type="button"
-            className={page === "home" ? "nav-active" : ""}
-            onClick={() => navigate("home")}
-            data-testid="nav-home"
-          >
+    <div className="sf-app">
+      <header className="sf-header">
+        <div>
+          <button type="button" className="sf-brand-btn" onClick={goHome}>
+            SignalForge
+          </button>
+          <p className="tagline">
+            Auditable AV scenarios · synthetic lidar/radar · traced to NHTSA / R157 / Euro NCAP /
+            real ADS incidents
+          </p>
+        </div>
+        <div className="sf-header-right">
+          <button type="button" className="sf-link-btn" onClick={goHome}>
             Home
           </button>
-          <button
-            type="button"
-            className={page === "demo" ? "nav-active" : ""}
-            onClick={() => navigate("demo")}
-            data-testid="nav-lab"
-          >
-            Demo
-          </button>
-          <button
-            type="button"
-            className={page === "scores" ? "nav-active" : ""}
-            onClick={() => navigate("scores")}
-            data-testid="nav-eval"
-          >
-            Scores
-          </button>
-        </nav>
+          <div className="health">{health}</div>
+        </div>
       </header>
 
-      {page === "home" && (
-        <section className="home" data-testid="home-page">
-          <p className="home-kicker">AIPI hackathon demo</p>
-          <h1 className="home-title">DriveMutation</h1>
-          <p className="home-lead">
-            We taught an AI to write dangerous driving test scenarios from plain English.
-          </p>
-          <div className="home-steps">
-            <div>
-              <strong>1. You type a goal</strong>
-              <span>like &quot;occluded pedestrian pops out&quot;</span>
-            </div>
-            <div>
-              <strong>2. Two models answer</strong>
-              <span>stock GPT vs our fine-tuned model</span>
-            </div>
-            <div>
-              <strong>3. Only valid JSON runs</strong>
-              <span>then you watch the crash / near-miss on a map</span>
-            </div>
-          </div>
-          <p className="home-note">
-            Stock GPT usually invents the wrong JSON. The fine-tuned model learned our schema.
-            Not a real car. Not a safety certificate.
-          </p>
-          <button
-            type="button"
-            className="home-cta"
-            onClick={() => navigate("demo")}
-            data-testid="home-cta"
-          >
-            Open the demo
-          </button>
-          {modelStatus?.api_key_configured && (
-            <p className="home-status" data-testid="model-status">
-              OpenAI connected
-              {modelStatus.fine_tuned_ready ? " · fine-tuned model ready" : ""}
-            </p>
-          )}
-        </section>
-      )}
+      <nav className="sf-tabs">
+        <button className={tab === "viewer" ? "active" : ""} onClick={() => setTab("viewer")}>
+          Scenario Viewer
+        </button>
+        <button className={tab === "coverage" ? "active" : ""} onClick={() => setTab("coverage")}>
+          Coverage
+        </button>
+        <button className={tab === "gaps" ? "active" : ""} onClick={() => setTab("gaps")}>
+          Incident Gaps ({gaps.length})
+        </button>
+      </nav>
 
-      {page === "scores" && (
-        <EvaluationPage
-          summary={evalSummary}
-          loading={evalLoading}
-          error={evalError}
-          onRefresh={() => {
-            setEvalLoading(true);
-            fetchEvaluationSummary()
-              .then(setEvalSummary)
-              .catch((err: Error) => setEvalError(err.message))
-              .finally(() => setEvalLoading(false));
-          }}
-        />
-      )}
-
-      {page === "demo" && (
-        <main className="demo" data-testid="demo-page">
-          <section className="demo-controls">
-            <label>
-              Scenario
-              <select
-                value={selectedId}
-                onChange={(e) => setSelectedId(e.target.value)}
-                data-testid="scenario-select"
-              >
-                {presets.map((p) => (
-                  <option key={p.id} value={p.id}>
-                    {p.kind === "impossible" ? `! ${p.name}` : p.name}
+      {tab === "viewer" && (
+        <div className="sf-main">
+          <aside className="sf-sidebar">
+            <div className="filters">
+              <input
+                placeholder="Search…"
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && refreshList()}
+              />
+              <select value={family} onChange={(e) => setFamily(e.target.value)}>
+                {FAMILIES.map((f) => (
+                  <option key={f} value={f}>
+                    {f}
                   </option>
                 ))}
               </select>
-            </label>
-            <label className="goal-field">
-              What should go wrong?
-              <textarea
-                value={testingGoal}
-                onChange={(e) => setTestingGoal(e.target.value)}
-                rows={2}
-                data-testid="testing-goal"
-              />
-            </label>
-            <button
-              type="button"
-              className="home-cta demo-run"
-              onClick={runCompare}
-              disabled={!scenario || busy !== null}
-              data-testid="compare-both"
-            >
-              {busy === "compare" ? "Calling OpenAI..." : "Run comparison"}
-            </button>
-            {selectedMeta && (
-              <p className="scenario-desc" data-testid="scenario-description">
-                {selectedMeta.description}
-              </p>
-            )}
-            {error && (
-              <div className="status-banner tone-error" role="alert" data-testid="error-banner">
-                {error}
-              </div>
-            )}
-          </section>
+              <select value={weather} onChange={(e) => setWeather(e.target.value)}>
+                {WEATHERS.map((w) => (
+                  <option key={w} value={w}>
+                    {w}
+                  </option>
+                ))}
+              </select>
+              <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)}>
+                {DIFFS.map((d) => (
+                  <option key={d} value={d}>
+                    {d}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="scenario-list">
+              {list.map((s) => (
+                <button
+                  key={s.id}
+                  className={`scenario-row ${selectedId === s.id ? "selected" : ""}`}
+                  onClick={() => setSelectedId(s.id)}
+                >
+                  <div className="row-top">
+                    <span className="family">{s.family}</span>
+                    <span className={`diff ${s.difficulty ?? ""}`}>{s.difficulty ?? "—"}</span>
+                  </div>
+                  <div className="row-name">{s.name}</div>
+                  <div className="row-meta">
+                    {s.weather} · {s.lighting}
+                    {s.min_ttc_s != null ? ` · TTC ${s.min_ttc_s.toFixed(2)}s` : ""}
+                  </div>
+                </button>
+              ))}
+              {list.length === 0 && <p className="empty">No scenarios match filters.</p>}
+            </div>
+          </aside>
 
-          <section className="stage-visual" data-testid="visual-stage">
-            <div className="viz big-viz">
-              {scenario ? (
-                <BirdEyeMap
-                  road={scenario.road}
-                  frame={frame}
-                  trajectories={result?.trajectories ?? {}}
-                  height={420}
-                />
-              ) : (
-                <div className="placeholder">Loading scenario...</div>
-              )}
-              <PlaybackControls
-                playing={playing}
-                frameIndex={frameIndex}
-                frameCount={result?.frames.length ?? 0}
-                onPlay={() => result?.valid && setPlaying(true)}
-                onPause={() => setPlaying(false)}
-                onRestart={() => {
-                  setFrameIndex(0);
-                  setPlaying(Boolean(result?.valid));
-                }}
-                onScrub={(i) => {
+          <section className="sf-stage">
+            <div className="viewer-wrap">
+              {loading && <div className="overlay">Rendering lidar…</div>}
+              {error && <div className="overlay error">{error}</div>}
+              <PointCloudViewer frame={frame} showRadar={showRadar} />
+            </div>
+            <div className="playback">
+              <button onClick={() => setPlaying((p) => !p)} disabled={!frames.length}>
+                {playing ? "Pause" : "Play"}
+              </button>
+              <input
+                type="range"
+                min={0}
+                max={Math.max(frames.length - 1, 0)}
+                value={frameIdx}
+                onChange={(e) => {
                   setPlaying(false);
-                  setFrameIndex(i);
+                  setFrameIdx(Number(e.target.value));
                 }}
               />
+              <span className="frame-label">
+                frame {frameIdx + 1}/{frames.length || 0}
+                {frame ? ` · t=${frame.t.toFixed(1)}s` : ""}
+              </span>
+              <label className="chk">
+                <input
+                  type="checkbox"
+                  checked={showRadar}
+                  onChange={(e) => setShowRadar(e.target.checked)}
+                />
+                radar
+              </label>
             </div>
 
-            <div className="result-hero" data-testid="result-hero">
-              <div className="score-cards">
-                <article className={`score-card ${verdict(baseCompile)}`}>
-                  <h3>Stock GPT</h3>
-                  <p className="score-big" data-testid="compile-panel-stock-gpt-(base)">
-                    {busy === "compare" && !baseCompile
-                      ? "..."
-                      : verdictLabel(baseCompile)}
+            {detail && (
+              <div className="detail-grid">
+                <div className="card provenance">
+                  <h3>Provenance</h3>
+                  <dl>
+                    <dt>Source</dt>
+                    <dd>{detail.provenance.source}</dd>
+                    <dt>Citation</dt>
+                    <dd>{detail.provenance.citation}</dd>
+                    <dt>Parent logical</dt>
+                    <dd>{detail.provenance.parent_id ?? detail.logical_id}</dd>
+                    <dt>Seed</dt>
+                    <dd>{detail.provenance.seed}</dd>
+                  </dl>
+                  <p className="hint">
+                    Every scenario traces to a regulation clause, crash typology, HAZOP derivation,
+                    or real ADS incident — never free-invented.
                   </p>
-                </article>
-                <article className={`score-card ${verdict(ftCompile)}`}>
-                  <h3>Fine-tuned</h3>
-                  <p className="score-big" data-testid="compile-panel-fine-tuned">
-                    {busy === "compare" && !ftCompile
-                      ? "..."
-                      : verdictLabel(ftCompile)}
-                  </p>
-                </article>
+                </div>
+                <div className="card metrics">
+                  <h3>Criticality</h3>
+                  <dl>
+                    <dt>Difficulty</dt>
+                    <dd>{detail.difficulty ?? "—"}</dd>
+                    <dt>Min TTC</dt>
+                    <dd>
+                      {detail.metrics?.min_ttc_s != null
+                        ? `${detail.metrics.min_ttc_s.toFixed(2)} s`
+                        : "—"}
+                    </dd>
+                    <dt>Min distance</dt>
+                    <dd>
+                      {detail.metrics?.min_distance_m != null
+                        ? `${detail.metrics.min_distance_m.toFixed(2)} m`
+                        : "—"}
+                    </dd>
+                    <dt>Required decel</dt>
+                    <dd>
+                      {detail.metrics?.required_decel_mps2 != null
+                        ? `${detail.metrics.required_decel_mps2.toFixed(2)} m/s²`
+                        : "—"}
+                    </dd>
+                    <dt>Preventable (R157 model)</dt>
+                    <dd>
+                      {detail.metrics?.preventable == null
+                        ? "—"
+                        : detail.metrics.preventable
+                          ? "yes"
+                          : "no"}
+                    </dd>
+                    <dt>Collision</dt>
+                    <dd>{detail.metrics?.collision ? "yes" : "no"}</dd>
+                  </dl>
+                </div>
+                <div className="card odd">
+                  <h3>ODD / Sensors</h3>
+                  <dl>
+                    <dt>Weather</dt>
+                    <dd>{detail.weather}</dd>
+                    <dt>Lighting</dt>
+                    <dd>{detail.lighting}</dd>
+                    <dt>Road</dt>
+                    <dd>{detail.road_geometry}</dd>
+                    <dt>Crash weight</dt>
+                    <dd>{detail.crash_frequency_weight.toFixed(2)}</dd>
+                  </dl>
+                  <pre className="odd-json">{JSON.stringify(detail.odd, null, 2)}</pre>
+                  {frame && (
+                    <p className="hint">
+                      Lidar points: {Math.floor(frame.xyz.length / 3)} · Radar returns:{" "}
+                      {Math.floor(frame.radar_xyz.length / 3)} · Boxes: {frame.boxes.length}
+                      {frame.boxes[0]
+                        ? ` · occlusion[0]=${frame.boxes[0].occlusion.toFixed(2)}`
+                        : ""}
+                    </p>
+                  )}
+                </div>
               </div>
-
-              <div className="metric-hero" data-testid="metrics-panel">
-                <div>
-                  <span className="metric-label">Collisions</span>
-                  <strong className="metric-value">
-                    {metrics ? metrics.collision_count : "-"}
-                  </strong>
-                </div>
-                <div>
-                  <span className="metric-label">Min TTC</span>
-                  <strong className="metric-value">
-                    {metrics?.min_ttc != null ? `${metrics.min_ttc.toFixed(1)}s` : "-"}
-                  </strong>
-                </div>
-                <div>
-                  <span className="metric-label">Speed</span>
-                  <strong className="metric-value">
-                    {frame?.ego_speed != null ? `${frame.ego_speed.toFixed(0)}` : "-"}
-                    <small> m/s</small>
-                  </strong>
-                </div>
-              </div>
-
-              {metrics && (
-                <ul className="oracle-row" data-testid="oracle-results">
-                  {metrics.oracle_results.map((o) => (
-                    <li key={o.id} className={o.passed ? "pass" : "fail"}>
-                      {o.passed ? "PASS" : "FAIL"} {o.type.replace(/_/g, " ")}
-                    </li>
-                  ))}
-                </ul>
-              )}
-
-              {!result && busy === null && (
-                <p className="muted center-hint">
-                  Hit Run comparison. The map and numbers show up here.
-                </p>
-              )}
-            </div>
+            )}
           </section>
-        </main>
+        </div>
+      )}
+
+      {tab === "coverage" && coverage && (
+        <div className="sf-panel">
+          <div className="stat-row">
+            <div className="stat">
+              <div className="n">{coverage.total_concrete}</div>
+              <div className="l">concrete scenarios</div>
+            </div>
+            <div className="stat">
+              <div className="n">{coverage.total_logical}</div>
+              <div className="l">logical (catalog)</div>
+            </div>
+            <div className="stat">
+              <div className="n">{coverage.gap_count}</div>
+              <div className="l">SGO gaps</div>
+            </div>
+            <div className="stat">
+              <div className="n">{Object.keys(coverage.by_family).length}</div>
+              <div className="l">families</div>
+            </div>
+          </div>
+          <h3>By family</h3>
+          <div className="bars">
+            {familyBars.map(({ k, n, pct }) => (
+              <div key={k} className="bar-row">
+                <span className="bar-label">{k}</span>
+                <div className="bar-track">
+                  <div className="bar-fill" style={{ width: `${pct}%` }} />
+                </div>
+                <span className="bar-n">{n}</span>
+              </div>
+            ))}
+          </div>
+          <div className="two-col">
+            <div>
+              <h3>Weather</h3>
+              <ul>
+                {Object.entries(coverage.by_weather).map(([k, n]) => (
+                  <li key={k}>
+                    {k}: {n as number}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3>Difficulty</h3>
+              <ul>
+                {Object.entries(coverage.by_difficulty).map(([k, n]) => (
+                  <li key={k}>
+                    {k}: {n as number}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {tab === "gaps" && (
+        <div className="sf-panel">
+          <p className="hint">
+            Real NHTSA SGO ADS incident narratives that did not match any catalog family. These are
+            candidates for new logical scenarios.
+          </p>
+          <div className="gap-list">
+            {gaps.map((g) => (
+              <article key={g.incident_id} className="gap-card">
+                <header>
+                  <strong>{g.incident_id}</strong>
+                  <span>
+                    {g.manufacturer} · {g.date}
+                  </span>
+                </header>
+                <p>{g.narrative}</p>
+              </article>
+            ))}
+            {gaps.length === 0 && <p>No gaps loaded.</p>}
+          </div>
+        </div>
       )}
     </div>
   );

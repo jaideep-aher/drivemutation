@@ -1,0 +1,1198 @@
+[
+  {
+    "id": "nhtsa-rear-end-lead-decel",
+    "name": "Rear-end: lead vehicle decelerates",
+    "family": "rear_end",
+    "description": "Ego follows lead vehicle that suddenly brakes.",
+    "provenance": {
+      "source": "nhtsa_precrash",
+      "citation": "NHTSA DOT HS 812 834 / rear-end group",
+      "parent_id": null,
+      "seed": 0,
+      "notes": ""
+    },
+    "crash_frequency_weight": 1.0,
+    "road_geometries": [
+      "straight",
+      "highway"
+    ],
+    "weathers": [
+      "clear",
+      "rain",
+      "fog"
+    ],
+    "lightings": [
+      "day",
+      "dusk",
+      "night"
+    ],
+    "ego_speed_kph": {
+      "min": 40.0,
+      "max": 110.0,
+      "unit": "kph"
+    },
+    "actor_speed_kph": {
+      "min": 0.0,
+      "max": 100.0,
+      "unit": "kph"
+    },
+    "distance_m": {
+      "min": 8.0,
+      "max": 60.0,
+      "unit": "m"
+    },
+    "ttc_s": {
+      "min": 0.8,
+      "max": 4.0,
+      "unit": "s"
+    },
+    "actors": [
+      {
+        "actor_type": "vehicle",
+        "role": "lead",
+        "length_m": 4.5,
+        "width_m": 1.8,
+        "height_m": 1.5,
+        "behavior": "brake"
+      }
+    ],
+    "odd_params": {
+      "occlusion": [
+        "none",
+        "partial"
+      ],
+      "lead_decel_mps2": [
+        3,
+        5,
+        7,
+        9
+      ]
+    },
+    "r157_params": {}
+  },
+  {
+    "id": "nhtsa-crossing-paths-ltap",
+    "name": "Crossing paths: left turn across path",
+    "family": "crossing_paths",
+    "description": "Oncoming vehicle turns left across ego path at intersection.",
+    "provenance": {
+      "source": "nhtsa_precrash",
+      "citation": "NHTSA DOT HS 812 834 / crossing paths",
+      "parent_id": null,
+      "seed": 0,
+      "notes": ""
+    },
+    "crash_frequency_weight": 0.72,
+    "road_geometries": [
+      "intersection"
+    ],
+    "weathers": [
+      "clear",
+      "rain"
+    ],
+    "lightings": [
+      "day",
+      "night",
+      "dusk"
+    ],
+    "ego_speed_kph": {
+      "min": 30.0,
+      "max": 70.0,
+      "unit": "kph"
+    },
+    "actor_speed_kph": {
+      "min": 15.0,
+      "max": 50.0,
+      "unit": "kph"
+    },
+    "distance_m": {
+      "min": 10.0,
+      "max": 40.0,
+      "unit": "m"
+    },
+    "ttc_s": null,
+    "actors": [
+      {
+        "actor_type": "vehicle",
+        "role": "crossing",
+        "length_m": 4.5,
+        "width_m": 1.8,
+        "height_m": 1.5,
+        "behavior": "left_turn"
+      }
+    ],
+    "odd_params": {
+      "signal_state": [
+        "green",
+        "yellow",
+        "red"
+      ]
+    },
+    "r157_params": {}
+  },
+  {
+    "id": "nhtsa-road-departure-edge",
+    "name": "Road edge departure without prior maneuver",
+    "family": "road_departure",
+    "description": "Ego drifts toward road edge / soft shoulder.",
+    "provenance": {
+      "source": "nhtsa_precrash",
+      "citation": "NHTSA DOT HS 812 834 / road departure",
+      "parent_id": null,
+      "seed": 0,
+      "notes": ""
+    },
+    "crash_frequency_weight": 0.55,
+    "road_geometries": [
+      "straight",
+      "curve",
+      "highway"
+    ],
+    "weathers": [
+      "clear",
+      "rain",
+      "snow"
+    ],
+    "lightings": [
+      "day",
+      "night"
+    ],
+    "ego_speed_kph": {
+      "min": 50.0,
+      "max": 120.0,
+      "unit": "kph"
+    },
+    "actor_speed_kph": {
+      "min": 0.0,
+      "max": 0.0,
+      "unit": "kph"
+    },
+    "distance_m": {
+      "min": 1.0,
+      "max": 5.0,
+      "unit": "m"
+    },
+    "ttc_s": null,
+    "actors": [
+      {
+        "actor_type": "static",
+        "role": "barrier",
+        "length_m": 20.0,
+        "width_m": 0.5,
+        "height_m": 1.0,
+        "behavior": "constant_velocity"
+      }
+    ],
+    "odd_params": {
+      "surface": [
+        "dry",
+        "wet",
+        "ice"
+      ]
+    },
+    "r157_params": {}
+  },
+  {
+    "id": "nhtsa-lane-change-same-dir",
+    "name": "Lane change conflict same direction",
+    "family": "lane_change",
+    "description": "Adjacent vehicle changes into ego lane with short gap.",
+    "provenance": {
+      "source": "nhtsa_precrash",
+      "citation": "NHTSA DOT HS 812 834 / lane change",
+      "parent_id": null,
+      "seed": 0,
+      "notes": ""
+    },
+    "crash_frequency_weight": 0.38,
+    "road_geometries": [
+      "straight",
+      "highway"
+    ],
+    "weathers": [
+      "clear",
+      "rain"
+    ],
+    "lightings": [
+      "day",
+      "dusk",
+      "night"
+    ],
+    "ego_speed_kph": {
+      "min": 50.0,
+      "max": 120.0,
+      "unit": "kph"
+    },
+    "actor_speed_kph": {
+      "min": 40.0,
+      "max": 110.0,
+      "unit": "kph"
+    },
+    "distance_m": {
+      "min": 5.0,
+      "max": 30.0,
+      "unit": "m"
+    },
+    "ttc_s": null,
+    "actors": [
+      {
+        "actor_type": "vehicle",
+        "role": "adjacent",
+        "length_m": 4.5,
+        "width_m": 1.8,
+        "height_m": 1.5,
+        "behavior": "cut_in"
+      }
+    ],
+    "odd_params": {
+      "lane_count": [
+        2,
+        3,
+        4
+      ]
+    },
+    "r157_params": {}
+  },
+  {
+    "id": "nhtsa-control-loss-skid",
+    "name": "Control loss without prior action",
+    "family": "control_loss",
+    "description": "Other vehicle loses control and enters ego path.",
+    "provenance": {
+      "source": "nhtsa_precrash",
+      "citation": "NHTSA DOT HS 812 834 / control loss",
+      "parent_id": null,
+      "seed": 0,
+      "notes": ""
+    },
+    "crash_frequency_weight": 0.32,
+    "road_geometries": [
+      "straight",
+      "curve"
+    ],
+    "weathers": [
+      "rain",
+      "snow",
+      "clear"
+    ],
+    "lightings": [
+      "day",
+      "night"
+    ],
+    "ego_speed_kph": {
+      "min": 40.0,
+      "max": 100.0,
+      "unit": "kph"
+    },
+    "actor_speed_kph": {
+      "min": 30.0,
+      "max": 90.0,
+      "unit": "kph"
+    },
+    "distance_m": {
+      "min": 10.0,
+      "max": 50.0,
+      "unit": "m"
+    },
+    "ttc_s": null,
+    "actors": [
+      {
+        "actor_type": "vehicle",
+        "role": "unstable",
+        "length_m": 4.5,
+        "width_m": 1.8,
+        "height_m": 1.5,
+        "behavior": "swerve"
+      }
+    ],
+    "odd_params": {
+      "surface": [
+        "wet",
+        "ice",
+        "dry"
+      ]
+    },
+    "r157_params": {}
+  },
+  {
+    "id": "nhtsa-pedestrian-crossing",
+    "name": "Pedestrian crossing roadway",
+    "family": "pedestrian",
+    "description": "Pedestrian enters roadway, possibly from occlusion.",
+    "provenance": {
+      "source": "nhtsa_precrash",
+      "citation": "NHTSA DOT HS 812 834 / pedestrian",
+      "parent_id": null,
+      "seed": 0,
+      "notes": ""
+    },
+    "crash_frequency_weight": 0.28,
+    "road_geometries": [
+      "straight",
+      "intersection"
+    ],
+    "weathers": [
+      "clear",
+      "rain",
+      "fog"
+    ],
+    "lightings": [
+      "day",
+      "dusk",
+      "night"
+    ],
+    "ego_speed_kph": {
+      "min": 20.0,
+      "max": 60.0,
+      "unit": "kph"
+    },
+    "actor_speed_kph": {
+      "min": 3.0,
+      "max": 8.0,
+      "unit": "kph"
+    },
+    "distance_m": {
+      "min": 8.0,
+      "max": 35.0,
+      "unit": "m"
+    },
+    "ttc_s": null,
+    "actors": [
+      {
+        "actor_type": "pedestrian",
+        "role": "crossing",
+        "length_m": 0.6,
+        "width_m": 0.6,
+        "height_m": 1.7,
+        "behavior": "cross"
+      }
+    ],
+    "odd_params": {
+      "occlusion": [
+        "none",
+        "partial",
+        "full"
+      ],
+      "jaywalk": [
+        true,
+        false
+      ]
+    },
+    "r157_params": {}
+  },
+  {
+    "id": "nhtsa-pedalcyclist-crossing",
+    "name": "Cyclist crossing or parallel",
+    "family": "pedalcyclist",
+    "description": "Cyclist crosses or rides parallel into conflict.",
+    "provenance": {
+      "source": "nhtsa_precrash",
+      "citation": "NHTSA DOT HS 812 834 / pedalcyclist",
+      "parent_id": null,
+      "seed": 0,
+      "notes": ""
+    },
+    "crash_frequency_weight": 0.18,
+    "road_geometries": [
+      "straight",
+      "intersection"
+    ],
+    "weathers": [
+      "clear",
+      "rain"
+    ],
+    "lightings": [
+      "day",
+      "dusk"
+    ],
+    "ego_speed_kph": {
+      "min": 25.0,
+      "max": 60.0,
+      "unit": "kph"
+    },
+    "actor_speed_kph": {
+      "min": 10.0,
+      "max": 30.0,
+      "unit": "kph"
+    },
+    "distance_m": {
+      "min": 10.0,
+      "max": 40.0,
+      "unit": "m"
+    },
+    "ttc_s": null,
+    "actors": [
+      {
+        "actor_type": "cyclist",
+        "role": "crossing",
+        "length_m": 1.8,
+        "width_m": 0.6,
+        "height_m": 1.7,
+        "behavior": "cross"
+      }
+    ],
+    "odd_params": {
+      "occlusion": [
+        "none",
+        "partial"
+      ]
+    },
+    "r157_params": {}
+  },
+  {
+    "id": "nhtsa-opposite-direction",
+    "name": "Opposite direction encroachment",
+    "family": "opposite_direction",
+    "description": "Oncoming vehicle encroaches into ego lane.",
+    "provenance": {
+      "source": "nhtsa_precrash",
+      "citation": "NHTSA DOT HS 812 834 / opposite direction",
+      "parent_id": null,
+      "seed": 0,
+      "notes": ""
+    },
+    "crash_frequency_weight": 0.22,
+    "road_geometries": [
+      "straight",
+      "curve"
+    ],
+    "weathers": [
+      "clear",
+      "rain",
+      "fog"
+    ],
+    "lightings": [
+      "day",
+      "night"
+    ],
+    "ego_speed_kph": {
+      "min": 40.0,
+      "max": 100.0,
+      "unit": "kph"
+    },
+    "actor_speed_kph": {
+      "min": 40.0,
+      "max": 100.0,
+      "unit": "kph"
+    },
+    "distance_m": {
+      "min": 30.0,
+      "max": 120.0,
+      "unit": "m"
+    },
+    "ttc_s": null,
+    "actors": [
+      {
+        "actor_type": "vehicle",
+        "role": "oncoming",
+        "length_m": 4.5,
+        "width_m": 1.8,
+        "height_m": 1.5,
+        "behavior": "encroach"
+      }
+    ],
+    "odd_params": {
+      "encroach_m": [
+        0.5,
+        1.0,
+        1.5,
+        2.0
+      ]
+    },
+    "r157_params": {}
+  },
+  {
+    "id": "nhtsa-animal-crossing",
+    "name": "Animal in roadway",
+    "family": "animal",
+    "description": "Large animal enters roadway ahead of ego.",
+    "provenance": {
+      "source": "nhtsa_precrash",
+      "citation": "NHTSA DOT HS 812 834 / animal",
+      "parent_id": null,
+      "seed": 0,
+      "notes": ""
+    },
+    "crash_frequency_weight": 0.15,
+    "road_geometries": [
+      "straight",
+      "highway",
+      "curve"
+    ],
+    "weathers": [
+      "clear",
+      "fog"
+    ],
+    "lightings": [
+      "night",
+      "dawn",
+      "dusk"
+    ],
+    "ego_speed_kph": {
+      "min": 50.0,
+      "max": 110.0,
+      "unit": "kph"
+    },
+    "actor_speed_kph": {
+      "min": 5.0,
+      "max": 40.0,
+      "unit": "kph"
+    },
+    "distance_m": {
+      "min": 15.0,
+      "max": 60.0,
+      "unit": "m"
+    },
+    "ttc_s": null,
+    "actors": [
+      {
+        "actor_type": "animal",
+        "role": "crossing",
+        "length_m": 2.0,
+        "width_m": 0.8,
+        "height_m": 1.4,
+        "behavior": "cross"
+      }
+    ],
+    "odd_params": {
+      "animal_size": [
+        "deer",
+        "dog",
+        "livestock"
+      ]
+    },
+    "r157_params": {}
+  },
+  {
+    "id": "r157-cut-in",
+    "name": "R157 cut-in",
+    "family": "cut_in",
+    "description": "Other vehicle suddenly merges in front of ego. Risk perception 0.4s; lateral wander threshold 0.375m; THW max 2.0s.",
+    "provenance": {
+      "source": "unece_r157",
+      "citation": "UNECE R157 Annex 4 App.3 cut-in; risk_perception=0.4s; wander=0.375m",
+      "parent_id": null,
+      "seed": 0,
+      "notes": ""
+    },
+    "crash_frequency_weight": 0.9,
+    "road_geometries": [
+      "highway",
+      "straight"
+    ],
+    "weathers": [
+      "clear",
+      "rain"
+    ],
+    "lightings": [
+      "day",
+      "night"
+    ],
+    "ego_speed_kph": {
+      "min": 40.0,
+      "max": 130.0,
+      "unit": "kph"
+    },
+    "actor_speed_kph": {
+      "min": 30.0,
+      "max": 120.0,
+      "unit": "kph"
+    },
+    "distance_m": {
+      "min": 5.0,
+      "max": 40.0,
+      "unit": "m"
+    },
+    "ttc_s": {
+      "min": 0.6,
+      "max": 3.0,
+      "unit": "s"
+    },
+    "actors": [
+      {
+        "actor_type": "vehicle",
+        "role": "cut_in",
+        "length_m": 4.5,
+        "width_m": 1.8,
+        "height_m": 1.5,
+        "behavior": "cut_in"
+      }
+    ],
+    "odd_params": {
+      "relative_speed_kph": [
+        -20,
+        -10,
+        0,
+        10
+      ]
+    },
+    "r157_params": {
+      "risk_perception_s": 0.4,
+      "reaction_s": 0.75,
+      "lateral_wander_m": 0.375,
+      "max_thw_s": 2.0
+    }
+  },
+  {
+    "id": "r157-cut-out",
+    "name": "R157 cut-out revealing obstacle",
+    "family": "cut_out",
+    "description": "Lead vehicle exits lane revealing static obstacle. Wander threshold 0.375m; risk perception 0.4s.",
+    "provenance": {
+      "source": "unece_r157",
+      "citation": "UNECE R157 Annex 4 App.3 cut-out; wander=0.375m",
+      "parent_id": null,
+      "seed": 0,
+      "notes": ""
+    },
+    "crash_frequency_weight": 0.7,
+    "road_geometries": [
+      "highway",
+      "straight"
+    ],
+    "weathers": [
+      "clear",
+      "rain",
+      "fog"
+    ],
+    "lightings": [
+      "day",
+      "dusk"
+    ],
+    "ego_speed_kph": {
+      "min": 40.0,
+      "max": 120.0,
+      "unit": "kph"
+    },
+    "actor_speed_kph": {
+      "min": 40.0,
+      "max": 120.0,
+      "unit": "kph"
+    },
+    "distance_m": {
+      "min": 10.0,
+      "max": 50.0,
+      "unit": "m"
+    },
+    "ttc_s": null,
+    "actors": [
+      {
+        "actor_type": "vehicle",
+        "role": "lead",
+        "length_m": 4.5,
+        "width_m": 1.8,
+        "height_m": 1.5,
+        "behavior": "cut_out"
+      },
+      {
+        "actor_type": "static",
+        "role": "obstacle",
+        "length_m": 4.5,
+        "width_m": 1.8,
+        "height_m": 1.5,
+        "behavior": "constant_velocity"
+      }
+    ],
+    "odd_params": {},
+    "r157_params": {
+      "risk_perception_s": 0.4,
+      "lateral_wander_m": 0.375,
+      "max_thw_s": 2.0
+    }
+  },
+  {
+    "id": "r157-deceleration",
+    "name": "R157 sudden lead deceleration",
+    "family": "deceleration",
+    "description": "Lead vehicle decelerates above 5 m/s^2 threshold. Risk perception begins at that threshold.",
+    "provenance": {
+      "source": "unece_r157",
+      "citation": "UNECE R157 Annex 4 App.3 deceleration; thresh=5m/s^2; risk_perception=0.4s",
+      "parent_id": null,
+      "seed": 0,
+      "notes": ""
+    },
+    "crash_frequency_weight": 0.95,
+    "road_geometries": [
+      "highway",
+      "straight"
+    ],
+    "weathers": [
+      "clear",
+      "rain"
+    ],
+    "lightings": [
+      "day",
+      "night"
+    ],
+    "ego_speed_kph": {
+      "min": 40.0,
+      "max": 130.0,
+      "unit": "kph"
+    },
+    "actor_speed_kph": {
+      "min": 40.0,
+      "max": 130.0,
+      "unit": "kph"
+    },
+    "distance_m": {
+      "min": 8.0,
+      "max": 50.0,
+      "unit": "m"
+    },
+    "ttc_s": null,
+    "actors": [
+      {
+        "actor_type": "vehicle",
+        "role": "lead",
+        "length_m": 4.5,
+        "width_m": 1.8,
+        "height_m": 1.5,
+        "behavior": "brake"
+      }
+    ],
+    "odd_params": {
+      "lead_decel_mps2": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "r157_params": {
+      "risk_perception_s": 0.4,
+      "reaction_s": 0.75,
+      "decel_threshold_mps2": 5.0
+    }
+  },
+  {
+    "id": "euro-cpna-50",
+    "name": "Euro NCAP CPNA-50 adult nearside",
+    "family": "vru_crossing",
+    "description": "Car-to-Pedestrian Nearside Adult, 50% impact point.",
+    "provenance": {
+      "source": "euro_ncap",
+      "citation": "Euro NCAP AEB VRU v4.5.1 CPNA-50",
+      "parent_id": null,
+      "seed": 0,
+      "notes": ""
+    },
+    "crash_frequency_weight": 0.5,
+    "road_geometries": [
+      "straight",
+      "intersection"
+    ],
+    "weathers": [
+      "clear"
+    ],
+    "lightings": [
+      "day"
+    ],
+    "ego_speed_kph": {
+      "min": 20.0,
+      "max": 60.0,
+      "unit": "kph"
+    },
+    "actor_speed_kph": {
+      "min": 5.0,
+      "max": 5.0,
+      "unit": "kph"
+    },
+    "distance_m": {
+      "min": 10.0,
+      "max": 40.0,
+      "unit": "m"
+    },
+    "ttc_s": null,
+    "actors": [
+      {
+        "actor_type": "pedestrian",
+        "role": "nearside",
+        "length_m": 0.5,
+        "width_m": 0.5,
+        "height_m": 1.8,
+        "behavior": "cross"
+      }
+    ],
+    "odd_params": {
+      "impact_offset_pct": [
+        50
+      ],
+      "approach": [
+        "nearside"
+      ]
+    },
+    "r157_params": {}
+  },
+  {
+    "id": "euro-cpfa-50",
+    "name": "Euro NCAP CPFA-50 adult farside",
+    "family": "vru_crossing",
+    "description": "Car-to-Pedestrian Farside Adult, 50% impact point.",
+    "provenance": {
+      "source": "euro_ncap",
+      "citation": "Euro NCAP AEB VRU v4.5.1 CPFA-50",
+      "parent_id": null,
+      "seed": 0,
+      "notes": ""
+    },
+    "crash_frequency_weight": 0.45,
+    "road_geometries": [
+      "straight"
+    ],
+    "weathers": [
+      "clear"
+    ],
+    "lightings": [
+      "day"
+    ],
+    "ego_speed_kph": {
+      "min": 20.0,
+      "max": 60.0,
+      "unit": "kph"
+    },
+    "actor_speed_kph": {
+      "min": 5.0,
+      "max": 8.0,
+      "unit": "kph"
+    },
+    "distance_m": {
+      "min": 15.0,
+      "max": 45.0,
+      "unit": "m"
+    },
+    "ttc_s": null,
+    "actors": [
+      {
+        "actor_type": "pedestrian",
+        "role": "farside",
+        "length_m": 0.5,
+        "width_m": 0.5,
+        "height_m": 1.8,
+        "behavior": "cross"
+      }
+    ],
+    "odd_params": {
+      "impact_offset_pct": [
+        50
+      ],
+      "approach": [
+        "farside"
+      ]
+    },
+    "r157_params": {}
+  },
+  {
+    "id": "euro-cpta-50",
+    "name": "Euro NCAP CPTA-50 turning adult",
+    "family": "vru_crossing",
+    "description": "Car-to-Pedestrian Turning Adult 50% at junction.",
+    "provenance": {
+      "source": "euro_ncap",
+      "citation": "Euro NCAP AEB VRU v4.5.1 CPTA-50",
+      "parent_id": null,
+      "seed": 0,
+      "notes": ""
+    },
+    "crash_frequency_weight": 0.4,
+    "road_geometries": [
+      "intersection"
+    ],
+    "weathers": [
+      "clear",
+      "rain"
+    ],
+    "lightings": [
+      "day",
+      "dusk"
+    ],
+    "ego_speed_kph": {
+      "min": 10.0,
+      "max": 30.0,
+      "unit": "kph"
+    },
+    "actor_speed_kph": {
+      "min": 5.0,
+      "max": 5.0,
+      "unit": "kph"
+    },
+    "distance_m": {
+      "min": 5.0,
+      "max": 20.0,
+      "unit": "m"
+    },
+    "ttc_s": null,
+    "actors": [
+      {
+        "actor_type": "pedestrian",
+        "role": "turning_path",
+        "length_m": 0.5,
+        "width_m": 0.5,
+        "height_m": 1.8,
+        "behavior": "cross"
+      }
+    ],
+    "odd_params": {
+      "impact_offset_pct": [
+        25,
+        50,
+        75
+      ],
+      "turn": [
+        "left",
+        "right"
+      ]
+    },
+    "r157_params": {}
+  },
+  {
+    "id": "hazop-lidar-rain-dropout",
+    "name": "Lidar rain dropout with lead vehicle",
+    "family": "sensor_degradation",
+    "description": "Rear-end geometry under heavy rain lidar dropout (HAZOP: less sensing).",
+    "provenance": {
+      "source": "hazop",
+      "citation": "HAZOP guideword=less on ODD.lidar_returns + rear-end geometry",
+      "parent_id": null,
+      "seed": 0,
+      "notes": ""
+    },
+    "crash_frequency_weight": 0.3,
+    "road_geometries": [
+      "highway",
+      "straight"
+    ],
+    "weathers": [
+      "rain"
+    ],
+    "lightings": [
+      "day",
+      "night"
+    ],
+    "ego_speed_kph": {
+      "min": 50.0,
+      "max": 110.0,
+      "unit": "kph"
+    },
+    "actor_speed_kph": {
+      "min": 20.0,
+      "max": 100.0,
+      "unit": "kph"
+    },
+    "distance_m": {
+      "min": 10.0,
+      "max": 40.0,
+      "unit": "m"
+    },
+    "ttc_s": null,
+    "actors": [
+      {
+        "actor_type": "vehicle",
+        "role": "lead",
+        "length_m": 4.5,
+        "width_m": 1.8,
+        "height_m": 1.5,
+        "behavior": "brake"
+      }
+    ],
+    "odd_params": {
+      "lidar_dropout": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "rain_intensity": [
+        0.5,
+        0.8,
+        1.0
+      ]
+    },
+    "r157_params": {}
+  },
+  {
+    "id": "hazop-occluded-ped-dusk",
+    "name": "Occluded pedestrian at dusk",
+    "family": "pedestrian",
+    "description": "Pedestrian emerges from parked-car occlusion at dusk (HAZOP: other than).",
+    "provenance": {
+      "source": "hazop",
+      "citation": "HAZOP guideword=other_than on ODD.visibility + pedestrian",
+      "parent_id": null,
+      "seed": 0,
+      "notes": ""
+    },
+    "crash_frequency_weight": 0.35,
+    "road_geometries": [
+      "straight"
+    ],
+    "weathers": [
+      "clear",
+      "fog"
+    ],
+    "lightings": [
+      "dusk",
+      "night"
+    ],
+    "ego_speed_kph": {
+      "min": 25.0,
+      "max": 50.0,
+      "unit": "kph"
+    },
+    "actor_speed_kph": {
+      "min": 4.0,
+      "max": 7.0,
+      "unit": "kph"
+    },
+    "distance_m": {
+      "min": 8.0,
+      "max": 25.0,
+      "unit": "m"
+    },
+    "ttc_s": null,
+    "actors": [
+      {
+        "actor_type": "vehicle",
+        "role": "parked",
+        "length_m": 4.5,
+        "width_m": 1.8,
+        "height_m": 1.5,
+        "behavior": "static"
+      },
+      {
+        "actor_type": "pedestrian",
+        "role": "emerging",
+        "length_m": 0.5,
+        "width_m": 0.5,
+        "height_m": 1.7,
+        "behavior": "cross"
+      }
+    ],
+    "odd_params": {
+      "occlusion": [
+        "full",
+        "partial"
+      ]
+    },
+    "r157_params": {}
+  },
+  {
+    "id": "hazop-camera-glare-cutin",
+    "name": "Cut-in under camera glare",
+    "family": "cut_in",
+    "description": "Cut-in with low-sun camera saturation (HAZOP: more on glare).",
+    "provenance": {
+      "source": "hazop",
+      "citation": "HAZOP guideword=more on ODD.camera_glare + R157 cut-in",
+      "parent_id": null,
+      "seed": 0,
+      "notes": ""
+    },
+    "crash_frequency_weight": 0.5,
+    "road_geometries": [
+      "highway"
+    ],
+    "weathers": [
+      "clear"
+    ],
+    "lightings": [
+      "dusk",
+      "dawn"
+    ],
+    "ego_speed_kph": {
+      "min": 60.0,
+      "max": 120.0,
+      "unit": "kph"
+    },
+    "actor_speed_kph": {
+      "min": 50.0,
+      "max": 110.0,
+      "unit": "kph"
+    },
+    "distance_m": {
+      "min": 8.0,
+      "max": 30.0,
+      "unit": "m"
+    },
+    "ttc_s": null,
+    "actors": [
+      {
+        "actor_type": "vehicle",
+        "role": "cut_in",
+        "length_m": 4.5,
+        "width_m": 1.8,
+        "height_m": 1.5,
+        "behavior": "cut_in"
+      }
+    ],
+    "odd_params": {
+      "camera_glare": [
+        true
+      ],
+      "dirt_occlusion": [
+        0.0,
+        0.15,
+        0.3
+      ]
+    },
+    "r157_params": {}
+  },
+  {
+    "id": "hazop-wrong-way-intersection",
+    "name": "Wrong-way vehicle at intersection",
+    "family": "opposite_direction",
+    "description": "Vehicle enters intersection from wrong direction (HAZOP: reverse).",
+    "provenance": {
+      "source": "hazop",
+      "citation": "HAZOP guideword=reverse on ODD.traffic_direction",
+      "parent_id": null,
+      "seed": 0,
+      "notes": ""
+    },
+    "crash_frequency_weight": 0.2,
+    "road_geometries": [
+      "intersection"
+    ],
+    "weathers": [
+      "clear",
+      "rain"
+    ],
+    "lightings": [
+      "day",
+      "night"
+    ],
+    "ego_speed_kph": {
+      "min": 30.0,
+      "max": 60.0,
+      "unit": "kph"
+    },
+    "actor_speed_kph": {
+      "min": 30.0,
+      "max": 70.0,
+      "unit": "kph"
+    },
+    "distance_m": {
+      "min": 15.0,
+      "max": 50.0,
+      "unit": "m"
+    },
+    "ttc_s": null,
+    "actors": [
+      {
+        "actor_type": "vehicle",
+        "role": "wrong_way",
+        "length_m": 4.5,
+        "width_m": 1.8,
+        "height_m": 1.5,
+        "behavior": "constant_velocity"
+      }
+    ],
+    "odd_params": {
+      "signal_state": [
+        "green",
+        "yellow"
+      ]
+    },
+    "r157_params": {}
+  }
+]

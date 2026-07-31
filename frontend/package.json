@@ -1,5 +1,5 @@
 {
-  "name": "drivemutation-frontend",
+  "name": "signalforge-frontend",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -11,8 +11,10 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@types/three": "^0.185.3",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "three": "^0.185.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",

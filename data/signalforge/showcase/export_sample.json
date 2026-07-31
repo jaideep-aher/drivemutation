@@ -1,0 +1,128 @@
+{
+  "scenario": {
+    "id": "r157-cut-in__0000",
+    "logical_id": "r157-cut-in",
+    "family": "cut_in",
+    "name": "R157 cut-in [rain/day/highway]",
+    "provenance": {
+      "source": "unece_r157",
+      "citation": "UNECE R157 Annex 4 App.3 cut-in; risk_perception=0.4s; wander=0.375m",
+      "parent_id": "r157-cut-in",
+      "seed": 90105,
+      "notes": ""
+    },
+    "weather": "rain",
+    "lighting": "day",
+    "road_geometry": "highway",
+    "duration_s": 8.0,
+    "timestep_s": 0.1,
+    "ego": {
+      "id": "ego",
+      "actor_type": "vehicle",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "vx": 21.679886236137172,
+      "vy": 0.0,
+      "heading_deg": 0.0,
+      "length_m": 4.5,
+      "width_m": 1.9,
+      "height_m": 1.5,
+      "behavior": "constant_velocity",
+      "trigger_t": null,
+      "post_vx": null,
+      "post_vy": null,
+      "lateral_speed": null,
+      "target_y": null
+    },
+    "actors": [
+      {
+        "id": "cut_in_0",
+        "actor_type": "vehicle",
+        "x": 5.411399213870227,
+        "y": -3.5,
+        "z": 0.0,
+        "vx": 32.84119332526772,
+        "vy": 0.0,
+        "heading_deg": 0.0,
+        "length_m": 4.5,
+        "width_m": 1.8,
+        "height_m": 1.5,
+        "behavior": "cut_in",
+        "trigger_t": 0.5404867039865078,
+        "post_vx": null,
+        "post_vy": null,
+        "lateral_speed": 1.5669785620408425,
+        "target_y": 0.0
+      }
+    ],
+    "odd": {
+      "relative_speed_kph": -20,
+      "lidar_dropout": 0.31640959167153937,
+      "rain_intensity": 0.6829814181755725
+    },
+    "crash_frequency_weight": 0.9,
+    "metrics": {
+      "min_ttc_s": null,
+      "min_distance_m": 6.444628883952536,
+      "pet_s": null,
+      "required_decel_mps2": null,
+      "collision": false,
+      "preventable": true
+    },
+    "difficulty": "easy"
+  },
+  "provenance": {
+    "source": "unece_r157",
+    "citation": "UNECE R157 Annex 4 App.3 cut-in; risk_perception=0.4s; wander=0.375m",
+    "parent_id": "r157-cut-in",
+    "seed": 90105,
+    "notes": ""
+  },
+  "samples": [
+    {
+      "t": 0.0,
+      "lidar_n": 314,
+      "radar_n": 1,
+      "boxes": [
+        {
+          "instance_id": 1,
+          "category": "vehicle",
+          "x": 5.411399213870227,
+          "y": -3.5,
+          "z": 0.75,
+          "length": 4.5,
+          "width": 1.8,
+          "height": 1.5,
+          "heading_deg": 0.0,
+          "vx": 32.84119332526772,
+          "vy": 0.0,
+          "occlusion": 0.4,
+          "num_lidar_hits": 11
+        }
+      ]
+    },
+    {
+      "t": 4.0,
+      "lidar_n": 314,
+      "radar_n": 1,
+      "boxes": [
+        {
+          "instance_id": 1,
+          "category": "vehicle",
+          "x": 50.05662757039238,
+          "y": 0.0,
+          "z": 0.75,
+          "length": 4.5,
+          "width": 1.8,
+          "height": 1.5,
+          "heading_deg": 0.0,
+          "vx": 32.84119332526772,
+          "vy": 0.0,
+          "occlusion": 1.0,
+          "num_lidar_hits": 0
+        }
+      ]
+    }
+  ]
+}

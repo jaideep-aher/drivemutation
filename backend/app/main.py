@@ -1,40 +1,34 @@
-"""DriveMutation FastAPI application."""
+"""SignalForge FastAPI application."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-from backend.app.openai_ft.compile import compile_scenario
-from backend.app.openai_ft.config import ROOT, load_config
-from backend.app.openai_ft.evaluate import load_latest_eval_summary
-from backend.app.openai_ft.jobs import models_status
-from backend.app.presets import get_preset, list_presets
-from backend.app.schemas.scenario import (
-    CompileRequest,
-    CompileResponse,
+from backend.app.signalforge import store
+from backend.app.signalforge.export import export_scenario_bundle
+from backend.app.signalforge.render import render_scenario
+from backend.app.signalforge.schema import (
+    CoverageStats,
+    GapItem,
     HealthResponse,
-    PresetSummary,
-    ScenarioSpec,
-    SimulateRequest,
-    SimulateResponse,
-    ValidateRequest,
-    ValidateResponse,
-    ValidationIssue,
+    LogicalScenario,
+    PointCloudFrame,
+    RenderRequest,
+    ScenarioSummary,
 )
-from backend.app.simulator import simulate
-from backend.app.validators import validate_scenario
 
-APP_VERSION = "0.4.0"
+APP_VERSION = "0.1.0"
+ROOT = Path(__file__).resolve().parents[2]
 FRONTEND_DIST = ROOT / "frontend" / "dist"
 
 app = FastAPI(
-    title="DriveMutation",
-    description="Local counterfactual AV test compiler - base vs fine-tuned demo",
+    title="SignalForge",
+    description="Grounded AV scenario generation with synthetic lidar/radar and full provenance",
     version=APP_VERSION,
 )
 
@@ -47,159 +41,148 @@ app.add_middleware(
 )
 
 
-def _compile_response(raw: dict) -> CompileResponse:
-    issues = [
-        ValidationIssue.model_validate(i) if isinstance(i, dict) else i
-        for i in (raw.get("validation_issues") or [])
-    ]
-    sim = None
-    if raw.get("simulation"):
-        sim = SimulateResponse.model_validate(raw["simulation"])
-    return CompileResponse(
-        mode=raw.get("mode") or "",
-        model=raw.get("model"),
-        ok=bool(raw.get("ok")),
-        error_code=raw.get("error_code"),
-        error=raw.get("error"),
-        target_kind=raw.get("target_kind"),
-        json_parse_ok=bool(raw.get("json_parse_ok")),
-        schema_valid=bool(raw.get("schema_valid")),
-        physical_valid=bool(raw.get("physical_valid")),
-        parsed=raw.get("parsed"),
-        validation_issues=issues,
-        simulation=sim,
-        latency_s=raw.get("latency_s"),
-        usage=raw.get("usage"),
-    )
-
-
 @app.get("/api/health", response_model=HealthResponse)
 def health() -> HealthResponse:
     return HealthResponse(
         status="ok",
-        service="DriveMutation",
+        service="SignalForge",
         version=APP_VERSION,
-        deterministic=True,
+        concrete_count=len(store.load_index()),
+        logical_count=len(store.load_catalog()),
     )
 
 
-@app.post("/api/validate", response_model=ValidateResponse)
-def api_validate(body: ValidateRequest) -> ValidateResponse:
-    issues = validate_scenario(body.scenario)
-    return ValidateResponse(valid=len(issues) == 0, issues=issues)
+@app.get("/api/catalog", response_model=list[LogicalScenario])
+def get_catalog() -> list[LogicalScenario]:
+    return store.load_catalog()
 
 
-@app.post("/api/simulate", response_model=SimulateResponse)
-def api_simulate(body: SimulateRequest) -> SimulateResponse:
-    issues = validate_scenario(body.scenario)
-    if issues:
-        return SimulateResponse(
-            scenario_id=body.scenario.id,
-            valid=False,
-            validation_issues=issues,
-        )
-    return simulate(body.scenario)
-
-
-@app.get("/api/presets", response_model=list[PresetSummary])
-def api_presets() -> list[PresetSummary]:
-    return list_presets()
-
-
-@app.get("/api/presets/{preset_id}", response_model=ScenarioSpec)
-def api_preset_detail(preset_id: str) -> ScenarioSpec:
-    try:
-        return get_preset(preset_id)
-    except KeyError as exc:
-        raise HTTPException(status_code=404, detail=f"Unknown preset: {preset_id}") from exc
-
-
-@app.post("/api/compile/base", response_model=CompileResponse)
-def api_compile_base(body: CompileRequest) -> CompileResponse:
-    raw = compile_scenario(
-        seed_scene=body.seed_scene,
-        testing_goal=body.testing_goal,
-        mode="base",
-        run_simulation=body.run_simulation,
+@app.get("/api/scenarios", response_model=list[ScenarioSummary])
+def list_scenarios(
+    family: str | None = None,
+    weather: str | None = None,
+    difficulty: str | None = None,
+    lighting: str | None = None,
+    q: str | None = None,
+    limit: int = Query(80, ge=1, le=500),
+    offset: int = Query(0, ge=0),
+) -> list[ScenarioSummary]:
+    return store.list_summaries(
+        family=family,
+        weather=weather,
+        difficulty=difficulty,
+        lighting=lighting,
+        q=q,
+        limit=limit,
+        offset=offset,
     )
-    # Never leak API key material
-    if raw.get("error") and "sk-" in str(raw.get("error")):
-        raw["error"] = "api_error (details redacted)"
-    return _compile_response(raw)
 
 
-@app.post("/api/compile/fine-tuned", response_model=CompileResponse)
-def api_compile_fine_tuned(body: CompileRequest) -> CompileResponse:
-    cfg = load_config()
-    status = models_status(config=cfg)
-    if status.get("job_pending"):
-        return _compile_response(
-            {
-                "mode": "fine-tuned",
-                "model": None,
-                "ok": False,
-                "error_code": "fine_tuning_pending",
-                "error": f"fine-tuning job status={status.get('fine_tuning_status')}",
-                "json_parse_ok": False,
-                "schema_valid": False,
-                "physical_valid": False,
-                "validation_issues": [],
-            }
-        )
-    if status.get("job_failed"):
-        return _compile_response(
-            {
-                "mode": "fine-tuned",
-                "model": None,
-                "ok": False,
-                "error_code": "fine_tuning_failed",
-                "error": status.get("fine_tuning_error") or "fine-tuning job failed",
-                "json_parse_ok": False,
-                "schema_valid": False,
-                "physical_valid": False,
-                "validation_issues": [],
-            }
-        )
-    raw = compile_scenario(
-        seed_scene=body.seed_scene,
-        testing_goal=body.testing_goal,
-        mode="fine-tuned",
-        run_simulation=body.run_simulation,
+@app.get("/api/scenarios/count")
+def scenarios_count(
+    family: str | None = None,
+    weather: str | None = None,
+    difficulty: str | None = None,
+) -> dict:
+    all_s = store.list_summaries(
+        family=family, weather=weather, difficulty=difficulty, limit=100000
     )
-    if raw.get("error") and "sk-" in str(raw.get("error")):
-        raw["error"] = "api_error (details redacted)"
-    return _compile_response(raw)
+    return {"count": len(all_s)}
 
 
-@app.get("/api/models/status")
-def api_models_status() -> dict:
-    status = models_status()
-    # Ensure no secret fields
-    status.pop("api_key", None)
-    return status
+@app.get("/api/scenarios/{scenario_id}")
+def get_scenario(scenario_id: str) -> dict:
+    sc = store.load_concrete(scenario_id)
+    if not sc:
+        raise HTTPException(404, f"scenario {scenario_id} not found")
+    return sc.model_dump(mode="json")
 
 
-@app.get("/api/evaluation/summary")
-def api_evaluation_summary() -> dict:
-    outputs = Path(ROOT) / "data" / "outputs"
-    return load_latest_eval_summary(outputs)
+@app.post("/api/render", response_model=list[PointCloudFrame])
+def render(req: RenderRequest) -> list[PointCloudFrame]:
+    # Prefer showcase cache for full playback
+    cached = store.load_showcase(req.scenario_id)
+    if cached and req.frame_idx is None:
+        frames = [PointCloudFrame.model_validate(f) for f in cached]
+        if req.max_frames < len(frames):
+            frames = frames[: req.max_frames]
+        return frames
+
+    sc = store.load_concrete(req.scenario_id)
+    if not sc:
+        raise HTTPException(404, f"scenario {req.scenario_id} not found")
+
+    frames = render_scenario(
+        sc,
+        max_frames=req.max_frames,
+        lidar_beams=req.lidar_beams,
+        lidar_azimuth=req.lidar_azimuth,
+        degrade=req.degrade,
+    )
+    if req.frame_idx is not None:
+        if req.frame_idx < 0 or req.frame_idx >= len(frames):
+            raise HTTPException(400, "frame_idx out of range")
+        return [frames[req.frame_idx]]
+    return frames
 
 
-if FRONTEND_DIST.is_dir():
+@app.get("/api/showcase")
+def list_showcase() -> list[str]:
+    path = store.SHOWCASE_DIR / "index.json"
+    if not path.exists():
+        # Fallback: first N from index across families
+        summaries = store.list_summaries(limit=30)
+        return [s.id for s in summaries]
+    import json
+
+    return json.loads(path.read_text())
+
+
+@app.get("/api/coverage", response_model=CoverageStats)
+def coverage() -> CoverageStats:
+    return store.coverage_stats(gap_count=len(store.load_gaps()))
+
+
+@app.get("/api/gaps", response_model=list[GapItem])
+def gaps(limit: int = 50) -> list[GapItem]:
+    return store.load_gaps()[:limit]
+
+
+@app.get("/api/incidents")
+def incidents(limit: int = 50) -> list[dict]:
+    return store.load_incidents()[:limit]
+
+
+@app.get("/api/export/{scenario_id}")
+def export_scenario(scenario_id: str, max_frames: int = 8) -> dict:
+    sc = store.load_concrete(scenario_id)
+    if not sc:
+        raise HTTPException(404, f"scenario {scenario_id} not found")
+    frames = None
+    cached = store.load_showcase(scenario_id)
+    if cached:
+        frames = [PointCloudFrame.model_validate(f) for f in cached[:max_frames]]
+    return export_scenario_bundle(sc, frames, max_frames=max_frames)
+
+
+@app.get("/api/weights")
+def weights() -> dict:
+    return {
+        "sgo_family_weights": store.load_family_weights(),
+    }
+
+
+# Static frontend (production)
+if FRONTEND_DIST.exists():
     assets = FRONTEND_DIST / "assets"
-    if assets.is_dir():
+    if assets.exists():
         app.mount("/assets", StaticFiles(directory=assets), name="assets")
 
-    @app.get("/")
-    def spa_index() -> FileResponse:
-        return FileResponse(FRONTEND_DIST / "index.html")
-
     @app.get("/{full_path:path}")
-    def spa_fallback(full_path: str) -> FileResponse:
-        # Keep API routes ahead of this catch-all.
+    def spa(full_path: str = ""):
         if full_path.startswith("api/"):
-            raise HTTPException(status_code=404, detail="Not found")
-        candidate = FRONTEND_DIST / full_path
-        if candidate.is_file():
-            return FileResponse(candidate)
-        return FileResponse(FRONTEND_DIST / "index.html")
+            raise HTTPException(404)
+        index = FRONTEND_DIST / "index.html"
+        if index.exists():
+            return FileResponse(index)
+        raise HTTPException(404, "frontend not built")
