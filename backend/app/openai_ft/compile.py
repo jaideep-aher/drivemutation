@@ -70,9 +70,13 @@ def _parse_assistant_json(text: str) -> tuple[dict[str, Any] | None, str | None]
 _HAZARD_TO_FAMILY: dict[str, str] = {h.value: f.value for f, h in FAMILY_TO_HAZARD.items()}
 
 
-def _normalize_mutation_target(parsed: dict[str, Any]) -> dict[str, Any]:
+def _normalize_mutation_target(
+    parsed: dict[str, Any],
+    seed_actor_ids: set[str] | None = None,
+) -> dict[str, Any]:
     """Fix common model mix-ups before strict validation."""
     d = json.loads(json.dumps(parsed))
+    existing_ids = seed_actor_ids or set()
 
     sf = d.get("scenario_family", "")
     if sf and sf not in {m.value for m in ScenarioFamily}:
@@ -109,6 +113,20 @@ def _normalize_mutation_target(parsed: dict[str, Any]) -> dict[str, Any]:
                 continue
             opname = op.get("op")
             aid = op.get("actor_id")
+
+            if opname == "add_actor" and isinstance(op.get("actor"), dict):
+                actor_id = op["actor"].get("id", "")
+                if actor_id in existing_ids:
+                    # Actor already exists in seed -- convert to change_behavior
+                    actor_data = op["actor"]
+                    behavior = actor_data.get("behavior")
+                    if behavior:
+                        cleaned.append({
+                            "op": "change_behavior",
+                            "actor_id": actor_id,
+                            "behavior": behavior,
+                        })
+                    continue
             if opname == "change_behavior" and aid in added_actor_ids and not op.get("behavior"):
                 continue
             if opname == "set_speed" and aid in added_actor_ids:
@@ -123,12 +141,13 @@ def _normalize_mutation_target(parsed: dict[str, Any]) -> dict[str, Any]:
 
 def _validate_target(
     parsed: dict[str, Any],
+    seed_actor_ids: set[str] | None = None,
 ) -> tuple[MutationTarget | RejectionTarget | None, list[ValidationIssue]]:
     issues: list[ValidationIssue] = []
     try:
         if parsed.get("status") == "rejected":
             return RejectionTarget.model_validate(parsed), issues
-        normalized = _normalize_mutation_target(parsed)
+        normalized = _normalize_mutation_target(parsed, seed_actor_ids)
         if normalized.get("status") == "accepted" or "mutation" in normalized:
             return MutationTarget.model_validate(normalized), issues
         try:
@@ -313,7 +332,8 @@ def compile_scenario(
     result["json_parse_ok"] = True
     result["parsed"] = parsed
 
-    target, schema_issues = _validate_target(parsed)
+    seed_ids = {a.id for a in seed_scene.actors} if seed_scene.actors else set()
+    target, schema_issues = _validate_target(parsed, seed_ids)
     if target is None:
         result["error_code"] = "schema_invalid"
         result["error"] = "assistant output failed schema validation"
