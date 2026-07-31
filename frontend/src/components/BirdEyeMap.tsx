@@ -1,10 +1,10 @@
 import type { ActorFrameState, RoadLayout, SimulationFrame } from "../types/scenario";
 
 const ACTOR_COLORS: Record<string, string> = {
-  ego: "#3d8bfd",
-  vehicle: "#f59e0b",
-  cyclist: "#5eead4",
-  pedestrian: "#f87171",
+  ego: "#00a3e0",
+  vehicle: "#f5a623",
+  cyclist: "#2dd4a8",
+  pedestrian: "#ff5a5a",
 };
 
 interface BirdEyeProps {
@@ -50,11 +50,11 @@ export function BirdEyeMap({
     >
       <defs>
         <linearGradient id="asphalt" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#2a3140" />
-          <stop offset="100%" stopColor="#151a22" />
+          <stop offset="0%" stopColor="#1c1c1c" />
+          <stop offset="100%" stopColor="#121212" />
         </linearGradient>
       </defs>
-      <rect x={0} y={0} width={width} height={height} fill="#070a0e" />
+      <rect x={0} y={0} width={width} height={height} fill="#050505" />
       <rect
         x={sx(0)}
         y={sy(maxY)}

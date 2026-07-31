@@ -44,8 +44,8 @@ export function EvaluationPage({
             show as unavailable  -  never as invented scores.
           </p>
         </div>
-        <button type="button" onClick={onRefresh} disabled={loading}>
-          {loading ? "Refreshing…" : "Refresh"}
+        <button type="button" className="btn-ghost" onClick={onRefresh} disabled={loading}>
+          {loading ? "Refreshing..." : "Refresh"}
         </button>
       </header>
 
