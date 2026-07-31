@@ -4,6 +4,9 @@ import App from "../App";
 import { PlaybackControls } from "../components/PlaybackControls";
 import { MetricsPanel } from "../components/MetricsPanel";
 import { BirdEyeMap } from "../components/BirdEyeMap";
+import { JsonDiff } from "../components/JsonDiff";
+import { EvaluationPage } from "../components/EvaluationPage";
+import { meaningfulDiff } from "../utils/jsonDiff";
 import type { SimulateResponse } from "../types/scenario";
 
 const sampleRoad = {
@@ -161,12 +164,40 @@ describe("BirdEyeMap", () => {
   });
 });
 
+describe("jsonDiff", () => {
+  it("reports meaningful differences", () => {
+    const diffs = meaningfulDiff({ a: 1, b: 2 }, { a: 1, b: 3, c: 4 });
+    expect(diffs.some((d) => d.path.includes("b") && d.kind === "changed")).toBe(true);
+    expect(diffs.some((d) => d.path.includes("c") && d.kind === "added")).toBe(true);
+  });
+});
+
+describe("JsonDiff / EvaluationPage", () => {
+  it("renders identical message", () => {
+    render(<JsonDiff left={{ x: 1 }} right={{ x: 1 }} />);
+    expect(screen.getByTestId("json-diff-identical")).toBeInTheDocument();
+  });
+
+  it("shows empty evaluation state", () => {
+    render(
+      <EvaluationPage
+        summary={{ available: false, base: null, fine_tuned: null, comparison: null }}
+        loading={false}
+        error={null}
+        onRefresh={() => undefined}
+      />,
+    );
+    expect(screen.getByTestId("eval-empty")).toBeInTheDocument();
+  });
+});
+
 describe("App integration", () => {
   beforeEach(() => {
     vi.restoreAllMocks();
+    window.location.hash = "#/lab";
   });
 
-  it("loads presets and simulates", async () => {
+  it("loads presets, simulates, compiles base, and opens evaluation", async () => {
     const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
       const url = String(input);
       if (url.endsWith("/api/presets")) {
@@ -176,8 +207,29 @@ describe("App integration", () => {
               id: "wrong_way_vehicle",
               name: "Wrong-way vehicle",
               description: "Head-on conflict",
+              default_testing_goal: "stress head-on",
+              kind: "scenario",
             },
           ]),
+          { status: 200, headers: { "Content-Type": "application/json" } },
+        );
+      }
+      if (url.includes("/api/models/status")) {
+        return new Response(
+          JSON.stringify({
+            api_key_configured: true,
+            base_model: "gpt-4o-mini-2024-07-18",
+            fine_tuned_model: null,
+            fine_tuning_job_id: null,
+            fine_tuning_status: null,
+            fine_tuning_error: null,
+            training_file_id: null,
+            validation_file_id: null,
+            base_ready: true,
+            fine_tuned_ready: false,
+            job_pending: false,
+            job_failed: false,
+          }),
           { status: 200, headers: { "Content-Type": "application/json" } },
         );
       }
@@ -213,6 +265,39 @@ describe("App integration", () => {
           headers: { "Content-Type": "application/json" },
         });
       }
+      if (url.endsWith("/api/compile/base")) {
+        return new Response(
+          JSON.stringify({
+            mode: "base",
+            model: "gpt-4o-mini-2024-07-18",
+            ok: true,
+            error_code: null,
+            error: null,
+            target_kind: "mutation",
+            json_parse_ok: true,
+            schema_valid: true,
+            physical_valid: true,
+            parsed: { status: "accepted", activated_hazard: "x" },
+            validation_issues: [],
+            simulation: sampleResult,
+            latency_s: 0.2,
+            usage: { total_tokens: 100 },
+          }),
+          { status: 200, headers: { "Content-Type": "application/json" } },
+        );
+      }
+      if (url.endsWith("/api/evaluation/summary")) {
+        return new Response(
+          JSON.stringify({
+            available: false,
+            base: null,
+            fine_tuned: null,
+            comparison: null,
+            methodology: { test_set_size: 30, temperature: 0 },
+          }),
+          { status: 200, headers: { "Content-Type": "application/json" } },
+        );
+      }
       return new Response("not found", { status: 404 });
     });
     vi.stubGlobal("fetch", fetchMock);
@@ -222,8 +307,27 @@ describe("App integration", () => {
     await waitFor(() =>
       expect(screen.getByTestId("scenario-description")).toHaveTextContent("Head-on"),
     );
+    expect(screen.getByTestId("model-status")).toHaveTextContent("configured");
+    expect(screen.getByTestId("scene-editor")).toBeInTheDocument();
+
     fireEvent.click(screen.getByTestId("run-simulate"));
     await waitFor(() => expect(screen.getByTestId("oracle-results")).toHaveTextContent("PASS"));
     expect(screen.getByTestId("bird-eye-map")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId("compile-base"));
+    await waitFor(() =>
+      expect(screen.getByTestId("compile-panel-base")).toHaveTextContent("accepted"),
+    );
+
+    fireEvent.click(screen.getByTestId("nav-eval"));
+    await waitFor(() => expect(screen.getByTestId("evaluation-page")).toBeInTheDocument());
+    expect(screen.getByTestId("eval-empty")).toBeInTheDocument();
+
+    for (const call of fetchMock.mock.calls) {
+      const init = (call as unknown as [RequestInfo | URL, RequestInit?])[1];
+      const body = typeof init?.body === "string" ? init.body : "";
+      expect(body).not.toMatch(/sk-/);
+      expect(JSON.stringify(call)).not.toMatch(/sk-proj/);
+    }
   });
 });

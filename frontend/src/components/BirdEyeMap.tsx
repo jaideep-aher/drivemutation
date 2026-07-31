@@ -1,10 +1,10 @@
 import type { ActorFrameState, RoadLayout, SimulationFrame } from "../types/scenario";
 
 const ACTOR_COLORS: Record<string, string> = {
-  ego: "#1f6feb",
-  vehicle: "#c45c26",
-  cyclist: "#2a9d8f",
-  pedestrian: "#9b2226",
+  ego: "#3d8bfd",
+  vehicle: "#f59e0b",
+  cyclist: "#5eead4",
+  pedestrian: "#f87171",
 };
 
 interface BirdEyeProps {
@@ -50,11 +50,11 @@ export function BirdEyeMap({
     >
       <defs>
         <linearGradient id="asphalt" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#3a3f46" />
-          <stop offset="100%" stopColor="#2b3036" />
+          <stop offset="0%" stopColor="#2a3140" />
+          <stop offset="100%" stopColor="#151a22" />
         </linearGradient>
       </defs>
-      <rect x={0} y={0} width={width} height={height} fill="#e7ebe4" />
+      <rect x={0} y={0} width={width} height={height} fill="#070a0e" />
       <rect
         x={sx(0)}
         y={sy(maxY)}
@@ -71,28 +71,28 @@ export function BirdEyeMap({
             y1={sy(lane.center_y)}
             x2={sx(worldW)}
             y2={sy(lane.center_y)}
-            stroke="#d8de88"
+            stroke="#c9d1d9"
             strokeWidth={1}
             strokeDasharray="8 10"
-            opacity={0.7}
+            opacity={0.55}
           />
           <line
             x1={sx(0)}
             y1={sy(laneLeft(lane.center_y, lane.width))}
             x2={sx(worldW)}
             y2={sy(laneLeft(lane.center_y, lane.width))}
-            stroke="#f0f3f5"
+            stroke="#e6edf5"
             strokeWidth={1.2}
-            opacity={0.35}
+            opacity={0.28}
           />
           <line
             x1={sx(0)}
             y1={sy(laneRight(lane.center_y, lane.width))}
             x2={sx(worldW)}
             y2={sy(laneRight(lane.center_y, lane.width))}
-            stroke="#f0f3f5"
+            stroke="#e6edf5"
             strokeWidth={1.2}
-            opacity={0.35}
+            opacity={0.28}
           />
         </g>
       ))}

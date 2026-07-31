@@ -1,4 +1,4 @@
-"""Six handwritten Stage-1 scenario presets."""
+"""Eight handwritten demo scenario presets."""
 
 from __future__ import annotations
 
@@ -421,6 +421,165 @@ def wrong_way_vehicle() -> ScenarioSpec:
     )
 
 
+def emergency_vehicle() -> ScenarioSpec:
+    return ScenarioSpec(
+        id="emergency_vehicle",
+        name="Emergency vehicle",
+        description=(
+            "A fast emergency vehicle approaches from the adjacent lane and cuts into "
+            "the ego lane after a timed trigger."
+        ),
+        duration_s=7.0,
+        road=_straight_road(80.0),
+        ego=EgoVehicle(
+            id="ego",
+            actor_type="ego",
+            position=Position2D(x=8.0, y=0.0),
+            velocity=Velocity2D(vx=11.0, vy=0.0),
+            dimensions=Dimensions2D(length=4.5, width=1.8),
+            lane_id="lane_ego",
+            heading_deg=0.0,
+            behavior=ActorBehavior(type=BehaviorType.CONSTANT_VELOCITY),
+        ),
+        actors=[
+            VehicleActor(
+                id="emergency",
+                actor_type="vehicle",
+                position=Position2D(x=12.0, y=3.5),
+                velocity=Velocity2D(vx=16.0, vy=0.0),
+                dimensions=Dimensions2D(length=5.2, width=2.1),
+                lane_id="lane_opp",
+                heading_deg=0.0,
+                behavior=ActorBehavior(
+                    type=BehaviorType.TRIGGERED_CUT_IN,
+                    trigger_id="t_emergency",
+                    post_trigger_velocity=Velocity2D(vx=15.0, vy=0.0),
+                    target_lane_id="lane_ego",
+                    lateral_speed=2.8,
+                ),
+            ),
+        ],
+        triggers=[Trigger(id="t_emergency", type=TriggerType.TIME, time_s=1.2)],
+        oracles=[
+            SafetyOracle(id="o_collision", type=OracleType.NO_COLLISION),
+            SafetyOracle(id="o_ttc", type=OracleType.MIN_TTC, threshold=1.0),
+            SafetyOracle(id="o_lane", type=OracleType.LANE_KEEPING),
+        ],
+        assumptions=DEFAULT_ASSUMPTIONS
+        + [
+            Assumption(
+                id="a_siren",
+                statement="Siren/audio cues are not modelled; only kinematic approach is simulated.",
+            )
+        ],
+        unknowns=DEFAULT_UNKNOWNS,
+    )
+
+
+def impossible_request() -> ScenarioSpec:
+    """Valid seed scene used with a deliberately contradictory testing goal."""
+    return ScenarioSpec(
+        id="impossible_request",
+        name="Impossible request",
+        description=(
+            "Valid quiet seed scene paired with a contradictory natural-language goal "
+            "that must be rejected (no mutation should execute)."
+        ),
+        duration_s=6.0,
+        road=_straight_road(70.0),
+        ego=EgoVehicle(
+            id="ego",
+            actor_type="ego",
+            position=Position2D(x=5.0, y=0.0),
+            velocity=Velocity2D(vx=10.0, vy=0.0),
+            dimensions=Dimensions2D(length=4.5, width=1.8),
+            lane_id="lane_ego",
+            heading_deg=0.0,
+            behavior=ActorBehavior(type=BehaviorType.CONSTANT_VELOCITY),
+        ),
+        actors=[
+            VehicleActor(
+                id="lead",
+                actor_type="vehicle",
+                position=Position2D(x=35.0, y=0.0),
+                velocity=Velocity2D(vx=10.0, vy=0.0),
+                dimensions=Dimensions2D(length=4.5, width=1.8),
+                lane_id="lane_ego",
+                heading_deg=0.0,
+                behavior=ActorBehavior(type=BehaviorType.CONSTANT_VELOCITY),
+            ),
+        ],
+        triggers=[],
+        oracles=[
+            SafetyOracle(id="o_collision", type=OracleType.NO_COLLISION),
+            SafetyOracle(id="o_init", type=OracleType.NO_INITIAL_OVERLAP),
+        ],
+        assumptions=DEFAULT_ASSUMPTIONS,
+        unknowns=DEFAULT_UNKNOWNS
+        + [
+            Unknown(
+                id="u_intent",
+                statement="The NL goal for this demo is intentionally impossible; compilers must reject.",
+            )
+        ],
+    )
+
+
+PRESET_META: dict[str, dict[str, str]] = {
+    "occluded_pedestrian": {
+        "kind": "scenario",
+        "default_testing_goal": (
+            "Create an occluded pedestrian crossing from behind a parked van that "
+            "stresses ego braking and minimum TTC."
+        ),
+    },
+    "occluded_cyclist": {
+        "kind": "scenario",
+        "default_testing_goal": (
+            "Add an occluded cyclist darting across after a parked truck so ego must yield."
+        ),
+    },
+    "aggressive_cut_in": {
+        "kind": "scenario",
+        "default_testing_goal": (
+            "Mutate the adjacent vehicle into a late aggressive cut-in with low TTC."
+        ),
+    },
+    "unprotected_left_turn": {
+        "kind": "scenario",
+        "default_testing_goal": (
+            "Stress an unprotected left with fast oncoming traffic and a late crosser."
+        ),
+    },
+    "construction_lane_closure": {
+        "kind": "scenario",
+        "default_testing_goal": (
+            "Close the ego lane with construction and force a contested merge into traffic."
+        ),
+    },
+    "wrong_way_vehicle": {
+        "kind": "scenario",
+        "default_testing_goal": (
+            "Introduce a high-speed wrong-way vehicle in the ego lane to stress head-on TTC."
+        ),
+    },
+    "emergency_vehicle": {
+        "kind": "scenario",
+        "default_testing_goal": (
+            "Inject a fast emergency vehicle that cuts into ego's lane after a short trigger delay."
+        ),
+    },
+    "impossible_request": {
+        "kind": "impossible",
+        "default_testing_goal": (
+            "Simultaneously require the lead vehicle to remain parked forever AND travel at "
+            "40 m/s in the opposite direction while also occupying the same initial pose as ego, "
+            "and assert there are zero collisions and infinite TTC."
+        ),
+    },
+}
+
+
 PRESET_BUILDERS = {
     "occluded_pedestrian": occluded_pedestrian,
     "occluded_cyclist": occluded_cyclist,
@@ -428,14 +587,25 @@ PRESET_BUILDERS = {
     "unprotected_left_turn": unprotected_left_turn,
     "construction_lane_closure": construction_lane_closure,
     "wrong_way_vehicle": wrong_way_vehicle,
+    "emergency_vehicle": emergency_vehicle,
+    "impossible_request": impossible_request,
 }
 
 
 def list_presets() -> list[PresetSummary]:
     out: list[PresetSummary] = []
-    for builder in PRESET_BUILDERS.values():
+    for key, builder in PRESET_BUILDERS.items():
         sc = builder()
-        out.append(PresetSummary(id=sc.id, name=sc.name, description=sc.description))
+        meta = PRESET_META.get(key, {})
+        out.append(
+            PresetSummary(
+                id=sc.id,
+                name=sc.name,
+                description=sc.description,
+                default_testing_goal=meta.get("default_testing_goal", ""),
+                kind=meta.get("kind", "scenario"),
+            )
+        )
     return out
 
 

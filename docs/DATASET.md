@@ -98,3 +98,16 @@ scripts/generate_dataset.py
 scripts/evaluate_offline.py
 tests/test_stage2_dataset.py
 ```
+
+## Dataset card (summary)
+
+| Field | Value |
+|-------|--------|
+| Name | DriveMutation SFT compiler dataset |
+| Language | English NL goals + JSON scenes/targets |
+| License / distribution | Local hackathon artifact; regenerate via seed |
+| Intended use | Supervised fine-tuning of a schema-constrained mutation compiler |
+| Out of scope | Real crash reconstruction; safety certification labels |
+| Creation | Deterministic Python generators; optional Anthropic paraphrase of goals only |
+| Attribution | Original compositions; SI unit conventions; OpenAI SFT JSONL message format |
+| Human review | Required before any downstream engineering use |

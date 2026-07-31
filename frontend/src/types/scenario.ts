@@ -77,12 +77,15 @@ export interface ScenarioSpec {
   oracles: SafetyOracle[];
   assumptions?: { id: string; statement: string }[];
   unknowns?: { id: string; statement: string }[];
+  mutation?: Record<string, unknown> | null;
 }
 
 export interface PresetSummary {
   id: string;
   name: string;
   description: string;
+  default_testing_goal?: string;
+  kind?: string;
 }
 
 export interface ValidationIssue {
@@ -139,4 +142,63 @@ export interface SimulateResponse {
   frames: SimulationFrame[];
   metrics: SimulationMetrics | null;
   trajectories: Record<string, [number, number][]>;
+}
+
+export interface CompileResponse {
+  mode: string;
+  model: string | null;
+  ok: boolean;
+  error_code: string | null;
+  error: string | null;
+  target_kind: string | null;
+  json_parse_ok: boolean;
+  schema_valid: boolean;
+  physical_valid: boolean;
+  parsed: Record<string, unknown> | null;
+  validation_issues: ValidationIssue[];
+  simulation: SimulateResponse | null;
+  latency_s: number | null;
+  usage: {
+    prompt_tokens?: number | null;
+    completion_tokens?: number | null;
+    total_tokens?: number | null;
+  } | null;
+}
+
+export interface ModelsStatus {
+  api_key_configured: boolean;
+  base_model: string;
+  fine_tuned_model: string | null;
+  fine_tuning_job_id: string | null;
+  fine_tuning_status: string | null;
+  fine_tuning_error: string | null;
+  training_file_id: string | null;
+  validation_file_id: string | null;
+  base_ready: boolean;
+  fine_tuned_ready: boolean;
+  job_pending: boolean;
+  job_failed: boolean;
+}
+
+export interface EvalBlock {
+  model?: string;
+  label?: string;
+  split?: string;
+  metrics?: Record<string, unknown>;
+  created_at?: string;
+  n?: number;
+}
+
+export interface EvaluationSummary {
+  available: boolean;
+  base: EvalBlock | null;
+  fine_tuned: EvalBlock | null;
+  comparison: Record<string, unknown> | null;
+  methodology?: {
+    test_set?: string;
+    test_set_size?: number | null;
+    temperature?: number;
+    protocol?: string;
+    notes?: string;
+  };
 }

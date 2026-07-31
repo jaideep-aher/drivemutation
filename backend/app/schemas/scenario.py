@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 from pydantic import Field, model_validator
 
 from .actors import (
@@ -114,6 +116,11 @@ class PresetSummary(StrictModel):
     id: str
     name: str
     description: str
+    default_testing_goal: str = ""
+    kind: str = Field(
+        default="scenario",
+        description="scenario | impossible — demo classification for the UI",
+    )
 
 
 class HealthResponse(StrictModel):
@@ -121,3 +128,30 @@ class HealthResponse(StrictModel):
     service: str
     version: str
     deterministic: bool
+
+
+class CompileRequest(StrictModel):
+    """Compile a seed scene + natural-language testing goal via OpenAI (server-side)."""
+
+    seed_scene: ScenarioSpec
+    testing_goal: str = Field(..., min_length=1)
+    run_simulation: bool = True
+
+
+class CompileResponse(StrictModel):
+    mode: str
+    model: str | None = None
+    ok: bool
+    error_code: str | None = None
+    error: str | None = None
+    target_kind: str | None = None
+    json_parse_ok: bool = False
+    schema_valid: bool = False
+    physical_valid: bool = False
+    parsed: dict[str, Any] | None = None
+    validation_issues: list[ValidationIssue] = Field(default_factory=list)
+    simulation: SimulateResponse | None = None
+    latency_s: float | None = None
+    usage: dict[str, Any] | None = None
+    # raw_text intentionally omitted from public API to keep payloads smaller;
+    # available in offline eval artifacts only.

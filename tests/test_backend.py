@@ -24,11 +24,11 @@ def test_health():
     assert body["deterministic"] is True
 
 
-def test_presets_endpoint_lists_six():
+def test_presets_endpoint_lists_eight():
     r = client.get("/api/presets")
     assert r.status_code == 200
     data = r.json()
-    assert len(data) == 6
+    assert len(data) == 8
     ids = {p["id"] for p in data}
     assert ids == {
         "occluded_pedestrian",
@@ -37,12 +37,17 @@ def test_presets_endpoint_lists_six():
         "unprotected_left_turn",
         "construction_lane_closure",
         "wrong_way_vehicle",
+        "emergency_vehicle",
+        "impossible_request",
     }
+    by_id = {p["id"]: p for p in data}
+    assert by_id["impossible_request"]["kind"] == "impossible"
+    assert by_id["emergency_vehicle"]["default_testing_goal"]
 
 
 def test_all_presets_validate_and_simulate():
     summaries = list_presets()
-    assert len(summaries) == 6
+    assert len(summaries) == 8
     for preset in all_presets():
         issues = validate_scenario(preset)
         assert issues == [], f"{preset.id}: {issues}"
