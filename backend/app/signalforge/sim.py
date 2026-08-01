@@ -5,6 +5,7 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass, field
 
+from backend.app.signalforge.reference_driver import ReferenceDriver
 from backend.app.signalforge.schema import (
     ActorState,
     ConcreteScenario,
@@ -51,6 +52,23 @@ def _obb_overlap(a: Body, b: Body) -> bool:
         abs(a.x - b.x) < (a.length + b.length) * 0.5
         and abs(a.y - b.y) < (a.width + b.width) * 0.5
     )
+
+
+def _signed_clearance(a: Body, b: Body) -> float:
+    """Distance between two bounding boxes; negative once they overlap.
+
+    Centre-to-centre distance cannot express "how close was the near miss"
+    because it never crosses zero, so it is useless as a search objective.  This
+    is signed and continuous through contact, which is what lets a criticality
+    search bisect on the point where a collision starts.
+    """
+    gap_x = abs(a.x - b.x) - (a.length + b.length) * 0.5
+    gap_y = abs(a.y - b.y) - (a.width + b.width) * 0.5
+    if gap_x >= 0.0 or gap_y >= 0.0:
+        # Separated on at least one axis: true clearance.
+        return math.hypot(max(gap_x, 0.0), max(gap_y, 0.0))
+    # Overlapping on both axes: penetration depth, as a negative number.
+    return max(gap_x, gap_y)
 
 
 def _ttc(ego: Body, other: Body) -> float | None:
@@ -120,7 +138,13 @@ def simulate(
     *,
     record_frames: bool = False,
     frame_stride: int = 1,
+    reference_driver: ReferenceDriver | None = None,
 ) -> SimResult:
+    """Run the scenario with the ego driven by the reference driver.
+
+    ``reference_driver`` lets a criticality search vary the yardstick (a slower
+    reaction, a lower braking bound) without touching the scenario itself.
+    """
     dt = scenario.timestep_s
     n_steps = int(round(scenario.duration_s / dt))
 
@@ -159,11 +183,16 @@ def simulate(
 
     min_ttc: float | None = None
     min_dist: float | None = None
+    min_clearance: float | None = None
     max_req_decel: float | None = None
     collision = False
     pet: float | None = None
     ego_entered_conflict = False
     other_left_conflict_t: float | None = None
+
+    driver = reference_driver or ReferenceDriver.from_odd(scenario.odd)
+    #: When each hazard first became perceptible to the reference driver.
+    hazard_seen_at: dict[str, float | None] = {}
 
     frames: list[dict] = []
 
@@ -173,17 +202,16 @@ def simulate(
         for body in others:
             _apply_behavior(body, t, dt, scenario.odd)
 
-        # Simple ego AEB: if TTC below threshold after reaction delay, brake
+        # The ego is driven by the SUT-neutral reference driver: it notices a
+        # hazard when TTC drops below the perception threshold, waits its risk
+        # perception plus reaction time *from that moment*, then brakes.
         if step > 0:
             for body in others:
                 ttc_now = _ttc(ego, body)
-                if ttc_now is not None and ttc_now < 2.5:
-                    # Competent driver: wait risk_perception+reaction then brake at up to 7 m/s^2
-                    delay = float(scenario.odd.get("risk_perception_s", 0.4)) + float(
-                        scenario.odd.get("reaction_s", 0.75)
-                    )
-                    if t >= delay:
-                        ego.vx = max(0.0, ego.vx - 7.0 * dt)
+                if driver.perceives(ttc_now) and hazard_seen_at.get(body.id) is None:
+                    hazard_seen_at[body.id] = t
+                if driver.brakes_at(hazard_seen_at.get(body.id), t):
+                    ego.vx = max(0.0, ego.vx - driver.max_decel_mps2 * dt)
 
         # Integrate
         if step > 0:
@@ -198,6 +226,11 @@ def simulate(
         for body in others:
             dist = math.hypot(body.x - ego.x, body.y - ego.y)
             min_dist = dist if min_dist is None else min(min_dist, dist)
+
+            clearance = _signed_clearance(ego, body)
+            min_clearance = (
+                clearance if min_clearance is None else min(min_clearance, clearance)
+            )
 
             ttc = _ttc(ego, body)
             if ttc is not None:
@@ -245,9 +278,7 @@ def simulate(
 
     # R157-style preventability using competent driver model
     # risk_perception=0.4s, reaction=0.75s, comfort max decel ~6 m/s^2, max ~9
-    risk_p = float(scenario.odd.get("risk_perception_s", 0.4))
-    reaction = float(scenario.odd.get("reaction_s", 0.75))
-    delay = risk_p + reaction
+    delay = driver.total_delay_s
     preventable: bool | None = None
     if min_ttc is not None:
         # If TTC after delay still allows stopping with 7 m/s^2
@@ -256,7 +287,7 @@ def simulate(
             preventable = False
         elif max_req_decel is not None:
             # After delay, required decel increases
-            preventable = max_req_decel < 7.0 and t_remain > 0.3
+            preventable = max_req_decel < driver.max_decel_mps2 and t_remain > 0.3
         else:
             preventable = t_remain > 1.0
     elif collision:
@@ -267,6 +298,7 @@ def simulate(
     metrics = CriticalityMetrics(
         min_ttc_s=min_ttc,
         min_distance_m=min_dist,
+        min_clearance_m=min_clearance,
         pet_s=pet,
         required_decel_mps2=max_req_decel,
         collision=collision,

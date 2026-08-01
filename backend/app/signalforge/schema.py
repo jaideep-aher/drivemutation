@@ -155,6 +155,14 @@ class ActorState(BaseModel):
 class CriticalityMetrics(BaseModel):
     min_ttc_s: float | None = None
     min_distance_m: float | None = None
+    min_clearance_m: float | None = Field(
+        None,
+        description=(
+            "Closest bounding-box clearance, negative once the boxes overlap. "
+            "Signed and continuous through contact, so a criticality search can "
+            "bisect on the point where a collision begins"
+        ),
+    )
     pet_s: float | None = None
     required_decel_mps2: float | None = None
     collision: bool = False

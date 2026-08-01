@@ -179,6 +179,37 @@ def odd_coverage() -> dict:
     return report
 
 
+@app.get("/api/criticality")
+def criticality(limit: int = 50) -> dict:
+    """Criticality boundaries found for each logical scenario.
+
+    The boundary is where the SUT-neutral R157 reference driver only just avoids
+    contact. Measuring against a fixed reference driver rather than a particular
+    stack is deliberate: scenarios tuned to defeat one planner would measure that
+    planner instead of the world.
+    """
+    report = store.load_criticality()
+    if not report:
+        raise HTTPException(
+            404, "no criticality report; run scripts/search_criticality.py"
+        )
+    results = report.get("results", [])
+    return {**report, "results": results[:limit]}
+
+
+@app.get("/api/criticality/{logical_id}")
+def criticality_for(logical_id: str) -> dict:
+    report = store.load_criticality()
+    if not report:
+        raise HTTPException(
+            404, "no criticality report; run scripts/search_criticality.py"
+        )
+    for result in report.get("results", []):
+        if result.get("logical_id") == logical_id:
+            return {"reference_driver": report.get("reference_driver"), **result}
+    raise HTTPException(404, f"no criticality result for {logical_id}")
+
+
 @app.get("/api/gaps", response_model=list[GapItem])
 def gaps(limit: int = 50) -> list[GapItem]:
     return store.load_gaps()[:limit]

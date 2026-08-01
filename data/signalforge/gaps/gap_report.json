@@ -1,0 +1,415 @@
+{
+  "catalog": {
+    "logical_scenarios": 46,
+    "families": [
+      "animal",
+      "backing",
+      "control_loss",
+      "crossing_paths",
+      "cut_in",
+      "cut_out",
+      "deceleration",
+      "evasive_action",
+      "lane_change",
+      "non_collision",
+      "object",
+      "opposite_direction",
+      "pedalcyclist",
+      "pedestrian",
+      "rear_end",
+      "road_departure",
+      "sensor_degradation",
+      "vehicle_failure",
+      "vru_crossing"
+    ],
+    "families_not_observed_in_incident_data": [
+      "control_loss",
+      "non_collision",
+      "vehicle_failure"
+    ]
+  },
+  "sources": {
+    "nhtsa_sgo": {
+      "description": "ADS crash and incident reports (NHTSA Standing General Order)",
+      "source": "nhtsa_sgo_download",
+      "narratives": 1239,
+      "gaps": 306,
+      "by_family": [
+        {
+          "family": "crossing_paths",
+          "count": 547,
+          "share_pct": 44.15
+        },
+        {
+          "family": "unknown",
+          "count": 306,
+          "share_pct": 24.7
+        },
+        {
+          "family": "road_departure",
+          "count": 160,
+          "share_pct": 12.91
+        },
+        {
+          "family": "pedestrian",
+          "count": 48,
+          "share_pct": 3.87
+        },
+        {
+          "family": "rear_end",
+          "count": 46,
+          "share_pct": 3.71
+        },
+        {
+          "family": "backing",
+          "count": 23,
+          "share_pct": 1.86
+        },
+        {
+          "family": "pedalcyclist",
+          "count": 22,
+          "share_pct": 1.78
+        },
+        {
+          "family": "object",
+          "count": 22,
+          "share_pct": 1.78
+        },
+        {
+          "family": "lane_change",
+          "count": 21,
+          "share_pct": 1.69
+        },
+        {
+          "family": "cut_in",
+          "count": 12,
+          "share_pct": 0.97
+        },
+        {
+          "family": "opposite_direction",
+          "count": 9,
+          "share_pct": 0.73
+        },
+        {
+          "family": "vru_crossing",
+          "count": 8,
+          "share_pct": 0.65
+        },
+        {
+          "family": "animal",
+          "count": 5,
+          "share_pct": 0.4
+        },
+        {
+          "family": "sensor_degradation",
+          "count": 5,
+          "share_pct": 0.4
+        },
+        {
+          "family": "evasive_action",
+          "count": 3,
+          "share_pct": 0.24
+        },
+        {
+          "family": "deceleration",
+          "count": 1,
+          "share_pct": 0.08
+        },
+        {
+          "family": "cut_out",
+          "count": 1,
+          "share_pct": 0.08
+        }
+      ],
+      "gap_examples": [
+        {
+          "id": "30270-15307",
+          "narrative": "On May [XXX], 2026 at 12:03 PM CT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Austin, Texas was in a collision involving an SUV at the exit of a parking lot at [XXX]. \n\nThe Waymo AV was stopped facing northwest at the exit of a parking lot at [XXX] and yielding to northbound traffic on [XXX], with its right turn signal activated in preparation for a right turn onto [XXX]. After northbound"
+        },
+        {
+          "id": "31101-15093",
+          "narrative": "On May [XXX], 2026 at 2:10 PM, an AVRIDE autonomous vehicle(the \"AVRIDE AV\") was in a collision in Dallas, TX on [XXX] near [XXX]. The AVRIDE AV was traveling northwestbound in autonomous mode on [XXX] when it approached a red light at a railroad crossing. After stopping at the red light and waiting for the railroad crossing gate to raise, the AVRIDE AV began to drive forward. As the AVRIDE AV dro"
+        },
+        {
+          "id": "31101-15100",
+          "narrative": "On May [XXX], 2026 at 12:43 PM, an AVRIDE autonomous vehicle was involved in a collision in Dallas, Texas, on [XXX] near [XXX]. The AVRIDE vehicle was traveling southwest in autonomous mode when it began merging from the right lane into the middle lane. At the same time, a passenger car in the left lane also began entering the middle lane without signaling. To avoid a collision, the AVRIDE vehicle"
+        },
+        {
+          "id": "31101-14974",
+          "narrative": "On May [XXX], 2026 at 5:51 PM, an AVRIDE autonomous vehicle (the \"AVRIDE AV\") was in a collision in Dallas, TX on [XXX] near [XXX]. The AVRIDE AV was traveling westbound on [XXX] in autonomous mode in the right lane. [XXX] consists of three lanes in the direction of travel. As the AVRIDE AV proceeded straight ahead, a passenger car traveling in the far left lane attempted to move across two lanes "
+        },
+        {
+          "id": "30270-15257",
+          "narrative": "On May [XXX], 2026 at 3:45 PM MT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Phoenix, Arizona was in a collision involving a collapsed shade structure on [XXX] near [XXX]. \n\nThe Waymo AV was traveling southbound on [XXX] in the left lane when a strong gust of wind blew a collapsed shade structure into a passenger car traveling in the adjacent right lane. The Waymo AV began to slow as it a"
+        },
+        {
+          "id": "30270-15195",
+          "narrative": "On May [XXX], 2026 at 12:27 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Redwood City, California was in a collision involving a passenger car on [XXX] near the northwestbound [XXX] off-ramp. \n\nThe Waymo AV was traveling southwestbound in the third from the right lane on [XXX] when a passenger car, that was initially stopped in a queue of traffic, partially in the rightmost lane and "
+        },
+        {
+          "id": "30270-15290",
+          "narrative": "On May [XXX], 2026 at 7:32 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Sunnyvale, California was in a collision involving a tire on [XXX] near [XXX]. \n\nThe Waymo AV was traveling northbound in the right lane on [XXX] when a spare tire fell off the back of a class C motorhome traveling ahead of the Waymo AV. The tire began rolling and bouncing southbound in the roadway towards the Wa"
+        },
+        {
+          "id": "30270-15302",
+          "narrative": "On May [XXX], 2026 at 8:24 PM CT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Nashville, Tennessee was in a collision involving a heavy truck on Interstate [XXX] near [XXX].\n\nThe Waymo AV was stopped facing south in the rightmost lane on Interstate [XXX] in autonomous mode. While the Waymo AV was stopped, a heavy truck stopped directly in front of the Waymo AV began to reverse, and the tes"
+        },
+        {
+          "id": "30270-14945",
+          "narrative": "On May [XXX], 2026 at 12:08 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in San Francisco, California was in a collision involving a heavy truck on [XXX] near [XXX].\n\nThe Waymo AV was stopped facing northeast in the designated right turn lane on [XXX] to yield to an SUV parked facing northeast in front of the Waymo AV with a person loading cargo into the open trailer. While the Waymo AV"
+        },
+        {
+          "id": "30413-15464",
+          "narrative": "On May [XXX], 2026 at 4:38 pm CT, a low-hanging utility cable made contact with a May Mobility Autonomous Vehicle (AV) operating in Arlington, Texas on [XXX] near [XXX]. The May Mobility AV was traveling Eastbound on [XXX]. As the May Mobility AV passes [XXX] a loop of an unsecured, low-hanging utility cable that was dangling above the right lane of travel struck the windshield and roof of the May"
+        },
+        {
+          "id": "30413-15463",
+          "narrative": "On May [XXX], 2026 at 4:11 pm CT, a low-hanging utility cable made contact with a May Mobility Autonomous Vehicle (AV) operating in Arlington, Texas on [XXX] near [XXX] The May Mobility AV was traveling Eastbound on [XXX]. As the May Mobility AV passes [XXX] a loop of an unsecured, low-hanging utility cable that was dangling above the right lane of travel made contact with the front right A-pillar"
+        },
+        {
+          "id": "30270-15392",
+          "narrative": "On June [XXX], 2026 at 2:55 AM CT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Nashville, Tennessee was in a collision involving a van on [XXX] near [XXX].\n\nThe Waymo AV was parked facing northwest in the parking lane on [XXX]. While the Waymo AV was parked, a van traveling northwestbound on [XXX] approached the Waymo AV from behind and maneuvered to the right, crossed the solid white lane"
+        },
+        {
+          "id": "30270-15360",
+          "narrative": "On June [XXX], 2026 at 3:18 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Los Angeles, California was in a collision involving a passenger car on [XXX] near [XXX]. \n\nThe Waymo AV was parked facing southeast, partially in-lane and partially in the parking lane, on [XXX] with its hazard lights activated for a passenger drop-off. While the Waymo AV was parked, a passenger car traveling s"
+        },
+        {
+          "id": "30270-15346",
+          "narrative": "On June [XXX], 2026 at 8:14 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in San Francisco, California was in a collision involving an SUV on [XXX] near [XXX]. \n\nThe Waymo AV was traveling southbound on [XXX] when it came to a stop in-lane to yield to an SUV. The SUV was facing south and rolling backwards northbound on [XXX], partially in the southbound lane and partially in the northbou"
+        },
+        {
+          "id": "30270-15374",
+          "narrative": "On June [XXX], 2026 at 6:55 AM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Los Angeles, California was in a collision involving a heavy truck on [XXX] near [XXX]. \n\nThe Waymo AV was traveling southeastbound on [XXX] when it came to a stop within a construction zone to yield to a heavy truck. The heavy duty truck was traveling northwestbound on [XXX], partially in the northwestbound lan"
+        },
+        {
+          "id": "30270-15349",
+          "narrative": "On June [XXX], 2026 at 8:57 AM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Los Angeles, California was in a collision involving an SUV in a parking lot at [XXX].\n\nThe Waymo AV was parked facing northeast in a parking lot at [XXX] with its hazard lights activated after a passenger dropoff. While the Waymo AV was parked, an SUV traveling northeastbound in the parking lot approached the W"
+        },
+        {
+          "id": "13781-15400",
+          "narrative": "Summary: The Tesla ADS was proceeding straight on a residential street behind a construction truck. As the construction truck came to a reduced roadway width created by cars parked on the side of the road, the ADS followed behind the construction truck through the area of reduced roadway width. The construction truck stopped abruptly, forcing the Tesla ADS to stop in the area of reduced roadway wi"
+        },
+        {
+          "id": "13781-15399",
+          "narrative": "Summary: The Tesla ADS made a right turn into an entrance of a parking lot. As the ADS entered the parking lot, the ADS made contact with a thin metal chain that was blocking the entrance of the parking lot. The ADS did not have any passenger present in the vehicle."
+        },
+        {
+          "id": "13781-15395",
+          "narrative": "Summary: The Tesla ADS was stopped on a dead end residential road. While the ADS was being supported remotely out of the dead end road, the vehicle entered a grassy slope. As the remote assistance operator continued to recover the vehicle, they made contact with a hidden tree stump. The ADS did not have any passenger present in the vehicle"
+        },
+        {
+          "id": "30270-15296",
+          "narrative": "On June [XXX], 2026 at 5:47 PM CT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Austin, Texas was involved in a collision with a bus at the exit of a parking lot at [XXX]. \n\nThe Waymo AV was stopped facing north at the exit of a parking lot at [XXX] with its right turn signal activated. When the stopped Waymo AV was yielding to eastbound traffic on [XXX], a bus traveling eastbound in the ri"
+        },
+        {
+          "id": "13781-15342",
+          "narrative": "[Summary: The Tesla ADS was proceeding straight in a parking lot behind an SUV. As the SUV came to stop, the ADS came to a stop behind the SUV. The SUV proceeded to reverse and made contact with the ADS's front. The ADS had one passenger present in the vehicle.]"
+        },
+        {
+          "id": "30270-15252",
+          "narrative": "On May [XXX], 2026 at 2:21 AM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in San Francisco, California was in a collision involving a passenger car on [XXX] near [XXX].\n\nThe Waymo AV was traveling westbound in the second from the right lane on [XXX] when it began to slow for a queue of traffic ahead. While the Waymo AV was slowing, a passenger car traveling westbound in the second from th"
+        },
+        {
+          "id": "30270-15243",
+          "narrative": "On May [XXX], 2026 at 3:43 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Austin, Texas was in a collision involving a pickup truck in an alley behind [XXX].\n\nThe Waymo AV was traveling southbound in an alley behind [XXX] when a pickup truck traveling westbound in a parking garage at [XXX] exited the parking garage and entered the Waymo AV's lane of travel. The Waymo AV braked and mane"
+        },
+        {
+          "id": "30270-15193",
+          "narrative": "On May [XXX], 2026 at 1:46 AM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in San Francisco, California was in a collision involving an SUV on [XXX] near [XXX].\n\nThe Waymo AV was traveling eastbound in the leftmost lane on [XXX] and an SUV was traveling behind the Waymo AV, partially in the second from the left lane and partially in the same lane as the Waymo AV, when the front of the SUV "
+        },
+        {
+          "id": "30270-15068",
+          "narrative": "On May [XXX], 2026 at 2:29 AM CT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Austin, Texas was in a collision involving a pickup truck in a parking lot at [XXX].\n\nThe Waymo AV was traveling southeastbound in a parking lot at [XXX], when it slowed to a stop to yield to a pickup truck that was traveling northwestbound and to the left of the Waymo AV. While the Waymo AV was stopped, the pick"
+        }
+      ]
+    },
+    "ca_dmv_disengagement": {
+      "description": "AV disengagement reports filed under 13 CCR 227.46. Near-miss signal: situations an ADS met and handed back.",
+      "source": "ca_dmv_download",
+      "years": [
+        "2022",
+        "2023"
+      ],
+      "narratives": 14778,
+      "matched_to_family": 2604,
+      "internal_non_scenario": 2627,
+      "unspecific_narrative": 7039,
+      "gaps": 3075,
+      "by_family": [
+        {
+          "family": "unknown",
+          "count": 3075,
+          "share_pct": 20.81
+        },
+        {
+          "family": "sensor_degradation",
+          "count": 854,
+          "share_pct": 5.78
+        },
+        {
+          "family": "lane_change",
+          "count": 560,
+          "share_pct": 3.79
+        },
+        {
+          "family": "road_departure",
+          "count": 381,
+          "share_pct": 2.58
+        },
+        {
+          "family": "crossing_paths",
+          "count": 72,
+          "share_pct": 0.49
+        },
+        {
+          "family": "pedestrian",
+          "count": 66,
+          "share_pct": 0.45
+        },
+        {
+          "family": "cut_in",
+          "count": 58,
+          "share_pct": 0.39
+        },
+        {
+          "family": "object",
+          "count": 18,
+          "share_pct": 0.12
+        },
+        {
+          "family": "opposite_direction",
+          "count": 9,
+          "share_pct": 0.06
+        },
+        {
+          "family": "pedalcyclist",
+          "count": 8,
+          "share_pct": 0.05
+        },
+        {
+          "family": "rear_end",
+          "count": 6,
+          "share_pct": 0.04
+        },
+        {
+          "family": "animal",
+          "count": 2,
+          "share_pct": 0.01
+        },
+        {
+          "family": "backing",
+          "count": 2,
+          "share_pct": 0.01
+        },
+        {
+          "family": "vru_crossing",
+          "count": 1,
+          "share_pct": 0.01
+        }
+      ],
+      "gap_examples": [
+        {
+          "id": "cadmv-2023-00004",
+          "narrative": "Safety Driver disengaged autonomous mode as a precaution for keeping distance from vehicle parked on side. Root cause: precaution. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00019",
+          "narrative": "Safety Driver disengaged autonomous mode due to issue with catching up maneuver because of insufficient distance keeping from other vehicles. Root cause: object detection or other issue. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00022",
+          "narrative": "Safety Driver disengaged autonomous mode due to issue with catching up maneuver because of insufficient distance keeping from other vehicles. Root cause: object detection or other issue. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00029",
+          "narrative": "Safety Driver disengaged autonomous mode due to issue with catching up maneuver because of insufficient distance keeping from other vehicles. Root cause: object detection or other issue. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00034",
+          "narrative": "Safety Driver disengaged autonomous mode due to issue with catching up maneuver because of insufficient distance keeping from other vehicles. Root cause: object detection or other issue. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00039",
+          "narrative": "Safety Driver disengaged autonomous mode due to issue with catching up maneuver because of insufficient distance keeping from other vehicles. Root cause: object detection or other issue. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00041",
+          "narrative": "Safety Driver disengaged autonomous mode due to issue with catching up maneuver because of insufficient distance keeping from other vehicles. Root cause: object detection or other issue. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00042",
+          "narrative": "Safety Driver disengaged autonomous mode as a precaution for keeping distance from vehicle parked on side. Root cause: precaution. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00045",
+          "narrative": "Safety Driver disengaged autonomous mode due to issue with catching up maneuver because of insufficient distance keeping from other vehicles. Root cause: object detection or other issue. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00050",
+          "narrative": "Safety Driver disengaged autonomous mode due to issue with catching up maneuver because of insufficient distance keeping from other vehicles. Root cause: object detection or other issue. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00059",
+          "narrative": "Safety Driver disengaged autonomous mode due to issue with catching up maneuver because of insufficient distance keeping from other vehicles. Root cause: object detection or other issue. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00085",
+          "narrative": "Safety Driver disengaged autonomous mode due to issue with catching up maneuver because of insufficient distance keeping from other vehicles. Root cause: object detection or other issue. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00086",
+          "narrative": "Safety Driver disengaged autonomous mode due to issue with catching up maneuver because of insufficient distance keeping from other vehicles. Root cause: object detection or other issue. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00097",
+          "narrative": "Safety Driver disengaged autonomous mode due to issue with catching up maneuver because of insufficient distance keeping from other vehicles. Root cause: object detection or other issue. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00108",
+          "narrative": "Safety Driver disengaged autonomous mode due to issue with catching up maneuver because of insufficient distance keeping from other vehicles. Root cause: object detection or other issue. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00109",
+          "narrative": "Safety Driver disengaged autonomous mode due to issue with catching up maneuver because of insufficient distance keeping from other vehicles. Root cause: object detection or other issue. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00125",
+          "narrative": "Safety Driver disengaged autonomous mode due to issue with catching up maneuver because of insufficient distance keeping from other vehicles. Root cause: object detection or other issue. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00133",
+          "narrative": "Safety Driver disengaged autonomous mode as a precaution for keeping distance from vehicle parked on side. Root cause: precaution. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00134",
+          "narrative": "Safety Driver disengaged autonomous mode as a precaution for keeping distance from vehicle parked on side. Root cause: precaution. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00136",
+          "narrative": "Safety Driver disengaged autonomous mode due to issue with catching up maneuver because of insufficient distance keeping from other vehicles. Root cause: object detection or other issue. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00140",
+          "narrative": "Safety Driver disengaged autonomous mode as a precaution for keeping distance from vehicle parked on side. Root cause: precaution. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00148",
+          "narrative": "Safety Driver disengaged autonomous mode due to issue with catching up maneuver because of insufficient distance keeping from other vehicles. Root cause: object detection or other issue. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00151",
+          "narrative": "Safety Driver disengaged autonomous mode due to issue with catching up maneuver because of insufficient distance keeping from other vehicles. Root cause: object detection or other issue. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00153",
+          "narrative": "Safety Driver disengaged autonomous mode due to issue with catching up maneuver because of insufficient distance keeping from other vehicles. Root cause: object detection or other issue. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        },
+        {
+          "id": "cadmv-2023-00154",
+          "narrative": "Safety Driver disengaged autonomous mode due to issue with catching up maneuver because of insufficient distance keeping from other vehicles. Root cause: object detection or other issue. Conditions: Non-inclement weather, dry roads, no other factors involved."
+        }
+      ]
+    }
+  }
+}

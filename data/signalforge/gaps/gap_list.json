@@ -35,13 +35,6 @@
     "reason": "no matching catalog family"
   },
   {
-    "incident_id": "30270-15299",
-    "narrative": "On May [XXX], 2026, 2026 at 9:04 AM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Los Angeles, California was in a collision involving a heavy truck on Charles [XXX] near [XXX].\n\nThe Waymo AV was stopped facing east on [XXX] yielding to a heavy truck reversing at an angle into a parking lot located at [XXX]. While the Waymo AV was stopped, the heavy truck continued to reverse and the left side of the heavy truck made contact with the front right side of the stationary Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage. \n\nWaymo is reporting this crash under Request No. 2 of Standing General Order 2021-01. Waymo may supplement or correct its reporting with additional information as it may become available.",
-    "manufacturer": "Waymo LLC",
-    "date": "MAY-2026",
-    "reason": "no matching catalog family"
-  },
-  {
     "incident_id": "30270-15195",
     "narrative": "On May [XXX], 2026 at 12:27 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Redwood City, California was in a collision involving a passenger car on [XXX] near the northwestbound [XXX] off-ramp. \n\nThe Waymo AV was traveling southwestbound in the third from the right lane on [XXX] when a passenger car, that was initially stopped in a queue of traffic, partially in the rightmost lane and partially in the second from the right lane, maneuvered to the left and entered the Waymo AV's lane of travel, and the front left side of the passenger car made contact with the right side of the Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. Both vehicles sustained damage.\n\nWaymo is reporting this crash under Request No. 2 of Standing General Order",
     "manufacturer": "Waymo LLC",
@@ -175,20 +168,6 @@
     "reason": "no matching catalog family"
   },
   {
-    "incident_id": "30270-15157",
-    "narrative": "On May [XXX], 2026 at 2:34 AM MT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Mesa, Arizona was in a collision involving debris on [XXX] near [XXX].\n\nThe Waymo AV was traveling westbound in the left lane on [XXX] when the front left tire of the Waymo AV made contact with debris in the roadway. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement or correct its reporting with additional information as it may become available.",
-    "manufacturer": "Waymo LLC",
-    "date": "MAY-2026",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-15076",
-    "narrative": "On May [XXX], 2026 at 10:33 PM MT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Phoenix, Arizona was in a collision involving debris on [XXX] near [XXX].\n\nThe Waymo AV was traveling westbound on [XXX] when it approached debris in the roadway. The Waymo AV began to maneuver to the left of the debris, and the front right side of the Waymo AV made contact with the debris. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement or correct its reporting with additional information as it may become available.",
-    "manufacturer": "Waymo LLC",
-    "date": "MAY-2026",
-    "reason": "no matching catalog family"
-  },
-  {
     "incident_id": "30270-15068",
     "narrative": "On May [XXX], 2026 at 2:29 AM CT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Austin, Texas was in a collision involving a pickup truck in a parking lot at [XXX].\n\nThe Waymo AV was traveling southeastbound in a parking lot at [XXX], when it slowed to a stop to yield to a pickup truck that was traveling northwestbound and to the left of the Waymo AV. While the Waymo AV was stopped, the pickup truck came to a stop adjacent to the Waymo AV, and the Waymo AV activated its hazard lights for a passenger dropoff. The pickup truck proceeded to pass the Waymo AV to the left, and the rear left side of the pickup truck made contact with the rear left side of the stationary Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained da",
     "manufacturer": "Waymo LLC",
@@ -221,13 +200,6 @@
     "narrative": "On May [XXX], 2026 at 7:22 PM ET a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Atlanta, Georgia was in a collision involving an SUV in a parking lot at [XXX].\n\nThe Waymo AV was traveling southwestbound in a parking lot at [XXX] when an SUV, initially parked facing southeast in a parking stall on the west side of the parking lot, proceeded forward into the Waymo AV's lane of travel. The Waymo AV began to maneuver to the left as the SUV proceeded forward and to its right, and the front of the SUV made contact with the right side of the Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. Both vehicles sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed awa",
     "manufacturer": "Waymo LLC",
     "date": "MAY-2026",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-14735",
-    "narrative": "On April [XXX], 2026 at 7:49 PM CT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Austin, Texas was in a collision involving a passenger car in a parking lot adjacent to [XXX].\n\nThe Waymo AV was stopped facing southwest in-lane in a parking lot adjacent to [XXX], to yield to a pickup truck facing southeast and reversing into a parking stall in front of the Waymo AV. While the Waymo AV was stopped, a passenger car initially parked facing west, to the right of the Waymo AV, began to reverse towards the Waymo AV. As the pickup truck completed reversing into the parking stall, the Waymo AV began to proceed forward at the same time as the passenger car continued to reverse, and the rear of the passenger car made contact with the right side of the Waymo AV. At the time of the impact, the W",
-    "manufacturer": "Waymo LLC",
-    "date": "APR-2026",
     "reason": "no matching catalog family"
   },
   {
@@ -364,13 +336,6 @@
     "reason": "no matching catalog family"
   },
   {
-    "incident_id": "30270-14579",
-    "narrative": "On April [XXX], 2026 at 6:17 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Mountain View, California was in a collision involving debris and a passenger car on [XXX] near the eastbound U.S. Route [XXX] on and off-ramps. \n\nThe Waymo AV was traveling southbound in the leftmost lane on [XXX] when the front right tire of the Waymo AV made contact with debris in the roadway. The Waymo AV slowed to a stop in-lane with its hazard lights activated. While the Waymo AV was stopped, a passenger car traveling southbound in the leftmost lane on [XXX] began to approach the Waymo AV from behind, and the front of the passenger car made contact with the rear of the stationary Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. Both vehicles sustained",
-    "manufacturer": "Waymo LLC",
-    "date": "APR-2026",
-    "reason": "no matching catalog family"
-  },
-  {
     "incident_id": "30270-14710",
     "narrative": "On April [XXX], 2026 at 11:48 AM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Los Angeles, California was in a collision involving a van on [XXX] near [XXX].\n\nThe Waymo AV was parked in-lane facing northwest on [XXX], with hazard lights activated for a passenger dropoff. While the Waymo AV was parked, a van that was initially stopped behind the Waymo AV began to proceed to pass the Waymo AV to the left, and the right side of the van made contact with the rear left side of the parked Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\n\nWaymo is reporting this crash under Request No. 2 of Standing General Order 2021-01. Waymo may supplement or correct its reporting with additional information as it may beco",
     "manufacturer": "Waymo LLC",
@@ -378,45 +343,10 @@
     "reason": "no matching catalog family"
   },
   {
-    "incident_id": "34952-14990",
-    "narrative": "On April [XXX], 2026, a Stack AV vehicle was traveling westbound on [XXX] near Edgewood, New Mexico, when a large object fell off of a third-party truck traveling directly ahead.\u00c3\u0082\u00c2\u00a0 The object fell directly in the travel path of the Stack AV vehicle.\u00c3\u0082\u00c2\u00a0 To avoid a collision with the object, the driver of the Stack AV vehicle disengaged the ADS and executed a lateral maneuver to the left.\u00c3\u0082\u00c2\u00a0 During this evasive maneuver, the Stack AV vehicle made slight contact with another truck traveling in the adjacent left lane.\u00c3\u0082\u00c2\u00a0 At the time of impact, the Sack AV vehicle was operating in manual mode.\u00c3\u0082\u00c2\u00a0 No injuries were reported.\u00c3\u0082\u00c2\u00a0 Both vehicles stopped at the scene to exchange information.\u00c3\u0082\u00c2\u00a0 Law enforcement was notified by Stack AV and responded to the scene.",
-    "manufacturer": "Stack AV",
-    "date": "APR-2026",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-14942",
-    "narrative": "On May [XXX], 2026 at 11:25 AM CT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Dallas, Texas was in a collision involving a pothole in a parking lot driveway entrance at [XXX].\n\nThe Waymo AV was traveling southwestbound in the rightmost lane on [XXX] and making a right turn into a parking lot driveway entrance at [XXX] when the front left tire entered a pothole. As the Waymo AV passed over the pothole, the undercarriage of the Waymo AV made contact with the pavement. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement or correct its reporting with additional information a",
-    "manufacturer": "Waymo LLC",
-    "date": "MAY-2026",
-    "reason": "no matching catalog family"
-  },
-  {
     "incident_id": "30270-14927",
     "narrative": "On May [XXX], 2026 at 2:53 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in San Francisco, California was in a collision involving a van on [XXX] near [XXX]. \n\nThe Waymo AV was traveling northeastbound on [XXX] when it began to slow for a queue of traffic. As the Waymo AV continued to slow, a van traveling northeastbound on [XXX] approached the Waymo AV from behind, and the front of the van made contact with the rear of the Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. Both vehicles sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement or correct its reporting with additional information as it may become available.",
     "manufacturer": "Waymo LLC",
     "date": "MAY-2026",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-14831",
-    "narrative": "On April [XXX], 2026 at 9:52 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Los Angeles, California was in a collision involving debris on [XXX] near [XXX]. \n\nThe Waymo AV was traveling eastbound on [XXX] when the front left tire of the Waymo AV made contact with a piece of debris in the roadway, causing the front left tire to deflate. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement or correct its reporting with additional information as it may become available.",
-    "manufacturer": "Waymo LLC",
-    "date": "APR-2026",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-14828",
-    "narrative": "On April [XXX], 2026 at 12:44 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in San Francisco, California was in a collision involving a fallen utility line on [XXX] near [XXX].\n\nThe Waymo AV was traveling southbound on [XXX] when it slowed and maneuvered to the left for a fallen utility line hanging in the travel lane. As the Waymo AV proceeded forward, the front of the Waymo AV made contact with the fallen utility line. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement or correct its reporting with additional information as it may become available.",
-    "manufacturer": "Waymo LLC",
-    "date": "APR-2026",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-14810",
-    "narrative": "On April [XXX], 2026 at 11:52 AM CT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Austin, Texas was in a collision involving a passenger car on [XXX] near [XXX]. \n\nThe Waymo AV was traveling northwestbound in the rightmost lane on [XXX] when it slowed to a stop in-lane to yield to a passenger car facing northwest and reversing in the Waymo AV's lane of travel. While the Waymo AV was stopped, the passenger car continued to reverse, and the rear of the passenger car made contact with the front of the stationary Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. Both vehicles sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement o",
-    "manufacturer": "Waymo LLC",
-    "date": "APR-2026",
     "reason": "no matching catalog family"
   },
   {
@@ -429,13 +359,6 @@
   {
     "incident_id": "30270-14737",
     "narrative": "On April [XXX], 2026 at 3:55 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Los Angeles, California was in a collision involving a passenger car on Interstate [XXX] near [XXX]. \n\nThe Waymo AV was traveling eastbound in the leftmost lane on Interstate [XXX] when it slowed to a stop for a queue of traffic. While the Waymo AV was stopped, a passenger car traveling eastbound in the leftmost lane on Interstate [XXX] approached the Waymo AV from behind, and the front of the passenger car made contact with the rear of the stationary Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. Both vehicles sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. ",
-    "manufacturer": "Waymo LLC",
-    "date": "APR-2026",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-14705",
-    "narrative": "On April [XXX], 2026 at 5:32 AM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Los Angeles, California was in a collision involving debris on [XXX] near [XXX].\n\nThe Waymo AV was traveling northbound in the leftmost lane on [XXX] when the front right tire of the Waymo AV made contact with a piece of debris in the roadway. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement or correct its reporting with additional information as it may become available.",
     "manufacturer": "Waymo LLC",
     "date": "APR-2026",
     "reason": "no matching catalog family"
@@ -455,13 +378,6 @@
     "reason": "no matching catalog family"
   },
   {
-    "incident_id": "30270-14629",
-    "narrative": "On April [XXX], 2026 at 6:47 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in San Mateo, California was in a collision involving debris on U.S. Route [XXX] near Exit [XXX].\n\nThe Waymo AV was traveling southeastbound in the second from the left lane on U.S. Route [XXX] when a piece of dislodged debris from northwestbound U.S. Route [XXX] became airborne over the concrete highway median and landed in the Waymo AV's lane of travel. The Waymo AV began to slow as it approached the debris, and the front right side of the Waymo AV made contact with the debris. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved w",
-    "manufacturer": "Waymo LLC",
-    "date": "APR-2026",
-    "reason": "no matching catalog family"
-  },
-  {
     "incident_id": "30270-14627",
     "narrative": "On April [XXX], 2026 at 8:58 AM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in San Francisco, California was in a collision involving an SUV on [XXX] near [XXX]. \n\nThe Waymo AV was traveling northeastbound on [XXX] when an SUV traveling southwestbound on [XXX] crossed the solid double yellow lane lines and entered the Waymo AV's lane of travel. The Waymo AV braked and maneuvered to the right to yield to the SUV as the SUV continued forward, and the front of the SUV made contact with the front of the Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. Both vehicles sustained damage. The driver of the SUV was transported to a hospital by an ambulance with unknown injuries.\n\nWaymo is reporting this crash under Request No. 1 of Standing Gene",
     "manufacturer": "Waymo LLC",
@@ -473,13 +389,6 @@
     "narrative": "On April [XXX], 2026 at 10:25 AM PT a Waymo Autonomous Vehicle (\"Waymo AV) operating in San Francisco, California was in a collision involving a heavy truck on [XXX] near [XXX]. \n\nThe Waymo AV was traveling westbound in the right lane on [XXX] in a queue of traffic, behind a heavy truck traveling westbound with its hazard lights activated. The heavy truck stopped and the Waymo AV stopped. While the Waymo AV was stopped, the heavy truck began to reverse, and the rear of the heavy truck trailer made contact with the front of the stationary Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. W",
     "manufacturer": "Waymo LLC",
     "date": "APR-2026",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30610-14663",
-    "narrative": "A Zoox vehicle (Vehicle 1) operating in autonomous mode was traveling west on [XXX] past [XXX] in San Francisco when it encountered a Pickup truck reversing into its lane from a perpendicular parking spot ahead. The Zoox vehicle slowed to a stop, and while it waited for the lane to clear, a passenger car (Vehicle 2) began to reverse. The Zoox vehicle honked at Vehicle 2, but Vehicle 2 continued to reverse and made contact at low speed with the passenger-side front door of the Zoox vehicle. The Zoox vehicle operator then disengaged from autonomous mode. Both vehicles sustained damage. No injuries were reported, and the police were not notified.",
-    "manufacturer": "Zoox, Inc.",
-    "date": "MAR-2026",
     "reason": "no matching catalog family"
   },
   {
@@ -588,13 +497,6 @@
     "reason": "no matching catalog family"
   },
   {
-    "incident_id": "30410-14562",
-    "narrative": "On April [XXX], 2026, at approximately 4:42 PM local time, a Motional autonomous vehicle [XXX] was traveling southbound on [XXX] approaching [XXX] in Las Vegas, Nevada.\n\nWhile proceeding within its lane of travel, the vehicle encountered a piece of concrete debris located in the roadway. The vehicle subsequently struck the debris, resulting in a punctured front tire and damage to the vehicle's undercarriage.\n\nFollowing the impact, the safety driver brought the vehicle to a controlled stop and pulled over to the side of the roadway. Due to the damage to the tire, the vehicle was not drivable. A tow truck was requested and the vehicle was subsequently removed from the scene.",
-    "manufacturer": "Motional",
-    "date": "APR-2026",
-    "reason": "no matching catalog family"
-  },
-  {
     "incident_id": "30270-14560",
     "narrative": "On April [XXX], 2026 at 6:25 AM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in San Francisco, California was in a collision involving a heavy truck on [XXX] near [XXX].\n\nThe Waymo AV was traveling northbound in the second from the right lane on [XXX] when it slowed to a stop for traffic ahead. While the Waymo AV was stopped, a garbage truck traveling northbound on [XXX] in the rightmost lane, and overlapping the Waymo AV's lane of travel, passed the Waymo AV to the right, and the left side of the garbage truck made contact with the right side of the stationary Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a ve",
     "manufacturer": "Waymo LLC",
@@ -644,13 +546,6 @@
     "reason": "no matching catalog family"
   },
   {
-    "incident_id": "30270-14490",
-    "narrative": "On March [XXX], 2026 at 7:32 AM CT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Austin, Texas was in a collision involving a pothole in an alley between [XXX] and [XXX].\n\nThe Waymo AV was traveling northwestbound in an alley between [XXX] and [XXX] when it maneuvered to the right to proceed past a tree growing along the south side of the alley, and the front right tire of the Waymo AV entered a pothole. As the Waymo AV passed over the pothole, the undercarriage of the Waymo AV made contact with the pavement. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement or correct i",
-    "manufacturer": "Waymo LLC",
-    "date": "MAR-2026",
-    "reason": "no matching catalog family"
-  },
-  {
     "incident_id": "30270-14485",
     "narrative": "On March [XXX], 2026 at 8:19 PM MT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Tempe, Arizona was in a collision involving an SUV on [XXX] near [XXX].\n\nThe Waymo AV was traveling eastbound in the left lane on [XXX] when an SUV exited a parking lot on the north side of [XXX], traveled across the westbound lanes on [XXX], and entered the Waymo AV's lane of travel. The Waymo AV braked and maneuvered right as the SUV continued further into the eastbound lane, and the front right side of the SUV made contact with the left side of the Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. Both vehicles sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. ",
     "manufacturer": "Waymo LLC",
@@ -667,20 +562,6 @@
   {
     "incident_id": "30270-14453",
     "narrative": "On March [XXX], 2026 at 10:01 PM MT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Tempe, Arizona was in a collision involving a passenger car on [XXX] near [XXX].\n\nThe Waymo AV was stopped facing west on [XXX] in a queue of traffic for an active railroad crossing. As the railroad gates began to lift and traffic ahead advanced, the Waymo AV proceeded forward momentarily before slowing to yield to a passenger car stopped directly in front of the Waymo AV. While the Waymo AV was waiting for the passenger car to proceed, a second passenger car, initially stopped behind the Waymo AV, proceeded forward, and the front of the second passenger car made contact with the rear of the Waymo AV. After the initial impact, the second passenger car proceeded forward again into the rear of the statio",
-    "manufacturer": "Waymo LLC",
-    "date": "MAR-2026",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-14441",
-    "narrative": "On March [XXX], 2026 at 9:53 PM ET a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Orlando, Florida was in a collision involving a tree branch on [XXX] near [XXX].\n\nThe Waymo AV was traveling southwestbound in the right lane on [XXX] when a tree branch broke off from a tree situated directly above the roadway, and fell into the Waymo AV's lane of travel. The Waymo AV braked as it approached the tree branch, and the front right side of the Waymo AV made contact with the fallen tree branch. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage. Three of the four passengers were not belted at the time of the collision.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involv",
-    "manufacturer": "Waymo LLC",
-    "date": "MAR-2026",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-14420",
-    "narrative": "On March [XXX], 2026 at 7:46 AM CT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Austin, Texas was in a collision involving a heavy truck in a parking lot at [XXX].\n\nThe Waymo AV was traveling westbound in a parking lot at [XXX] when it slowed to a stop to yield to a heavy truck facing west and reversing to the left of the Waymo AV. While the Waymo AV was stopped, the heavy truck continued to reverse and began executing a reversing turn into a loading dock parking stall at the south side of the parking lot, and the right side of the heavy truck cab made contact with the front left side of the stationary Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. Both vehicles sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of ",
     "manufacturer": "Waymo LLC",
     "date": "MAR-2026",
     "reason": "no matching catalog family"
@@ -714,24 +595,10 @@
     "reason": "no matching catalog family"
   },
   {
-    "incident_id": "31101-14418",
-    "narrative": "On March [XXX], at 2:03 PM, an AVRIDE autonomous vehicle (the \"AVRIDE AV\") was in a collision in Austin, Texas on [XXX] near [XXX]. The AVRIDE AV was stopped facing northwest on [XXX] in autonomous mode, waiting to take a right turn onto [XXX]. As the AVRIDE AV was waiting for traffic to clear to make the right turn, an SUV traveling northeastbound on [XXX] swerved right at the last minute and proceeded to drive directly towards the AVRIDE AV. This resulted in the front of the SUV making contact with the left side of the AVRIDE AV. Both vehicles sustained damage. Driver side airbags were deployed on the AVRIDE AV. Airbags were not deployed for the SUV. A tow was required for the AVRIDE AV. No tow was required for the SUV. No injuries were reported.",
-    "manufacturer": "Avride Inc.",
-    "date": "MAR-2026",
-    "reason": "no matching catalog family"
-  },
-  {
     "incident_id": "13781-13644",
     "narrative": "Summary: This updated report does not report a new incident or make any material changes to the factual record. It only removes confidential or personally identifying information to make the incident narrative publicly available. The Tesla ADS  was proceeding straight on a street, where space was minimal due to a parked heavy duty tow truck and a parked passenger vehicle on the either side of the street. As the ADS continued straight, the ADS's left side mirror made contact with the heavy duty tow truck's left side of the bed. Safety monitor and one passenger were present.",
     "manufacturer": "Tesla, Inc.",
     "date": "JAN-2026",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "13781-11784",
-    "narrative": "Summary: This updated report does not report a new incident or make any material changes to the factual record. It only removes confidential or personally identifying information to make the incident narrative publicly available. The Tesla ADS proceeded straight in a parking lot. A passenger vehicle came into view while reversing from a perpendicular parking aisle on the right, which was marked for entry only, and was moving toward the Tesla ADS in the wrong direction against directional road markings. The Tesla ADS reduced vehicle speed and steered to the left. The reversing passenger vehicle continued reversing  and made contact with the right side of the Tesla vehicle. Safety monitor was present and no passengers were inside the vehicle.",
-    "manufacturer": "Tesla, Inc.",
-    "date": "SEP-2025",
     "reason": "no matching catalog family"
   },
   {
@@ -752,13 +619,6 @@
     "incident_id": "30270-14331",
     "narrative": "On March [XXX], 2026 at 9:15 AM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Mountain View, California was in a collision involving a passenger car on [XXX] near [XXX].\n\nThe Waymo AV was traveling northbound in the left lane on [XXX] when a passenger car exited a parking lot at [XXX] and began turning right onto the left lane of northbound [XXX], entering the Waymo AV's lane of travel. The Waymo AV maneuvered left as the passenger car continued further into the roadway, and the front left side of the passenger car made contact with the rear right side of the Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. Both vehicles sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a v",
     "manufacturer": "Waymo LLC",
-    "date": "MAR-2026",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30610-14366",
-    "narrative": "An occupied Zoox autonomous vehicle was traveling east at low speed in a parking lot along [XXX] in Las Vegas when an SUV (Vehicle 2) began reversing out of its parking spot. The Zoox vehicle slowed and attempted to steer left, but it could not before Vehicle 2 struck the Zoox vehicle's right-side rear door, body panel, and wheel. The Zoox vehicle sustained moderate damage and was towed from the scene. No injuries were reported, and police were not notified.",
-    "manufacturer": "Zoox, Inc.",
     "date": "MAR-2026",
     "reason": "no matching catalog family"
   },
@@ -847,13 +707,6 @@
     "reason": "no matching catalog family"
   },
   {
-    "incident_id": "30270-13978",
-    "narrative": "On February [XXX], 2026 at 7:17 AM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Lennox, California was in a collision involving a passenger car on [XXX] near [XXX].\n\nThe Waymo AV was stopped facing south in a cul-de-sac on [XXX], yielding to a passenger car reversing out of a driveway on the east side of [XXX]. While the Waymo AV was stopped, the passenger car continued to reverse and the rear left side of the passenger car made contact with the front of the stationary Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. Both vehicles sustained damage.\n\nWaymo is reporting this crash under Request No. 2 of Standing General Order 2021-01. Waymo may supplement or correct its reporting with additional information as it may become available.",
-    "manufacturer": "Waymo LLC",
-    "date": "FEB-2026",
-    "reason": "no matching catalog family"
-  },
-  {
     "incident_id": "30270-14272",
     "narrative": "On March [XXX], 2026 at 3:54 PM ET a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Atlanta, Georgia was in a collision involving an SUV on [XXX] near [XXX].\n\nThe Waymo AV was parked facing southeast, in-lane on [XXX], with its hazard lights activated for a passenger drop-off. While the Waymo AV was parked, an SUV traveling southeastbound on[XXX] began passing the Waymo AV on the left. As the SUV passed the Waymo AV, a passenger inside the Waymo AV opened the rear left door and the the front right side of the SUV made contact with the open rear left door of the stationary Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. Both vehicles sustained damage. The passengers in the Waymo AV were not belted at the time of the collision as they were ",
     "manufacturer": "Waymo LLC",
@@ -917,13 +770,6 @@
     "reason": "no matching catalog family"
   },
   {
-    "incident_id": "30610-14090",
-    "narrative": "A Zoox vehicle (Vehicle 1) operating in autonomous mode was traveling northeast on [XXX] toward [XXX] in San Francisco. At that time, an SUV (Vehicle 2) traveling ahead pulled into the parking lane on the right. Just as the Zoox vehicle was approaching, Vehicle 2 suddenly swerved into the Zoox vehicle's lane without using a turn signal. The Zoox vehicle braked hard and attempted to steer left to avoid the collision. The vehicle operator then disengaged autonomy and continued braking, but contact was unavoidable. The left front of Vehicle 2 struck the right front of the Zoox vehicle. The Zoox vehicle sustained moderate damage, and the right rear passenger reported \"experiencing soreness\" after the collision. The police were not called.",
-    "manufacturer": "Zoox, Inc.",
-    "date": "JAN-2026",
-    "reason": "no matching catalog family"
-  },
-  {
     "incident_id": "30530-14071",
     "narrative": "At 5:03 PM CDT on January [XXX], 2026 in El Paso, Texas, an Aurora vehicle was traveling east on [XXX] at approximately 55 MPH during a development mission. The Aurora vehicle was in autonomy. \n\nThe Aurora vehicle was traveling straight in its lane. A pickup truck was present ahead. A loose object from the pickup truck struck the Aurora vehicle. After impact, the vehicle operator elected to disengage autonomy and returned to the Aurora terminal. The Aurora vehicle was driveable from the location.\n\nNo injuries were reported. The Aurora vehicle sustained damage.\n\nAurora will supplement or modify its reporting should additional relevant information become available.",
     "manufacturer": "Aurora Operations, Inc.",
@@ -973,13 +819,6 @@
     "reason": "no matching catalog family"
   },
   {
-    "incident_id": "30270-13682",
-    "narrative": "On January [XXX], 2026 at 9:03 AM MT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Phoenix, Arizona was in a collision involving a heavy truck in a parking lot at [XXX].\n\nThe Waymo AV was traveling southbound in a parking lot at [XXX] when it slowed to a stop with its hazard lights activated to yield to a heavy truck to the left of the Waymo AV that was facing south. While the Waymo AV remained stopped alongside the heavy truck, the heavy truck began executing a reversing turn into a loading dock parking stall at the east side of the parking lot. The Waymo AV reversed momentarily adjacent to the heavy truck as the heavy truck continued to reverse, and the rear right side of the heavy truck cab made contact with the rear left side of the stationary Waymo AV. At the time of the impact",
-    "manufacturer": "Waymo LLC",
-    "date": "JAN-2026",
-    "reason": "no matching catalog family"
-  },
-  {
     "incident_id": "30270-13665",
     "narrative": "On January [XXX], 2026 at 5:09 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in San Francisco, California was in a collision involving a suitcase on [XXX] near [XXX].\n\nThe Waymo AV was traveling southbound on [XXX] behind an SUV with its liftgate open. While both the Waymo AV and the SUV continued traveling southbound, a rolling suitcase fell from the SUV's liftgate and onto the roadway in the Waymo AV's lane of travel. The Waymo AV began to slow, and the undercarriage of the Waymo AV made contact with the rolling suitcase. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The rolling suitcase sustained damage as it was dragged under the AV.\n\nWaymo is reporting this crash under Request No. 2 of Standing General Order 2021-01. Waymo may suppleme",
     "manufacturer": "Waymo LLC",
@@ -996,13 +835,6 @@
   {
     "incident_id": "30270-13973",
     "narrative": "On January [XXX], 2026 at 2:46 PM MT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Tempe, Arizona was in a collision involving a passenger car on [XXX] near [XXX].\n\nThe Waymo AV was traveling northbound on [XXX] in the leftmost lane when a passenger car that was stopped facing north in a queue of traffic in the adjacent right lane, began to change lanes to the left and entered the Waymo AV's lane of travel, and the front left side of the passenger car made contact with the right side of the Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. Both vehicles sustained damage.\n\nWaymo is reporting this crash under Request No. 2 of Standing General Order 2021-01. Waymo may supplement or correct its reporting with additional information as it may",
-    "manufacturer": "Waymo LLC",
-    "date": "JAN-2026",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-13869",
-    "narrative": "On January [XXX], 2026 at 6:10 AM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Sunnyvale, California was in a collision involving an SUV on [XXX] near [XXX].\n\nThe Waymo AV was traveling southbound in autonomous mode on [XXX] when it came to a stop on a hill and then began reversing into a vacant parallel parking space in front of a parked SUV. The Waymo AV transitioned to manual mode and briefly rolled backwards at a low speed, and the rear of the Waymo AV made contact with the front of the parked SUV. At the time of the impact, the Waymo AV's Level 4 ADS was not engaged and the Waymo AV was in manual mode. Both vehicles sustained damage.\n\nWaymo is reporting this crash under Request No. 2 of Standing General Order 2021-01. Waymo may supplement or correct its reporting with addit",
     "manufacturer": "Waymo LLC",
     "date": "JAN-2026",
     "reason": "no matching catalog family"
@@ -1113,13 +945,6 @@
     "reason": "no matching catalog family"
   },
   {
-    "incident_id": "30270-13843",
-    "narrative": "On January [XXX], 2026 at 3:24 PM MT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Tempe, Arizona was in a collision involving a pothole in a parking lot at [XXX].\n\nThe Waymo AV was traveling southbound in a parking lot at [XXX] when the front tires entered a pothole. As the Waymo AV passed over the pothole, the undercarriage of the Waymo AV made contact with the pavement. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement or correct its reporting with additional information as it may become available.\n",
-    "manufacturer": "Waymo LLC",
-    "date": "JAN-2026",
-    "reason": "no matching catalog family"
-  },
-  {
     "incident_id": "30270-13785",
     "narrative": "On January [XXX], 2026 at 6:30 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Los Angeles, California was in a collision involving an SUV on [XXX] near [XXX].\n\nThe Waymo AV was parked partially in-lane facing east on [XXX] with its hazard lights activated for a passenger pick-up. While the Waymo AV was parked, an SUV traveling eastbound on [XXX] proceeded to pass the Waymo AV to the left, and the front right side of the SUV made contact with the rear left side of the stationary Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. Both vehicles sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement or correct its reporting wit",
     "manufacturer": "Waymo LLC",
@@ -1165,13 +990,6 @@
     "incident_id": "30270-13605",
     "narrative": "On January [XXX], 2026 at 4:41 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Los Angeles, California was in a collision involving a passenger car on [XXX] near [XXX].\r\nThe Waymo AV was traveling southeastbound on [XXX] in the right lane behind a pickup truck when the pickup truck slowed to a stop in-lane. The Waymo AV slowed to a stop to yield to the pickup truck, and a passenger car that was initially traveling behind the Waymo AV came to a stop directly behind the Waymo AV. While the Waymo AV and passenger car were stopped, a second passenger car that was traveling southeastbound on [XXX] in the right lane at a high rate of speed approached the stopped passenger car from behind and began maneuvering to the left, crossing the dashed white lane line. The front right side of th",
     "manufacturer": "Waymo LLC",
-    "date": "JAN-2026",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30610-13662",
-    "narrative": "An unoccupied Zoox autonomous vehicle (Vehicle 1) was traveling east on [XXX] near [XXX] in San Francisco. It began to slow down for a stopped box truck (Vehicle 2) in the same lane, which had an open liftgate. As the Zoox vehicle was preparing to maneuver around, Vehicle 2 began to reverse. The Zoox vehicle came to a stop however, Vehicle 2 continued reversing. The Zoox vehicle honked, but Vehicle 2's open liftgate made contact with the right front fender and front fascia of the Zoox vehicle. The Zoox vehicle was towed from the scene and was found to have sustained minor damage. The police were notified, and no injuries were reported.",
-    "manufacturer": "Zoox, Inc.",
     "date": "JAN-2026",
     "reason": "no matching catalog family"
   },
@@ -1351,13 +1169,6 @@
     "reason": "no matching catalog family"
   },
   {
-    "incident_id": "30270-13542",
-    "narrative": "On December [XXX], 2025 at 3:45 AM MT a Waymo Autonomous Vehicle (Waymo AV) operating in Phoenix, Arizona was in a collision involving a heavy truck in a parking lot at [XXX].\nThe Waymo AV was traveling southbound in a parking lot at [XXX] when it slowed to a stop with its hazard lights activated to yield to a heavy truck that was facing south and executing a reversing turn into a loading dock parking stall at the east side of the parking lot. The heavy truck continued to reverse, and the rear left side of the heavy truck trailer made contact with the right side of the stationary Waymo AV. At the time of the impact, the Waymo AV' Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 be",
-    "manufacturer": "Waymo LLC",
-    "date": "DEC-2025",
-    "reason": "no matching catalog family"
-  },
-  {
     "incident_id": "30270-13540",
     "narrative": "On December [XXX], 2025 at 1:23 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Los Angeles, California was in a collision involving a pick-up truck in a parking lot at [XXX].\nThe Waymo AV came to a stop facing northwestbound after completing a multipoint turn in a parking lot at [XXX]. A pickup truck traveling southeastbound in the parking lot approached the Waymo AV and came to a stop to the right of the Waymo AV. The pickup truck then proceeded forward to pass the Waymo AV and the rear right side of the pickup truck made contact with the rear right side of the stationary Waymo AV. At the time of the impact, the Waymo AV' Level 4 ADS was engaged in autonomous mode. Both vehicles sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021",
     "manufacturer": "Waymo LLC",
@@ -1372,20 +1183,6 @@
     "reason": "no matching catalog family"
   },
   {
-    "incident_id": "30270-13514",
-    "narrative": "On December [XXX], 2025 at 8:20 AM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in San Francisco, California was in a collision involving a fallen utility line on [XXX] near [XXX].\nThe Waymo AV was traveling southwestbound on [XXX] when the front of the Waymo AV made contact with a fallen utility line hanging in the travel lane. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement or correct its reporting with additional information as it may become available.",
-    "manufacturer": "Waymo LLC",
-    "date": "DEC-2025",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-13513",
-    "narrative": "On December [XXX], 2025 at 10:02 AM MT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Phoenix, Arizona was in a collision involving a heavy truck in a parking lot at [XXX]. \nThe Waymo AV was traveling southbound in the parking lot at [XXX] when it slowed to a stop to yield to a heavy truck that was facing southwest and executing a reversing turn into a loading dock parking stall at the east side of the parking lot. The heavy truck came to a stop, then began to proceed forward in the southbound direction, and the Waymo AV proceeded forward again, following the heavy truck. The heavy truck then came to a stop and began to reverse. The Waymo AV then momentarily reversed before coming to a stop and the heavy truck continued to reverse, and the rear right side of the heavy truck trailer m",
-    "manufacturer": "Waymo LLC",
-    "date": "DEC-2025",
-    "reason": "no matching catalog family"
-  },
-  {
     "incident_id": "30270-13512",
     "narrative": "On December [XXX], 2025 at 12:07 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Los Angeles, California was in a collision involving a heavy truck on [XXX] near [XXX]. \nThe Waymo AV was traveling eastbound on a narrow portion of [XXX] when it slowed to a stop to yield to a heavy truck that was stopped facing west on [XXX]. While the Waymo AV was stopped, the heavy truck proceeded to pass to the left of the Waymo AV and the left side of the heavy truck made contact with the rear left side of the stationary Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement o",
     "manufacturer": "Waymo LLC",
@@ -1395,13 +1192,6 @@
   {
     "incident_id": "30270-13507",
     "narrative": "On December [XXX], 2025 at 5:54 AM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Brisbane, California was in a collision involving a heavy truck on [XXX] at a parking lot entrance at [XXX].\nThe Waymo AV was traveling eastbound in the right lane on [XXX] when it began to slow for a heavy truck traveling eastbound in the right lane on [XXX] in front of the Waymo AV. The heavy truck changed lanes to the left and the Waymo AV proceeded forward in the right lane, adjacent to the heavy truck. The heavy truck then proceeded to turn right from the left lane into the parking lot at [XXX], entering the Waymo AV's lane of travel. The Waymo AV slowed to a stop as the heavy truck continued to turn, and the right of the heavy truck trailer made contact with the front left side of the stationar",
-    "manufacturer": "Waymo LLC",
-    "date": "DEC-2025",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-13509",
-    "narrative": "On December [XXX], 2025 at 4:08 AM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in San Francisco, California was in a collision involving a fallen utility line on [XXX] near [XXX].\nThe Waymo AV was traveling eastbound on [XXX] when the front of the Waymo AV made contact with a fallen utility line hanging in the travel lane. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The utility line sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement or correct its reporting with additional information as it may become available.",
     "manufacturer": "Waymo LLC",
     "date": "DEC-2025",
     "reason": "no matching catalog family"
@@ -1423,13 +1213,6 @@
   {
     "incident_id": "30270-13467",
     "narrative": "On December [XXX], 2025 at 1:58 PM MT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Tempe, Arizona was in a collision involving a speed bump in a parking lot at [XXX]. \nThe Waymo AV was traveling eastbound in the parking lot at [XXX] at a low rate of speed and crossed from one section of the parking lot to another when the undercarriage of the Waymo AV made contact with the pavement at a location where the elevation of the pavement changed. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage. \n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement or correct its reporting with additional information as it may become available.",
-    "manufacturer": "Waymo LLC",
-    "date": "DEC-2025",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-13452",
-    "narrative": "On December [XXX], 2025 at 12:46 PM MT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Phoenix, Arizona was in a collision involving a heavy truck in a parking lot at [XXX]. \nThe Waymo AV was traveling eastbound in the parking lot at [XXX] with its right turn signal activated when it slowed to a stop to yield to a heavy truck that was reversing facing east in the parking lot. While the Waymo AV was stopped, the heavy truck continued to reverse at an angle to maneuver into a parking stall at the north side of the parking lot to the left of the Waymo AV, and the right side of the heavy truck trailer made contact with the front of the stationary Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\n\nWaymo is reporti",
     "manufacturer": "Waymo LLC",
     "date": "DEC-2025",
     "reason": "no matching catalog family"
@@ -1512,22 +1295,8 @@
     "reason": "no matching catalog family"
   },
   {
-    "incident_id": "30270-13256",
-    "narrative": "On November [XXX], 2025 at 1:18 PM ET a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Atlanta, Georgia was in a collision involving a fallen utility line on [XXX] near [XXX]. \nThe Waymo AV was traveling southbound on [XXX] when it slowed and maneuvered to the left for a fallen utility line hanging in the travel lane. As the Waymo AV proceeded forward, the front of the Waymo AV made contact with the fallen utility line. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\n\nWaymo is reporting this crash under Request No. 2 of Standing General Order 2021-01. Waymo may supplement or correct its reporting with additional information as it may become available.",
-    "manufacturer": "Waymo LLC",
-    "date": "NOV-2025",
-    "reason": "no matching catalog family"
-  },
-  {
     "incident_id": "30270-13196",
     "narrative": "On November [XXX], 2025 at 8:38 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in San Francisco, California was in a collision involving a passenger car on [XXX] near [XXX].\nThe Waymo AV was traveling eastbound in the second from the right lane on [XXX]. A passenger car traveling eastbound in the rightmost lane on [XXX] approached a van that was stopped partially in the rightmost lane and partially in the entrance to a parking lot at [XXX]. As the passenger car approached the van, the front right of the passenger car made contact with the rear left of the van. The passenger car then maneuvered to the left, and the front left side of the passenger car made contact with the rear right side of the Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomo",
-    "manufacturer": "Waymo LLC",
-    "date": "NOV-2025",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-13164",
-    "narrative": "On November [XXX], 2025 at 12:27 AM CT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Austin, Texas was in a collision involving a passenger car in a parking lot at [XXX].\nThe Waymo AV was traveling eastbound in the parking lot at [XXX]. [XXX] when it came to a stop for a passenger pick-up with hazard lights activated. While the Waymo AV was stopped, a passenger car that was reversing out of a parking stall in front of and to the right of the Waymo AV continued to reverse and the rear right side of the passenger car made contact with the front left side of the Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. Both vehicles sustained damage.\n\nWaymo is reporting this crash under Request No. 2 of Standing General Order 2021-01. Waymo may sup",
     "manufacturer": "Waymo LLC",
     "date": "NOV-2025",
     "reason": "no matching catalog family"
@@ -1551,13 +1320,6 @@
     "narrative": "On December [XXX], 2025 at 11:31 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Venice, California was in a collision involving an SUV on [XXX] at [XXX].\nThe Waymo AV was traveling southeastbound on [XXX] with its right turn signal activated and initiated a right turn onto [XXX]. While the Waymo AV was turning, an SUV traveling southeastbound on [XXX] proceeded to pass the Waymo AV on the left and the front right side of the SUV made contact with the rear left side of the Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement or correct its reporting with addit",
     "manufacturer": "Waymo LLC",
     "date": "DEC-2025",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-13254",
-    "narrative": "On November [XXX], 2025 at 11:31 AM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Los Angeles, California was in a collision involving a bus on [XXX] near [XXX]. \nThe Waymo AV was traveling southeastbound in the left lane on [XXX] when it began slowing for a bus that had come to a stop facing southeast in the left lane on [XXX] and began reversing. While the Waymo AV was stopped, the bus continued to reverse and the rear of the bus made contact with the front of the stationary Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\n\nWaymo is reporting this crash under Request No. 2 of Standing General Order 2021-01.Waymo may supplement or correct its reporting with additional information as it may become avail",
-    "manufacturer": "Waymo LLC",
-    "date": "NOV-2025",
     "reason": "no matching catalog family"
   },
   {
@@ -1589,20 +1351,6 @@
     "reason": "no matching catalog family"
   },
   {
-    "incident_id": "30270-13135",
-    "narrative": "On November [XXX], 2025 at 7:36 PM MT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Phoenix, Arizona was in a collision involving a heavy truck in a parking lot at [XXX]. \nThe Waymo AV was traveling eastbound in the parking lot at [XXX] with its right turn signal activated when it slowed to a stop to yield to a heavy truck that was facing south and reversing to turn into a loading dock parking stall at the east side of the parking lot. As the heavy truck was reversing, the Waymo AV momentarily proceeded forward and to the left before coming to a stop. While the Waymo AV was stopped, the heavy truck continued to reverse and the right side of the heavy truck trailer made contact with the rear right side of the Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged",
-    "manufacturer": "Waymo LLC",
-    "date": "NOV-2025",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-13311",
-    "narrative": "On November [XXX], 2025 at 3:13 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Marina Del Rey, California was in a collision involving an SUV in a parking lot at [XXX].\nThe Waymo AV was traveling eastbound in a parking lot at [XXX] when it stopped to yield to an SUV stopped in-lane facing west and another SUV stopped in-lane facing east. While the Waymo AV was stopped, a third SUV that was initially parked in a parking stall to the left of the Waymo AV reversed and the Waymo AV proceeded forward to yield to the reversing SUV before coming to a stop. While the Waymo AV was stopped, the third SUV continued to reverse and the rear of the third SUV made contact with the left side of the stationary Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autono",
-    "manufacturer": "Waymo LLC",
-    "date": "NOV-2025",
-    "reason": "no matching catalog family"
-  },
-  {
     "incident_id": "30270-13201",
     "narrative": "On November [XXX], 2025 at 6:08 AM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in San Francisco, California was in a collision involving a first responder vehicle on [XXX] near [XXX]. \nThe Waymo AV was traveling southbound on [XXX] and came to a stop to yield to a police SUV that was traveling southbound on [XXX] and had stopped in-lane. While the Waymo AV was stopped, the police SUV reversed and the rear of the police SUV made contact with the front of the stationary Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\n\nWaymo is reporting this crash under Request No. 2 of Standing General Order 2021-01. Waymo may supplement or correct its reporting with additional information as it may become available.",
     "manufacturer": "Waymo LLC",
@@ -1612,13 +1360,6 @@
   {
     "incident_id": "30270-13102",
     "narrative": "On November [XXX], 2025 at 1:15 AM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Los Angeles, Califonra was in a collision involving a passenger car on [XXX] near [XXX]. \nThe Waymo AV was traveling southwestbound on [XXX] when it began slowing for a stop sign at a marked crosswalk across [XXX]. As the Waymo AV was slowing, a passenger car traveling at a high rate of speed approached the Waymo AV from behind, and the front of the passenger car made contact with the rear of the Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. Both vehicles sustained damage.\n\nWaymo is reporting this crash under Request No. 2 of Standing General Order 2021-01. Waymo may supplement or correct its reporting with additional information as it may become avai",
-    "manufacturer": "Waymo LLC",
-    "date": "NOV-2025",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-13095",
-    "narrative": "On November [XXX], 2025 at 3:23 PM CT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Austin, Texas was in a collision involving a tree branch on [XXX] near [XXX]. \nThe Waymo AV was traveling southwestbound in the right lane on [XXX], when a heavy truck traveling southwestbound in the right lane on [XXX] in front of the Waymo AV made contact with a tree branch situated directly above the roadway. The tree branch then detached from the tree and fell into the Waymo AV's lane of travel, and the front of the Waymo AV made contact with the fallen tree branch. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\n\nWaymo is reporting this crash under Request No. 2 of Standing General Order 2021-01. Waymo may supplement or correct",
     "manufacturer": "Waymo LLC",
     "date": "NOV-2025",
     "reason": "no matching catalog family"
@@ -1635,13 +1376,6 @@
     "narrative": "On December [XXX], 2025 at 2:20 PM ET a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Atlanta, Georgia was in a collision involving a pickup truck on [XXX] near [XXX]. \nThe Waymo AV was stopped in-lane facing southeast on [XXX] for a passenger pick-up with hazard lights activated. While the Waymo AV was stopped, a pickup truck traveling southeastbound on [XXX] proceeded to pass the Waymo AV on the left and the right side of the pickup truck made contact with the rear left side of the stationary Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. Both vehicles sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement or correct its rep",
     "manufacturer": "Waymo LLC",
     "date": "DEC-2025",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30413-13248",
-    "narrative": "The May autonomous shuttle (Ego) stopped in Autonomous mode safely behind a lead vehicle at a traffic light, which then, the lead vehicle, reversed into the stationary Ego. The Autonomous vehicle operator took over control of the vehicle and attempted to reverse, but was unable to get out of the way of the reversing vehicle.  The planner did roll out the agent with a reversing policy and predicted the collision, but the system currently is not able to honk or reverse or do anything else that could have avoided this.  The primary factor was fault by the lead vehicle. There was no fault in our software that led to this event.",
-    "manufacturer": "May Mobility",
-    "date": "NOV-2025",
     "reason": "no matching catalog family"
   },
   {
@@ -1690,13 +1424,6 @@
     "incident_id": "13781-13237",
     "narrative": "[REDACTED, MAY CONTAIN CONFIDENTIAL BUSINESS INFORMATION]",
     "manufacturer": "Tesla, Inc.",
-    "date": "NOV-2025",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-13193",
-    "narrative": "On November [XXX], 2025 at 10:21 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Culver City, California was in a collision involving a fallen street sign on [XXX] near [XXX]. \nThe Waymo AV was traveling southwestbound in the second to the right lane on [XXX] when the Waymo AV's undercarriage made contact with a fallen street sign in the Waymo AV's lane of travel. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage. \n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement or correct its reporting with additional information as it may become available.",
-    "manufacturer": "Waymo LLC",
     "date": "NOV-2025",
     "reason": "no matching catalog family"
   },
@@ -1750,22 +1477,8 @@
     "reason": "no matching catalog family"
   },
   {
-    "incident_id": "30270-11865",
-    "narrative": "On October [XXX], 2025 at 3:57 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Los Angeles, California was in a collision involving a heavy truck in a parking lot at [XXX]. \nThe Waymo AV was traveling westbound in a parking lot at [XXX] when it slowed to a stop to yield to a heavy truck that was facing west and executing a reversing turn into a loading dock parking stall at the south side of the parking lot. The heavy truck came to a stop, proceeded forward a short distance, and then came to a stop again. While the heavy truck was stopped, the Waymo AV proceeded forward to pass to the right of the heavy truck. As the Waymo AV was passing the heavy truck, the heavy truck once again initiated a reversing turn towards the parking stall and the Waymo AV came to a stop to yield to th",
-    "manufacturer": "Waymo LLC",
-    "date": "OCT-2025",
-    "reason": "no matching catalog family"
-  },
-  {
     "incident_id": "30270-13092",
     "narrative": "On November [XXX], 2025 at 9:20 PM MT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Phoenix, Arizona was in a collision involving a passenger car at [XXX], Terminal [XXX] at the [XXX].\nThe Waymo AV was traveling westbound in the right lane on [XXX], Terminal [XXX] when it slowed to a stop in a queue of traffic. A passenger car that was traveling westbound in the right lane of [XXX] slowed to a near stop directly behind the Waymo AV. While the Waymo AV was stopped and the passenger car slowly proceeded a second passenger car approached the first passenger car from behind, and the front of the second passenger car made contact with the rear of the first passenger car, and the front of the first passenger car then made contact with the rear of the stationary Waymo AV. At the time of th",
-    "manufacturer": "Waymo LLC",
-    "date": "NOV-2025",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-13093",
-    "narrative": "On November [XXX], 2025 at 5:33 PM CT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Dallas, Texas was in a collision involving a pothole on [XXX] near [XXX]. \nThe Waymo AV was traveling eastbound on [XXX] in autonomous mode when the left wheels of the Waymo AV entered a pothole. As the AV passed over the pothole, the undercarriage of the Waymo AV made contact with the pavement. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode, and a test driver was present in the driver's seating position. The Waymo AV sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement or correct its reporting with additional information as it may become available.",
     "manufacturer": "Waymo LLC",
     "date": "NOV-2025",
     "reason": "no matching catalog family"
@@ -1857,13 +1570,6 @@
   {
     "incident_id": "30270-12051",
     "narrative": "On November [XXX], 2025 at 2:13 AM MT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Scottsdale, Arizona was in a collision involving a SUV on [XXX] near [XXX].\nThe Waymo AV was traveling westbound on [XXX] when an SUV traveling eastbound on [XXX] crossed the center dashed yellow line and entered the Waymo AV's lane of travel, and the front left side of the SUV made contact with the front left side of the Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. Both vehicles sustained damage. The driver of the SUV alleged injuries and was transported to a hospital by an ambulance.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because an individual involved was transported from the scene to a hospital for me",
-    "manufacturer": "Waymo LLC",
-    "date": "NOV-2025",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-12049",
-    "narrative": "On November [XXX], 2025 at 8:08 AM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in South San Francisco, California was in a collision involving a heavy truck on [XXX] near [XXX]. \nThe Waymo AV was traveling southbound on [XXX] when it slowed to a stop to yield to a heavy truck that was facing south on [XXX] with hazard lights activated and reversing in-lane. While the Waymo AV was stopped, the heavy truck continued to reverse and the rear  of the heavy truck made contact with the front of the stationary Waymo AV. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement or corr",
     "manufacturer": "Waymo LLC",
     "date": "NOV-2025",
     "reason": "no matching catalog family"
@@ -2016,13 +1722,6 @@
     "reason": "no matching catalog family"
   },
   {
-    "incident_id": "34970-11835",
-    "narrative": "The [XXX] was driving on [XXX] towards [XXX] in Riverside California. A minivan reversed out of a parking position (perpendicular parking to road lane) from the right side of the road into the shuttle\u00a2\u00c2\u0080\u00c2\u0099s path and struck the shuttle from the side.\nAfter the incident a supervisor from the Riverside Transport Agency RTA (operator or the vehicle) was called to the side. The RTA supervisor recorded the incident according to RTAs protocols.\nIn addition to the [XXX] trainer/supervisor being on the vehicle additional [XXX] personal was called to the side as well.\n\nSummary of Events:\n-Upon detecting the minivan in the side envelope, the system issued a brake command within 5ms.\n-Brake pressure began rising 58ms after the command and exceeded 90% of the requested pressure 164ms after the initial ",
-    "manufacturer": "Ohmio, Inc.",
-    "date": "AUG-2025",
-    "reason": "no matching catalog family"
-  },
-  {
     "incident_id": "30270-11802",
     "narrative": "On September [XXX], 2025 at 3:05 PM MT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Phoenix, Arizona traveled through water on [XXX] at [XXX]. \nThe Waymo AV was traveling southbound on [XXX] when it encountered water in the roadway across [XXX]. As the Waymo AV entered the water, the front and undercarriage of the Waymo AV made contact with the water. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\n\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement or correct its reporting with additional information as it may become available.",
     "manufacturer": "Waymo LLC",
@@ -2069,13 +1768,6 @@
     "narrative": "A Zoox vehicle (Vehicle 1) in autonomous mode was traveling southwest on [XXX] towards [XXX] in Santa Monica when it was struck on the passenger side by an SUV (Vehicle 2), traveling southeast on [XXX], which failed to yield the right-of-way and entered the Zoox vehicle's travel path. The Zoox vehicle braked, the vehicle operator disengaged, continued to brake, and steered left, but contact was unavoidable. The Zoox vehicle sustained moderate damage, and Vehicle 2 also sustained damage. There were no reported injuries, and the police were not notified.",
     "manufacturer": "Zoox, Inc.",
     "date": "AUG-2025",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-11672",
-    "narrative": "On September [XXX], 2025 at 12:09 AM ET a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Atlanta, Georgia was in a collision involving a pothole on [XXX] near [XXX]. \r\nThe Waymo AV was traveling southwestbound on [XXX] in the rightmost lane when the Waymo AV's right front tire made contact with a pothole. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\r\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement or correct its reporting with additional information as it may become available.",
-    "manufacturer": "Waymo LLC",
-    "date": "SEP-2025",
     "reason": "no matching catalog family"
   },
   {
@@ -2180,13 +1872,6 @@
     "incident_id": "30610-11563",
     "narrative": "An unoccupied Zoox autonomous vehicle was stopped at a green traffic light on eastbound [XXX], waiting for traffic ahead to clear to turn left onto [XXX] in San Francisco. A pickup truck (Vehicle 2) was also stopped for the same traffic light, directly behind the Zoox vehicle. After the light turned yellow, the Vehicle 2 driver passed the stopped Zoox vehicle on the left side, striking the left rear fender, and proceeded through the red light. The Vehicle 2 driver did not stop to exchange information. Shortly afterward, the Zoox vehicle turned left onto [XXX] to clear the scene, briefly stopped again, and then pulled over. The Zoox vehicle was then towed for inspection. It sustained minor damage. There were no reported injuries and the police were not called.",
     "manufacturer": "Zoox, Inc.",
-    "date": "AUG-2025",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-11546",
-    "narrative": "On August [XXX], 2025 at 8:14 PM MT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Phoenix, Arizona was in a collision involving a fallen utility line on [XXX] near [XXX]. \r\nThe Waymo AV was traveling westbound in the right lane on [XXX] when the front of the Waymo AV made contact with a fallen utility line hanging in the travel lane. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\r\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement or correct its reporting with additional information as it may become available.",
-    "manufacturer": "Waymo LLC",
     "date": "AUG-2025",
     "reason": "no matching catalog family"
   },
@@ -2296,13 +1981,6 @@
     "reason": "no matching catalog family"
   },
   {
-    "incident_id": "30270-11424",
-    "narrative": "On July [XXX], 2025 at 1:27 PM MT two Waymo Autonomous Vehicles (\"Waymo AV\") operating in Phoenix, Arizona were involved in a collision in the West Parking Lot off of [XXX] at the [XXX].\r\nThe Waymo AV was parked facing north in a parking stall in the West Parking Lot off of [XXX]. The Waymo AV proceeded to reverse to exit the parking stall, and came to a stop, preparing to maneuver forward and to the left. While the Waymo AV was stopped, a second Waymo AV ([XXX]) that was parked in the left adjacent parking stall proceeded to reverse to exit its parking stall. While the second Waymo AV was reversing, the initial Waymo AV proceeded forward and the front left of the Waymo AV made contact with the right side of the second Waymo AV. At the time of the impact, both Waymo AV's Level 4 ADS were e",
-    "manufacturer": "Waymo LLC",
-    "date": "JUL-2025",
-    "reason": "no matching catalog family"
-  },
-  {
     "incident_id": "13781-11375",
     "narrative": "[REDACTED, MAY CONTAIN CONFIDENTIAL BUSINESS INFORMATION]",
     "manufacturer": "Tesla, Inc.",
@@ -2361,13 +2039,6 @@
   {
     "incident_id": "30270-11239",
     "narrative": "On June [XXX], 2025 at 12:18 AM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Los Angeles, California was in a collision involving a chain in a parking lot at [XXX]. \r\nThe Waymo AV was traveling southbound on [XXX] when it made a right turn into a parking lot at [XXX]. As the Waymo AV was traveling westbound into the parking lot, the front of the Waymo AV made contact with a hanging chain separating a section of the parking lot. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV and the chain sustained damage.\r\nWaymo is reporting this crash under Request No. 2 of Standing General Order 2021-01. Waymo may supplement or correct its reporting with additional information as it may become available.",
-    "manufacturer": "Waymo LLC",
-    "date": "JUN-2025",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-11195",
-    "narrative": "On June [XXX], 2025 at 6:34 PM PT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in San Bruno, California was in a collision involving a fallen utility line on [XXX] near [XXX]. \r\nThe Waymo AV was traveling northbound on [XXX] when the front of the Waymo AV made contact with a fallen utility line hanging across the roadway. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\r\nWaymo is reporting this crash under Request No. 2 of Standing General Order 2021-01. Waymo may supplement or correct its reporting with additional information as it may become available.",
     "manufacturer": "Waymo LLC",
     "date": "JUN-2025",
     "reason": "no matching catalog family"
@@ -2466,13 +2137,6 @@
   {
     "incident_id": "30270-11174",
     "narrative": "On June [XXX], 2025 at 8:16 AM MT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Chandler, Arizona was in a collision involving an elevated gate track in a parking lot at [XXX]. \r\nThe Waymo AV was traveling eastbound in a parking lot at [XXX] through a gate opening when the bottom of the Waymo AV made contact with the elevated gate track. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\r\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement or correct its reporting with additional information as it may become available.",
-    "manufacturer": "Waymo LLC",
-    "date": "JUN-2025",
-    "reason": "no matching catalog family"
-  },
-  {
-    "incident_id": "30270-11146",
-    "narrative": "On June [XXX], 2025 at 1:28 PM CT a Waymo Autonomous Vehicle (\"Waymo AV\") operating in Austin, Texas was in a collision involving debris on [XXX] near [XXX]. \r\nThe Waymo AV was traveling southeastbound on [XXX] in the right lane when the vehicle traveling ahead of the Waymo AV made contact with a stationary piece of debris that was in the roadway. The Waymo AV then made contact with the debris as it was moving across the roadway. At the time of the impact, the Waymo AV's Level 4 ADS was engaged in autonomous mode. The Waymo AV sustained damage.\r\nWaymo is reporting this crash under Request No. 1 of Standing General Order 2021-01 because a vehicle involved was towed away. Waymo may supplement or correct its reporting with additional information as it may become available.",
     "manufacturer": "Waymo LLC",
     "date": "JUN-2025",
     "reason": "no matching catalog family"

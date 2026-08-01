@@ -1,0 +1,4003 @@
+{
+  "reference_driver": {
+    "model": "UNECE R157 Annex 4 App.3 competent driver",
+    "risk_perception_s": 0.4,
+    "reaction_s": 0.75,
+    "total_delay_s": 1.15,
+    "max_decel_mps2": 7.0,
+    "perception_ttc_s": 2.5
+  },
+  "grid_steps": 5,
+  "odd_rows": 3,
+  "total_simulations": 14536,
+  "elapsed_s": 4.987,
+  "scenarios_with_boundary": 40,
+  "always_survivable": [
+    "nhtsa-06-road-edge-departure-with-prior-maneuver",
+    "nhtsa-07-road-edge-departure-without-prior-maneuver",
+    "nhtsa-20-opposite-direction-with-maneuver",
+    "nhtsa-21-opposite-direction-without-maneuver"
+  ],
+  "never_survivable": [
+    "hazop-wrong-way-intersection"
+  ],
+  "results": [
+    {
+      "logical_id": "nhtsa-01-vehicle-failure",
+      "evaluations": 99,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 60.0,
+          "actor_speed_kph": 0.0,
+          "distance_m": 90.0
+        },
+        "odd": {
+          "debris_size_m": 0.5,
+          "lighting": "day",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": 1.4867,
+        "min_ttc_s": 0.6035,
+        "required_decel_mps2": 13.5501,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 60.0,
+          "actor_speed_kph": 0.0,
+          "distance_m": 25.0
+        },
+        "odd": {
+          "debris_size_m": 1.0,
+          "lighting": "day",
+          "road_geometry": "straight",
+          "weather": "rain"
+        },
+        "min_clearance_m": -1.302,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 555.5556,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 60.0,
+            "actor_speed_kph": 0.0,
+            "distance_m": 43.5352
+          },
+          "odd": {
+            "debris_size_m": 0.5,
+            "lighting": "day",
+            "road_geometry": "straight",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0218,
+          "min_ttc_s": 0.0385,
+          "required_decel_mps2": 20.4415,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-02-control-loss-with-prior-action",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 100.0,
+          "actor_speed_kph": 36.25,
+          "distance_m": 60.0
+        },
+        "odd": {
+          "lighting": "day",
+          "prior_action": "turning",
+          "road_geometry": "straight",
+          "surface": "wet",
+          "weather": "rain"
+        },
+        "min_clearance_m": 0.3333,
+        "min_ttc_s": 0.2625,
+        "required_decel_mps2": 14.3691,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 100.0,
+          "actor_speed_kph": 25.0,
+          "distance_m": 26.25
+        },
+        "odd": {
+          "lighting": "day",
+          "prior_action": "turning",
+          "road_geometry": "straight",
+          "surface": "wet",
+          "weather": "rain"
+        },
+        "min_clearance_m": -0.2164,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 473.4848,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 100.0,
+            "actor_speed_kph": 35.3271,
+            "distance_m": 57.2314
+          },
+          "odd": {
+            "lighting": "day",
+            "prior_action": "turning",
+            "road_geometry": "straight",
+            "surface": "wet",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.0298,
+          "min_ttc_s": 0.0641,
+          "required_decel_mps2": 18.0418,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-03-control-loss-without-prior-action",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 92.5,
+          "actor_speed_kph": 25.0,
+          "distance_m": 70.0
+        },
+        "odd": {
+          "lighting": "day",
+          "road_geometry": "straight",
+          "surface": "wet",
+          "weather": "rain"
+        },
+        "min_clearance_m": 0.07,
+        "min_ttc_s": 0.1,
+        "required_decel_mps2": 15.8063,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 110.0,
+          "actor_speed_kph": 25.0,
+          "distance_m": 28.75
+        },
+        "odd": {
+          "lighting": "day",
+          "road_geometry": "straight",
+          "surface": "wet",
+          "weather": "rain"
+        },
+        "min_clearance_m": -0.0692,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 872.5845,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 92.5,
+            "actor_speed_kph": 25.0,
+            "distance_m": 70.0
+          },
+          "odd": {
+            "lighting": "day",
+            "road_geometry": "straight",
+            "surface": "wet",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.07,
+          "min_ttc_s": 0.1,
+          "required_decel_mps2": 15.8063,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-04-running-red-light",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 60.0,
+          "actor_speed_kph": 30.0,
+          "distance_m": 25.0
+        },
+        "odd": {
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "intersection",
+          "signal_state": "green",
+          "weather": "clear"
+        },
+        "min_clearance_m": 0.3095,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 50.0,
+          "actor_speed_kph": 30.0,
+          "distance_m": 15.0
+        },
+        "odd": {
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "intersection",
+          "signal_state": "green",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.5167,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 553.3384,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 56.0547,
+            "actor_speed_kph": 30.0,
+            "distance_m": 21.0547
+          },
+          "odd": {
+            "lighting": "day",
+            "occlusion": "none",
+            "road_geometry": "intersection",
+            "signal_state": "green",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0136,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 1720.3224,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-05-running-stop-sign",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 52.5,
+          "actor_speed_kph": 37.5,
+          "distance_m": 12.0
+        },
+        "odd": {
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "intersection",
+          "weather": "clear"
+        },
+        "min_clearance_m": 0.2083,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 255.2083,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 45.0,
+          "actor_speed_kph": 28.75,
+          "distance_m": 12.0
+        },
+        "odd": {
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "intersection",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.6583,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 50.9473,
+            "actor_speed_kph": 35.6885,
+            "distance_m": 12.0
+          },
+          "odd": {
+            "lighting": "day",
+            "occlusion": "none",
+            "road_geometry": "intersection",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0024,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 181.0024,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-06-road-edge-departure-with-prior-maneuver",
+      "evaluations": 75,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 50.0,
+          "actor_speed_kph": 0.0,
+          "distance_m": 15.0
+        },
+        "odd": {
+          "lighting": "day",
+          "prior_action": "avoiding",
+          "road_geometry": "curve",
+          "surface": "wet",
+          "weather": "rain"
+        },
+        "min_clearance_m": 0.9856,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 161.4987,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": null,
+      "boundary": [],
+      "always_survivable": true,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-07-road-edge-departure-without-prior-maneuver",
+      "evaluations": 75,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 50.0,
+          "actor_speed_kph": 0.0,
+          "distance_m": 15.0
+        },
+        "odd": {
+          "lighting": "day",
+          "road_geometry": "straight",
+          "surface": "dry",
+          "weather": "clear"
+        },
+        "min_clearance_m": 1.5742,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 141.7234,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": null,
+      "boundary": [],
+      "always_survivable": true,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-08-road-edge-departure-backing",
+      "evaluations": 99,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 10.0,
+          "actor_speed_kph": 0.0,
+          "distance_m": 10.0
+        },
+        "odd": {
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": 1.0033,
+        "min_ttc_s": 0.51,
+        "required_decel_mps2": 5.4466,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 12.5,
+          "actor_speed_kph": 0.0,
+          "distance_m": 10.0
+        },
+        "odd": {
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.1056,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 12.2559,
+            "actor_speed_kph": 0.0,
+            "distance_m": 10.0
+          },
+          "odd": {
+            "lighting": "day",
+            "occlusion": "none",
+            "road_geometry": "straight",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.003,
+          "min_ttc_s": 0.0049,
+          "required_decel_mps2": 123.7742,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-09-animal-with-prior-maneuver",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 52.5,
+          "actor_speed_kph": 12.5,
+          "distance_m": 15.0
+        },
+        "odd": {
+          "animal_size": "livestock",
+          "lighting": "dusk",
+          "prior_action": "turning",
+          "road_geometry": "straight",
+          "weather": "fog"
+        },
+        "min_clearance_m": 0.0326,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 2552.0833,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 90.0,
+          "actor_speed_kph": 27.5,
+          "distance_m": 15.0
+        },
+        "odd": {
+          "animal_size": "dog",
+          "lighting": "dawn",
+          "prior_action": "turning",
+          "road_geometry": "curve",
+          "weather": "fog"
+        },
+        "min_clearance_m": -0.0066,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 357.1429,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 68.0273,
+            "actor_speed_kph": 25.6836,
+            "distance_m": 23.2812
+          },
+          "odd": {
+            "animal_size": "deer",
+            "lighting": "night",
+            "prior_action": "turning",
+            "road_geometry": "straight",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0001,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 314.6704,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 52.5,
+            "actor_speed_kph": 12.5586,
+            "distance_m": 15.0
+          },
+          "odd": {
+            "animal_size": "livestock",
+            "lighting": "dusk",
+            "prior_action": "turning",
+            "road_geometry": "straight",
+            "weather": "fog"
+          },
+          "min_clearance_m": 0.0131,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 2552.0833,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 52.793,
+            "actor_speed_kph": 34.9414,
+            "distance_m": 15.0
+          },
+          "odd": {
+            "animal_size": "dog",
+            "lighting": "dawn",
+            "prior_action": "turning",
+            "road_geometry": "curve",
+            "weather": "fog"
+          },
+          "min_clearance_m": 0.0182,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 11797.2383,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-10-animal-without-prior-maneuver",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 50.0,
+          "actor_speed_kph": 5.0,
+          "distance_m": 26.25
+        },
+        "odd": {
+          "animal_size": "dog",
+          "lighting": "night",
+          "road_geometry": "curve",
+          "weather": "fog"
+        },
+        "min_clearance_m": 0.0018,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 245.9142,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 50.0,
+          "actor_speed_kph": 13.75,
+          "distance_m": 15.0
+        },
+        "odd": {
+          "animal_size": "deer",
+          "lighting": "dawn",
+          "road_geometry": "highway",
+          "weather": "fog"
+        },
+        "min_clearance_m": -0.0387,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 301.9324,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 89.7266,
+            "actor_speed_kph": 12.7246,
+            "distance_m": 26.25
+          },
+          "odd": {
+            "animal_size": "dog",
+            "lighting": "night",
+            "road_geometry": "curve",
+            "weather": "fog"
+          },
+          "min_clearance_m": 0.0026,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 1092.9846,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 80.0586,
+            "actor_speed_kph": 22.4658,
+            "distance_m": 26.25
+          },
+          "odd": {
+            "animal_size": "deer",
+            "lighting": "night",
+            "road_geometry": "straight",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0075,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 649.4415,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 107.1875,
+            "actor_speed_kph": 13.75,
+            "distance_m": 57.8906
+          },
+          "odd": {
+            "animal_size": "deer",
+            "lighting": "dawn",
+            "road_geometry": "highway",
+            "weather": "fog"
+          },
+          "min_clearance_m": 0.0123,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 21013.5083,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-11-pedestrian-with-prior-maneuver",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 22.5,
+          "actor_speed_kph": 8.0,
+          "distance_m": 6.0
+        },
+        "odd": {
+          "lighting": "dusk",
+          "occlusion": "partial",
+          "road_geometry": "intersection",
+          "turn": "right",
+          "weather": "rain"
+        },
+        "min_clearance_m": 0.1713,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 120.1923,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 28.75,
+          "actor_speed_kph": 6.75,
+          "distance_m": 10.75
+        },
+        "odd": {
+          "lighting": "dusk",
+          "occlusion": "partial",
+          "road_geometry": "intersection",
+          "turn": "right",
+          "weather": "rain"
+        },
+        "min_clearance_m": -0.0926,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 298.1827,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 33.2422,
+            "actor_speed_kph": 4.4062,
+            "distance_m": 14.1641
+          },
+          "odd": {
+            "lighting": "day",
+            "occlusion": "none",
+            "road_geometry": "intersection",
+            "turn": "left",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0008,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 159.8731,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 33.2422,
+            "actor_speed_kph": 4.0547,
+            "distance_m": 14.1641
+          },
+          "odd": {
+            "lighting": "night",
+            "occlusion": "none",
+            "road_geometry": "intersection",
+            "turn": "left",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.0008,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 159.8731,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 26.04,
+            "actor_speed_kph": 7.292,
+            "distance_m": 8.6904
+          },
+          "odd": {
+            "lighting": "dusk",
+            "occlusion": "partial",
+            "road_geometry": "intersection",
+            "turn": "right",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.0063,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 147.9028,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-12-pedestrian-without-prior-maneuver",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 60.0,
+          "actor_speed_kph": 4.25,
+          "distance_m": 35.0
+        },
+        "odd": {
+          "jaywalk": false,
+          "lighting": "day",
+          "occlusion": "full",
+          "road_geometry": "intersection",
+          "weather": "fog"
+        },
+        "min_clearance_m": 0.1046,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 179.113,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 40.0,
+          "actor_speed_kph": 8.0,
+          "distance_m": 14.75
+        },
+        "odd": {
+          "jaywalk": false,
+          "lighting": "day",
+          "occlusion": "full",
+          "road_geometry": "intersection",
+          "weather": "fog"
+        },
+        "min_clearance_m": -0.0573,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 113.3787,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 60.0,
+            "actor_speed_kph": 7.292,
+            "distance_m": 35.0
+          },
+          "odd": {
+            "jaywalk": true,
+            "lighting": "day",
+            "occlusion": "none",
+            "road_geometry": "straight",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0027,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 179.113,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 57.8125,
+            "actor_speed_kph": 4.6602,
+            "distance_m": 32.7852
+          },
+          "odd": {
+            "jaywalk": false,
+            "lighting": "day",
+            "occlusion": "full",
+            "road_geometry": "intersection",
+            "weather": "fog"
+          },
+          "min_clearance_m": 0.0031,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 171.7017,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 60.0,
+            "actor_speed_kph": 7.4629,
+            "distance_m": 31.1504
+          },
+          "odd": {
+            "jaywalk": true,
+            "lighting": "dusk",
+            "occlusion": "partial",
+            "road_geometry": "intersection",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.0129,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 2207.9329,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-13-pedalcyclist-with-prior-maneuver",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 25.0,
+          "actor_speed_kph": 10.0,
+          "distance_m": 8.0
+        },
+        "odd": {
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "intersection",
+          "turn": "right",
+          "weather": "rain"
+        },
+        "min_clearance_m": 0.0334,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 17.5,
+          "actor_speed_kph": 21.25,
+          "distance_m": 8.0
+        },
+        "odd": {
+          "lighting": "dusk",
+          "occlusion": "partial",
+          "road_geometry": "intersection",
+          "turn": "right",
+          "weather": "rain"
+        },
+        "min_clearance_m": -0.0111,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 38.7695,
+            "actor_speed_kph": 14.1602,
+            "distance_m": 8.0
+          },
+          "odd": {
+            "lighting": "dusk",
+            "occlusion": "partial",
+            "road_geometry": "intersection",
+            "turn": "right",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.0026,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 213.8735,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 24.9707,
+            "actor_speed_kph": 10.0586,
+            "distance_m": 8.0
+          },
+          "odd": {
+            "lighting": "day",
+            "occlusion": "none",
+            "road_geometry": "intersection",
+            "turn": "right",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.0041,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 99.0,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 32.6465,
+            "actor_speed_kph": 13.8965,
+            "distance_m": 18.7852
+          },
+          "odd": {
+            "lighting": "day",
+            "occlusion": "none",
+            "road_geometry": "intersection",
+            "turn": "left",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0182,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 660.2606,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-14-pedalcyclist-without-prior-maneuver",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 25.0,
+          "actor_speed_kph": 20.0,
+          "distance_m": 10.0
+        },
+        "odd": {
+          "lighting": "day",
+          "occlusion": "partial",
+          "road_geometry": "intersection",
+          "weather": "rain"
+        },
+        "min_clearance_m": 0.0349,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 42.5,
+          "actor_speed_kph": 10.0,
+          "distance_m": 10.0
+        },
+        "odd": {
+          "lighting": "day",
+          "occlusion": "partial",
+          "road_geometry": "intersection",
+          "weather": "rain"
+        },
+        "min_clearance_m": -0.0349,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 147.1367,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 25.2051,
+            "actor_speed_kph": 19.8828,
+            "distance_m": 10.0
+          },
+          "odd": {
+            "lighting": "day",
+            "occlusion": "partial",
+            "road_geometry": "intersection",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.0023,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 99.0,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 59.7949,
+            "actor_speed_kph": 24.7656,
+            "distance_m": 17.3242
+          },
+          "odd": {
+            "lighting": "day",
+            "occlusion": "none",
+            "road_geometry": "straight",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0024,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 311.2184,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 60.0,
+            "actor_speed_kph": 24.1797,
+            "distance_m": 11.8457
+          },
+          "odd": {
+            "lighting": "dusk",
+            "occlusion": "none",
+            "road_geometry": "straight",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.0043,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 766.5589,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-15-backing-into-vehicle",
+      "evaluations": 99,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 7.5,
+          "actor_speed_kph": 0.0,
+          "distance_m": 8.0
+        },
+        "odd": {
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": 0.7933,
+        "min_ttc_s": 0.48,
+        "required_decel_mps2": 4.3403,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 10.0,
+          "actor_speed_kph": 0.0,
+          "distance_m": 8.0
+        },
+        "odd": {
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.2467,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 9.4043,
+            "actor_speed_kph": 0.0,
+            "distance_m": 8.0
+          },
+          "odd": {
+            "lighting": "day",
+            "occlusion": "none",
+            "road_geometry": "straight",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0015,
+          "min_ttc_s": 0.003,
+          "required_decel_mps2": 170.0981,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-16-turning-same-direction",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 30.0,
+          "actor_speed_kph": 20.0,
+          "distance_m": 14.75
+        },
+        "odd": {
+          "lane_count": 2,
+          "lighting": "day",
+          "road_geometry": "straight",
+          "turn": "left",
+          "weather": "clear"
+        },
+        "min_clearance_m": 0.0691,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 137.418,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 80.0,
+          "actor_speed_kph": 20.0,
+          "distance_m": 35.0
+        },
+        "odd": {
+          "lane_count": 2,
+          "lighting": "day",
+          "road_geometry": "straight",
+          "turn": "left",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.2384,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 288.509,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 30.9766,
+            "actor_speed_kph": 20.0,
+            "distance_m": 15.1455
+          },
+          "odd": {
+            "lane_count": 2,
+            "lighting": "day",
+            "road_geometry": "straight",
+            "turn": "left",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0022,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 99.0,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 35.1758,
+            "actor_speed_kph": 27.7637,
+            "distance_m": 13.3525
+          },
+          "odd": {
+            "lane_count": 2,
+            "lighting": "dusk",
+            "road_geometry": "intersection",
+            "turn": "right",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.013,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 99.0,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 67.9395,
+            "actor_speed_kph": 56.1816,
+            "distance_m": 14.9873
+          },
+          "odd": {
+            "lane_count": 3,
+            "lighting": "night",
+            "road_geometry": "straight",
+            "turn": "left",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.044,
+          "min_ttc_s": 0.0777,
+          "required_decel_mps2": 16.808,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-17-parking-same-direction",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 46.25,
+          "actor_speed_kph": 20.0,
+          "distance_m": 25.0
+        },
+        "odd": {
+          "lane_count": 3,
+          "lighting": "dusk",
+          "occlusion": "partial",
+          "road_geometry": "straight",
+          "weather": "rain"
+        },
+        "min_clearance_m": 0.0128,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 28.75,
+          "actor_speed_kph": 20.0,
+          "distance_m": 6.0
+        },
+        "odd": {
+          "lane_count": 2,
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.0162,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 20.7178,
+            "actor_speed_kph": 6.6406,
+            "distance_m": 14.7207
+          },
+          "odd": {
+            "lane_count": 2,
+            "lighting": "night",
+            "occlusion": "none",
+            "road_geometry": "straight",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.0003,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 99.9728,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 46.0107,
+            "actor_speed_kph": 20.0,
+            "distance_m": 24.7402
+          },
+          "odd": {
+            "lane_count": 3,
+            "lighting": "dusk",
+            "occlusion": "partial",
+            "road_geometry": "straight",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.0003,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 99.0,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 28.75,
+            "actor_speed_kph": 17.2852,
+            "distance_m": 11.1582
+          },
+          "odd": {
+            "lane_count": 2,
+            "lighting": "day",
+            "occlusion": "none",
+            "road_geometry": "straight",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0019,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 99.0,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-18-changing-lanes-same-direction",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 102.5,
+          "actor_speed_kph": 80.0,
+          "distance_m": 17.5
+        },
+        "odd": {
+          "lane_count": 2,
+          "lighting": "day",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": 0.0084,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 102.5,
+          "actor_speed_kph": 95.0,
+          "distance_m": 5.0
+        },
+        "odd": {
+          "lane_count": 3,
+          "lighting": "night",
+          "road_geometry": "straight",
+          "weather": "rain"
+        },
+        "min_clearance_m": -0.0472,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 90.6055,
+            "actor_speed_kph": 81.4062,
+            "distance_m": 9.248
+          },
+          "odd": {
+            "lane_count": 3,
+            "lighting": "night",
+            "road_geometry": "straight",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.0,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 99.0,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 72.2852,
+            "actor_speed_kph": 54.1016,
+            "distance_m": 15.2295
+          },
+          "odd": {
+            "lane_count": 2,
+            "lighting": "dusk",
+            "road_geometry": "highway",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.0001,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 99.0,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 102.5,
+            "actor_speed_kph": 80.0,
+            "distance_m": 17.5
+          },
+          "odd": {
+            "lane_count": 2,
+            "lighting": "day",
+            "road_geometry": "straight",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0084,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 99.0,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-19-drifting-same-direction",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 50.0,
+          "actor_speed_kph": 30.0,
+          "distance_m": 23.75
+        },
+        "odd": {
+          "drift_rate_mps": 0.2,
+          "lane_count": 3,
+          "lighting": "dusk",
+          "road_geometry": "highway",
+          "weather": "rain"
+        },
+        "min_clearance_m": 0.0228,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 85.0,
+          "actor_speed_kph": 60.0,
+          "distance_m": 30.0
+        },
+        "odd": {
+          "drift_rate_mps": 0.5,
+          "lane_count": 2,
+          "lighting": "night",
+          "road_geometry": "highway",
+          "weather": "fog"
+        },
+        "min_clearance_m": -0.0123,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 78.1641,
+            "actor_speed_kph": 54.1406,
+            "distance_m": 28.7793
+          },
+          "odd": {
+            "drift_rate_mps": 0.5,
+            "lane_count": 2,
+            "lighting": "night",
+            "road_geometry": "highway",
+            "weather": "fog"
+          },
+          "min_clearance_m": 0.0001,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 436.3442,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 50.0,
+            "actor_speed_kph": 30.7617,
+            "distance_m": 22.7979
+          },
+          "odd": {
+            "drift_rate_mps": 0.2,
+            "lane_count": 3,
+            "lighting": "dusk",
+            "road_geometry": "highway",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.0011,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 137.9652,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 67.5,
+            "actor_speed_kph": 46.2891,
+            "distance_m": 22.6758
+          },
+          "odd": {
+            "drift_rate_mps": 0.2,
+            "lane_count": 2,
+            "lighting": "day",
+            "road_geometry": "straight",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0018,
+          "min_ttc_s": 0.0063,
+          "required_decel_mps2": 46.6597,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-20-opposite-direction-with-maneuver",
+      "evaluations": 375,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 40.0,
+          "actor_speed_kph": 40.0,
+          "distance_m": 30.0
+        },
+        "odd": {
+          "encroach_m": 1.0,
+          "lighting": "day",
+          "prior_action": "overtaking",
+          "road_geometry": "curve",
+          "weather": "fog"
+        },
+        "min_clearance_m": 0.65,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 467.8363,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": null,
+      "boundary": [],
+      "always_survivable": true,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-21-opposite-direction-without-maneuver",
+      "evaluations": 375,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 40.0,
+          "actor_speed_kph": 40.0,
+          "distance_m": 30.0
+        },
+        "odd": {
+          "encroach_m": 1.0,
+          "lighting": "day",
+          "road_geometry": "curve",
+          "weather": "fog"
+        },
+        "min_clearance_m": 0.65,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 467.8363,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": null,
+      "boundary": [],
+      "always_survivable": true,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-22-following-vehicle-making-maneuver",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 102.5,
+          "actor_speed_kph": 90.0,
+          "distance_m": 10.0
+        },
+        "odd": {
+          "lane_count": 2,
+          "lighting": "day",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": 0.6444,
+        "min_ttc_s": 0.381,
+        "required_decel_mps2": 9.0422,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 120.0,
+          "actor_speed_kph": 75.0,
+          "distance_m": 30.0
+        },
+        "odd": {
+          "lane_count": 2,
+          "lighting": "day",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.04,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 119.8633,
+            "actor_speed_kph": 75.1172,
+            "distance_m": 29.8438
+          },
+          "odd": {
+            "lane_count": 2,
+            "lighting": "day",
+            "road_geometry": "straight",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0083,
+          "min_ttc_s": 0.0156,
+          "required_decel_mps2": 33.8345,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-23-lead-vehicle-accelerating",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 92.5,
+          "actor_speed_kph": 28.75,
+          "distance_m": 45.0
+        },
+        "odd": {
+          "lead_accel_mps2": 1.0,
+          "lighting": "dusk",
+          "road_geometry": "highway",
+          "weather": "rain"
+        },
+        "min_clearance_m": 0.1017,
+        "min_ttc_s": 0.1195,
+        "required_decel_mps2": 17.5802,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 57.5,
+          "actor_speed_kph": 42.5,
+          "distance_m": 10.0
+        },
+        "odd": {
+          "lead_accel_mps2": 1.0,
+          "lighting": "day",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.4333,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 57.5,
+            "actor_speed_kph": 39.4922,
+            "distance_m": 11.9141
+          },
+          "odd": {
+            "lead_accel_mps2": 2.0,
+            "lighting": "night",
+            "road_geometry": "straight",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.0002,
+          "min_ttc_s": 0.0008,
+          "required_decel_mps2": 99.0,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 59.0039,
+            "actor_speed_kph": 41.9092,
+            "distance_m": 11.5039
+          },
+          "odd": {
+            "lead_accel_mps2": 1.0,
+            "lighting": "dusk",
+            "road_geometry": "highway",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.0265,
+          "min_ttc_s": 0.0436,
+          "required_decel_mps2": 22.4395,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 58.8672,
+            "actor_speed_kph": 41.9629,
+            "distance_m": 11.3672
+          },
+          "odd": {
+            "lead_accel_mps2": 1.0,
+            "lighting": "day",
+            "road_geometry": "straight",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0346,
+          "min_ttc_s": 0.0435,
+          "required_decel_mps2": 22.3013,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-24-lead-vehicle-lower-constant-speed",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 102.5,
+          "actor_speed_kph": 35.0,
+          "distance_m": 55.0
+        },
+        "odd": {
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": 0.07,
+        "min_ttc_s": 0.1,
+        "required_decel_mps2": 15.8063,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 50.0,
+          "actor_speed_kph": 35.0,
+          "distance_m": 10.0
+        },
+        "odd": {
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.5333,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 51.6406,
+            "actor_speed_kph": 35.0,
+            "distance_m": 11.4062
+          },
+          "odd": {
+            "lighting": "day",
+            "occlusion": "none",
+            "road_geometry": "straight",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0559,
+          "min_ttc_s": 0.0875,
+          "required_decel_mps2": 16.2037,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-25-lead-vehicle-decelerating",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 75.0,
+          "actor_speed_kph": 75.0,
+          "distance_m": 60.0
+        },
+        "odd": {
+          "lead_decel_mps2": 3,
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": 0.06,
+        "min_ttc_s": 0.0049,
+        "required_decel_mps2": 2521.5,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 110.0,
+          "actor_speed_kph": 100.0,
+          "distance_m": 8.0
+        },
+        "odd": {
+          "lead_decel_mps2": 3,
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.2467,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 97.4902,
+            "actor_speed_kph": 88.0859,
+            "distance_m": 8.0
+          },
+          "odd": {
+            "lead_decel_mps2": 5,
+            "lighting": "night",
+            "occlusion": "none",
+            "road_geometry": "highway",
+            "weather": "fog"
+          },
+          "min_clearance_m": 0.0015,
+          "min_ttc_s": 0.003,
+          "required_decel_mps2": 170.0981,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 105.6934,
+            "actor_speed_kph": 93.8477,
+            "distance_m": 9.0664
+          },
+          "odd": {
+            "lead_decel_mps2": 3,
+            "lighting": "dusk",
+            "occlusion": "partial",
+            "road_geometry": "highway",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.0016,
+          "min_ttc_s": 0.0034,
+          "required_decel_mps2": 145.8577,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 75.2734,
+            "actor_speed_kph": 75.1953,
+            "distance_m": 59.5938
+          },
+          "odd": {
+            "lead_decel_mps2": 3,
+            "lighting": "day",
+            "occlusion": "none",
+            "road_geometry": "straight",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.1801,
+          "min_ttc_s": 0.0155,
+          "required_decel_mps2": 749.7767,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-26-lead-vehicle-stopped",
+      "evaluations": 99,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 57.5,
+          "actor_speed_kph": 0.0,
+          "distance_m": 63.75
+        },
+        "odd": {
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": 1.8906,
+        "min_ttc_s": 0.6873,
+        "required_decel_mps2": 13.2049,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 40.0,
+          "actor_speed_kph": 0.0,
+          "distance_m": 15.0
+        },
+        "odd": {
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": -1.85,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 246.9136,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 45.6055,
+            "actor_speed_kph": 0.0,
+            "distance_m": 30.6152
+          },
+          "odd": {
+            "lighting": "day",
+            "occlusion": "none",
+            "road_geometry": "straight",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0807,
+          "min_ttc_s": 0.1119,
+          "required_decel_mps2": 15.6264,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-27-ltap-opposite-direction-signalized",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 60.0,
+          "actor_speed_kph": 15.0,
+          "distance_m": 20.25
+        },
+        "odd": {
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "intersection",
+          "signal_state": "green",
+          "weather": "clear"
+        },
+        "min_clearance_m": 0.2373,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 302.5,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 70.0,
+          "actor_speed_kph": 15.0,
+          "distance_m": 12.0
+        },
+        "odd": {
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "intersection",
+          "signal_state": "green",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.125,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 307.3134,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 67.7734,
+            "actor_speed_kph": 15.0,
+            "distance_m": 13.8369
+          },
+          "odd": {
+            "lighting": "day",
+            "occlusion": "none",
+            "road_geometry": "intersection",
+            "signal_state": "green",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0094,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 183.1086,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-28-turning-right-signalized",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 60.0,
+          "actor_speed_kph": 16.25,
+          "distance_m": 32.5
+        },
+        "odd": {
+          "lighting": "day",
+          "road_geometry": "intersection",
+          "signal_state": "green",
+          "weather": "clear"
+        },
+        "min_clearance_m": 0.0457,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 60.0,
+          "actor_speed_kph": 10.0,
+          "distance_m": 10.0
+        },
+        "odd": {
+          "lighting": "day",
+          "road_geometry": "intersection",
+          "signal_state": "green",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.1,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 200.0712,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 60.0,
+            "actor_speed_kph": 10.2686,
+            "distance_m": 10.9668
+          },
+          "odd": {
+            "lighting": "day",
+            "road_geometry": "intersection",
+            "signal_state": "green",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0139,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 359.4031,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-29-ltap-opposite-direction-non-signalized",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 60.0,
+          "actor_speed_kph": 15.0,
+          "distance_m": 20.25
+        },
+        "odd": {
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "intersection",
+          "weather": "clear"
+        },
+        "min_clearance_m": 0.2373,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 302.5,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 70.0,
+          "actor_speed_kph": 15.0,
+          "distance_m": 12.0
+        },
+        "odd": {
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "intersection",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.125,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 307.3134,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 67.7734,
+            "actor_speed_kph": 15.0,
+            "distance_m": 13.8369
+          },
+          "odd": {
+            "lighting": "day",
+            "occlusion": "none",
+            "road_geometry": "intersection",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0094,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 183.1086,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-30-straight-crossing-paths-non-signalized",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 70.0,
+          "actor_speed_kph": 40.0,
+          "distance_m": 21.5
+        },
+        "odd": {
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "intersection",
+          "weather": "clear"
+        },
+        "min_clearance_m": 0.0333,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 120.2332,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 70.0,
+          "actor_speed_kph": 20.0,
+          "distance_m": 21.5
+        },
+        "odd": {
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "intersection",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.1222,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 167.5214,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 70.0,
+            "actor_speed_kph": 39.8438,
+            "distance_m": 21.5
+          },
+          "odd": {
+            "lighting": "day",
+            "occlusion": "none",
+            "road_geometry": "intersection",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0008,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 127.1132,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-31-turning-non-signalized",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 70.0,
+          "actor_speed_kph": 18.75,
+          "distance_m": 18.75
+        },
+        "odd": {
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "intersection",
+          "turn": "left",
+          "weather": "clear"
+        },
+        "min_clearance_m": 0.0279,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 7987.0756,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 50.0,
+          "actor_speed_kph": 27.5,
+          "distance_m": 18.75
+        },
+        "odd": {
+          "lighting": "day",
+          "occlusion": "none",
+          "road_geometry": "intersection",
+          "turn": "left",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.0192,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 70.0,
+            "actor_speed_kph": 18.75,
+            "distance_m": 18.75
+          },
+          "odd": {
+            "lighting": "day",
+            "occlusion": "none",
+            "road_geometry": "intersection",
+            "turn": "left",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0279,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 7987.0756,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-32-evasive-action-with-prior-maneuver",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 95.0,
+          "actor_speed_kph": 55.0,
+          "distance_m": 26.25
+        },
+        "odd": {
+          "lane_count": 2,
+          "lighting": "day",
+          "prior_action": "overtaking",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": 0.15,
+        "min_ttc_s": 0.161,
+        "required_decel_mps2": 14.844,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 110.0,
+          "actor_speed_kph": 42.5,
+          "distance_m": 60.0
+        },
+        "odd": {
+          "lane_count": 2,
+          "lighting": "day",
+          "prior_action": "overtaking",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.555,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 132.0294,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 108.5352,
+            "actor_speed_kph": 43.7207,
+            "distance_m": 56.7041
+          },
+          "odd": {
+            "lane_count": 2,
+            "lighting": "day",
+            "prior_action": "overtaking",
+            "road_geometry": "straight",
+            "weather": "clear"
+          },
+          "min_clearance_m": 1.1376,
+          "min_ttc_s": 0.5219,
+          "required_decel_mps2": 13.8537,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-33-evasive-action-without-prior-maneuver",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 115.0,
+          "actor_speed_kph": 30.0,
+          "distance_m": 27.5
+        },
+        "odd": {
+          "lane_count": 2,
+          "lighting": "dusk",
+          "road_geometry": "highway",
+          "weather": "rain"
+        },
+        "min_clearance_m": 0.3577,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 318.5626,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 82.5,
+          "actor_speed_kph": 57.5,
+          "distance_m": 15.0
+        },
+        "odd": {
+          "lane_count": 2,
+          "lighting": "day",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.5725,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 193.2347,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 89.4189,
+            "actor_speed_kph": 57.5,
+            "distance_m": 20.3223
+          },
+          "odd": {
+            "lane_count": 2,
+            "lighting": "day",
+            "road_geometry": "straight",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.003,
+          "min_ttc_s": 0.0064,
+          "required_decel_mps2": 73.2646,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 100.1465,
+            "actor_speed_kph": 30.0,
+            "distance_m": 16.0742
+          },
+          "odd": {
+            "lane_count": 2,
+            "lighting": "dusk",
+            "road_geometry": "highway",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.0333,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 207.2831,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-35-object-crash-with-prior-maneuver",
+      "evaluations": 99,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 55.0,
+          "actor_speed_kph": 0.0,
+          "distance_m": 37.5
+        },
+        "odd": {
+          "lighting": "day",
+          "object_type": "debris",
+          "prior_action": "turning",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": 0.2533,
+        "min_ttc_s": 0.2219,
+        "required_decel_mps2": 14.4907,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 40.0,
+          "actor_speed_kph": 0.0,
+          "distance_m": 15.0
+        },
+        "odd": {
+          "lighting": "dusk",
+          "object_type": "cargo",
+          "prior_action": "turning",
+          "road_geometry": "highway",
+          "weather": "rain"
+        },
+        "min_clearance_m": -1.1229,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 138.8889,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 54.5898,
+            "actor_speed_kph": 0.0,
+            "distance_m": 36.8848
+          },
+          "odd": {
+            "lighting": "day",
+            "object_type": "debris",
+            "prior_action": "turning",
+            "road_geometry": "straight",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0141,
+          "min_ttc_s": 0.0303,
+          "required_decel_mps2": 22.4038,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "nhtsa-36-object-crash-without-prior-maneuver",
+      "evaluations": 99,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 50.0,
+          "actor_speed_kph": 0.0,
+          "distance_m": 70.0
+        },
+        "odd": {
+          "lighting": "day",
+          "object_type": "debris",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": 3.9111,
+        "min_ttc_s": 1.0081,
+        "required_decel_mps2": 11.3471,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "hard",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 67.5,
+          "actor_speed_kph": 0.0,
+          "distance_m": 70.0
+        },
+        "odd": {
+          "lighting": "day",
+          "object_type": "debris",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.305,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 100.3214,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 65.9277,
+            "actor_speed_kph": 0.0,
+            "distance_m": 70.0
+          },
+          "odd": {
+            "lighting": "day",
+            "object_type": "debris",
+            "road_geometry": "straight",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0037,
+          "min_ttc_s": 0.0185,
+          "required_decel_mps2": 44.01,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "r157-cut-in",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 40.0,
+          "actor_speed_kph": 30.0,
+          "distance_m": 5.0
+        },
+        "odd": {
+          "lighting": "day",
+          "relative_speed_kph": -20,
+          "road_geometry": "highway",
+          "weather": "clear"
+        },
+        "min_clearance_m": 0.292,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 40.0,
+          "actor_speed_kph": 30.0,
+          "distance_m": 5.0
+        },
+        "odd": {
+          "lighting": "day",
+          "relative_speed_kph": -10,
+          "road_geometry": "straight",
+          "weather": "rain"
+        },
+        "min_clearance_m": -0.0372,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 98.0078,
+            "actor_speed_kph": 68.6719,
+            "distance_m": 35.0781
+          },
+          "odd": {
+            "lighting": "night",
+            "relative_speed_kph": 0,
+            "road_geometry": "highway",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.0016,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 99.0,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 42.1094,
+            "actor_speed_kph": 30.5273,
+            "distance_m": 5.4102
+          },
+          "odd": {
+            "lighting": "day",
+            "relative_speed_kph": -20,
+            "road_geometry": "highway",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.1247,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 99.0,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 106.9727,
+            "actor_speed_kph": 30.0,
+            "distance_m": 39.7266
+          },
+          "odd": {
+            "lighting": "day",
+            "relative_speed_kph": -10,
+            "road_geometry": "straight",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.1352,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 6948.7126,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "r157-cut-out",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 80.0,
+          "actor_speed_kph": 40.0,
+          "distance_m": 40.0
+        },
+        "odd": {
+          "lighting": "day",
+          "road_geometry": "highway",
+          "weather": "clear"
+        },
+        "min_clearance_m": 0.3711,
+        "min_ttc_s": 0.1853,
+        "required_decel_mps2": 29.3234,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 60.0,
+          "actor_speed_kph": 40.0,
+          "distance_m": 20.0
+        },
+        "odd": {
+          "lighting": "day",
+          "road_geometry": "highway",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.9467,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 316.8981,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 77.5,
+            "actor_speed_kph": 40.0,
+            "distance_m": 37.5
+          },
+          "odd": {
+            "lighting": "day",
+            "road_geometry": "highway",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0067,
+          "min_ttc_s": 0.0054,
+          "required_decel_mps2": 226.1157,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "r157-deceleration",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 85.0,
+          "actor_speed_kph": 130.0,
+          "distance_m": 18.5
+        },
+        "odd": {
+          "lead_decel_mps2": 5,
+          "lighting": "day",
+          "road_geometry": "highway",
+          "weather": "clear"
+        },
+        "min_clearance_m": 1.57,
+        "min_ttc_s": 0.0935,
+        "required_decel_mps2": 179.7707,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 62.5,
+          "actor_speed_kph": 85.0,
+          "distance_m": 50.0
+        },
+        "odd": {
+          "lead_decel_mps2": 5,
+          "lighting": "day",
+          "road_geometry": "highway",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.7722,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.1377,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 82.5391,
+            "actor_speed_kph": 125.0781,
+            "distance_m": 21.9453
+          },
+          "odd": {
+            "lead_decel_mps2": 5,
+            "lighting": "day",
+            "road_geometry": "highway",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0366,
+          "min_ttc_s": 0.0022,
+          "required_decel_mps2": 7704.3151,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 59.1602,
+            "actor_speed_kph": 100.8203,
+            "distance_m": 27.4414
+          },
+          "odd": {
+            "lead_decel_mps2": 6,
+            "lighting": "day",
+            "road_geometry": "highway",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.1082,
+          "min_ttc_s": 0.0135,
+          "required_decel_mps2": 596.1867,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "euro-cpna-50",
+      "evaluations": 66,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 50.0,
+          "actor_speed_kph": 5.0,
+          "distance_m": 25.0
+        },
+        "odd": {
+          "approach": "nearside",
+          "impact_offset_pct": 50,
+          "lighting": "day",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": 0.0298,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 125.7581,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 60.0,
+          "actor_speed_kph": 5.0,
+          "distance_m": 32.5
+        },
+        "odd": {
+          "approach": "nearside",
+          "impact_offset_pct": 50,
+          "lighting": "day",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.1091,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 472.0038,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 54.4531,
+            "actor_speed_kph": 5.0,
+            "distance_m": 28.3398
+          },
+          "odd": {
+            "approach": "nearside",
+            "impact_offset_pct": 50,
+            "lighting": "day",
+            "road_geometry": "straight",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0022,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 1433.391,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 26.3281,
+            "actor_speed_kph": 5.0,
+            "distance_m": 14.7461
+          },
+          "odd": {
+            "approach": "nearside",
+            "impact_offset_pct": 50,
+            "lighting": "day",
+            "road_geometry": "intersection",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0067,
+          "min_ttc_s": 0.0213,
+          "required_decel_mps2": 27.0093,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "euro-cpfa-50",
+      "evaluations": 133,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 40.0,
+          "actor_speed_kph": 8.0,
+          "distance_m": 15.0
+        },
+        "odd": {
+          "approach": "farside",
+          "impact_offset_pct": 50,
+          "lighting": "day",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": 0.0327,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 444.4444,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 60.0,
+          "actor_speed_kph": 6.5,
+          "distance_m": 30.0
+        },
+        "odd": {
+          "approach": "farside",
+          "impact_offset_pct": 50,
+          "lighting": "day",
+          "road_geometry": "straight",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.2034,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 800.1282,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 41.1719,
+            "actor_speed_kph": 7.9121,
+            "distance_m": 15.8789
+          },
+          "odd": {
+            "approach": "farside",
+            "impact_offset_pct": 50,
+            "lighting": "day",
+            "road_geometry": "straight",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0134,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 163.78,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "euro-cpta-50",
+      "evaluations": 99,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 25.0,
+          "actor_speed_kph": 5.0,
+          "distance_m": 8.75
+        },
+        "odd": {
+          "impact_offset_pct": 25,
+          "lighting": "day",
+          "road_geometry": "intersection",
+          "turn": "left",
+          "weather": "clear"
+        },
+        "min_clearance_m": 0.1833,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 30.0,
+          "actor_speed_kph": 5.0,
+          "distance_m": 12.5
+        },
+        "odd": {
+          "impact_offset_pct": 25,
+          "lighting": "day",
+          "road_geometry": "intersection",
+          "turn": "left",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.4533,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 26.2695,
+            "actor_speed_kph": 5.0,
+            "distance_m": 9.7021
+          },
+          "odd": {
+            "impact_offset_pct": 25,
+            "lighting": "day",
+            "road_geometry": "intersection",
+            "turn": "left",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0015,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 99.0,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "hazop-lidar-rain-dropout",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 50.0,
+          "actor_speed_kph": 60.0,
+          "distance_m": 40.0
+        },
+        "odd": {
+          "lidar_dropout": 0.4,
+          "lighting": "night",
+          "rain_intensity": 0.8,
+          "road_geometry": "straight",
+          "weather": "rain"
+        },
+        "min_clearance_m": 0.0089,
+        "min_ttc_s": 0.0151,
+        "required_decel_mps2": 39.0139,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 50.0,
+          "actor_speed_kph": 40.0,
+          "distance_m": 10.0
+        },
+        "odd": {
+          "lidar_dropout": 0.2,
+          "lighting": "day",
+          "rain_intensity": 0.5,
+          "road_geometry": "highway",
+          "weather": "rain"
+        },
+        "min_clearance_m": -0.0711,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 50.0,
+            "actor_speed_kph": 21.9531,
+            "distance_m": 23.5352
+          },
+          "odd": {
+            "lidar_dropout": 0.2,
+            "lighting": "day",
+            "rain_intensity": 0.5,
+            "road_geometry": "highway",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.0052,
+          "min_ttc_s": 0.0088,
+          "required_decel_mps2": 66.5837,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 50.0,
+            "actor_speed_kph": 78.3594,
+            "distance_m": 32.2949
+          },
+          "odd": {
+            "lidar_dropout": 0.6,
+            "lighting": "day",
+            "rain_intensity": 1.0,
+            "road_geometry": "straight",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.0585,
+          "min_ttc_s": 0.0911,
+          "required_decel_mps2": 16.2402,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 50.1758,
+            "actor_speed_kph": 59.5312,
+            "distance_m": 40.0
+          },
+          "odd": {
+            "lidar_dropout": 0.4,
+            "lighting": "night",
+            "rain_intensity": 0.8,
+            "road_geometry": "straight",
+            "weather": "rain"
+          },
+          "min_clearance_m": 0.348,
+          "min_ttc_s": 0.2677,
+          "required_decel_mps2": 14.3581,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "hazop-occluded-ped-dusk",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 37.5,
+          "actor_speed_kph": 7.0,
+          "distance_m": 12.25
+        },
+        "odd": {
+          "lighting": "dusk",
+          "occlusion": "full",
+          "road_geometry": "straight",
+          "weather": "fog"
+        },
+        "min_clearance_m": 0.035,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 289.3519,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 43.75,
+          "actor_speed_kph": 6.25,
+          "distance_m": 16.5
+        },
+        "odd": {
+          "lighting": "dusk",
+          "occlusion": "full",
+          "road_geometry": "straight",
+          "weather": "fog"
+        },
+        "min_clearance_m": -0.1197,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 299.5403,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 44.7266,
+            "actor_speed_kph": 4.0,
+            "distance_m": 22.3105
+          },
+          "odd": {
+            "lighting": "dusk",
+            "occlusion": "full",
+            "road_geometry": "straight",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0025,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 609.9032,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 37.6221,
+            "actor_speed_kph": 6.9854,
+            "distance_m": 12.333
+          },
+          "odd": {
+            "lighting": "dusk",
+            "occlusion": "full",
+            "road_geometry": "straight",
+            "weather": "fog"
+          },
+          "min_clearance_m": 0.0029,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 255.4784,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "hazop-camera-glare-cutin",
+      "evaluations": 399,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": {
+        "params": {
+          "ego_speed_kph": 75.0,
+          "actor_speed_kph": 50.0,
+          "distance_m": 19.0
+        },
+        "odd": {
+          "camera_glare": true,
+          "dirt_occlusion": 0.0,
+          "lighting": "dusk",
+          "road_geometry": "highway",
+          "weather": "clear"
+        },
+        "min_clearance_m": 0.1814,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": false,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": true
+      },
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 75.0,
+          "actor_speed_kph": 65.0,
+          "distance_m": 8.0
+        },
+        "odd": {
+          "camera_glare": true,
+          "dirt_occlusion": 0.3,
+          "lighting": "dusk",
+          "road_geometry": "highway",
+          "weather": "clear"
+        },
+        "min_clearance_m": -0.2857,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 99.0,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [
+        {
+          "params": {
+            "ego_speed_kph": 75.0,
+            "actor_speed_kph": 50.0,
+            "distance_m": 17.3672
+          },
+          "odd": {
+            "camera_glare": true,
+            "dirt_occlusion": 0.0,
+            "lighting": "dusk",
+            "road_geometry": "highway",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0022,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 99.0,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 110.0391,
+            "actor_speed_kph": 85.0391,
+            "distance_m": 17.1738
+          },
+          "odd": {
+            "camera_glare": true,
+            "dirt_occlusion": 0.15,
+            "lighting": "dawn",
+            "road_geometry": "highway",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0058,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 99.0,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        },
+        {
+          "params": {
+            "ego_speed_kph": 80.7422,
+            "actor_speed_kph": 70.7422,
+            "distance_m": 9.0527
+          },
+          "odd": {
+            "camera_glare": true,
+            "dirt_occlusion": 0.3,
+            "lighting": "dusk",
+            "road_geometry": "highway",
+            "weather": "clear"
+          },
+          "min_clearance_m": 0.0094,
+          "min_ttc_s": 0.0,
+          "required_decel_mps2": 159.7546,
+          "collision": false,
+          "preventable": false,
+          "difficulty": "unpreventable",
+          "survivable": true
+        }
+      ],
+      "always_survivable": false,
+      "never_survivable": false
+    },
+    {
+      "logical_id": "hazop-wrong-way-intersection",
+      "evaluations": 375,
+      "reference_driver": {
+        "model": "UNECE R157 Annex 4 App.3 competent driver",
+        "risk_perception_s": 0.4,
+        "reaction_s": 0.75,
+        "total_delay_s": 1.15,
+        "max_decel_mps2": 7.0,
+        "perception_ttc_s": 2.5
+      },
+      "tightest_survivable": null,
+      "easiest_failure": {
+        "params": {
+          "ego_speed_kph": 30.0,
+          "actor_speed_kph": 30.0,
+          "distance_m": 15.0
+        },
+        "odd": {
+          "lighting": "day",
+          "road_geometry": "intersection",
+          "signal_state": "green",
+          "weather": "clear"
+        },
+        "min_clearance_m": -1.85,
+        "min_ttc_s": 0.0,
+        "required_decel_mps2": 555.5556,
+        "collision": true,
+        "preventable": false,
+        "difficulty": "unpreventable",
+        "survivable": false
+      },
+      "boundary": [],
+      "always_survivable": false,
+      "never_survivable": true
+    }
+  ]
+}

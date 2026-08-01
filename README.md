@@ -60,6 +60,51 @@ python scripts/validate_xosc.py --check all --trajectory-mode
 See [docs/OPENSCENARIO.md](docs/OPENSCENARIO.md) for how behaviours map onto
 OpenSCENARIO constructs and what the fidelity guarantee does and does not cover.
 
+## Criticality
+
+Most randomly-sampled scenarios are benign. The informative ones sit at the
+*criticality boundary* — where a competent driver only just copes.
+
+```bash
+python scripts/search_criticality.py --grid 5 --odd-rows 3
+```
+
+The boundary is measured against a **SUT-neutral reference driver** (UNECE R157
+Annex 4 App.3: 0.4 s risk perception, 0.75 s reaction, 7 m/s² braking bound),
+never against a particular stack. Tuning scenarios until they defeat one planner
+would measure that planner rather than the world. The search is a grid over each
+scenario's declared ranges followed by bisection onto the boundary — 14,000
+simulations across the catalog in about 5 seconds — and it is deterministic, so a
+reported boundary reproduces exactly.
+
+40 of 45 simulable scenarios have a reachable boundary. The remainder are
+reported as *always* or *never* survivable within their declared ranges rather
+than being given a fabricated one.
+
+## Incident mining
+
+Two independent public sources, kept separate because they measure different
+things:
+
+```bash
+python scripts/gap_report.py --years 2024 2023 2022
+```
+
+- **NHTSA SGO** — ADS crash and incident reports.
+- **CA DMV disengagement reports** — every handover of control during testing
+  (13 CCR §227.46). A near-miss signal: situations an ADS met and declined.
+
+Unmatched narratives are split three ways rather than all being called gaps: the
+takeover was *internal* (software or hardware fault, end of test route), the
+narrative was *too vague* to name a geometry, or it describes a road situation
+that genuinely matches no catalog family. Only the last is a candidate scenario.
+
+The split matters. Across 14,778 CA DMV narratives, 48% are boilerplate of the
+form "incorrectly predicted the behavior of another road user" — scenario-relevant
+but with no geometry stated. Counting those as gaps would overstate the gap count
+several times over and bury the more interesting finding, which is that most
+disengagement reporting is too vague to mine.
+
 ## Coverage
 
 The discrete ODD backbone comes from a constraint-aware **t-way covering
@@ -87,7 +132,8 @@ serves the report.
 | `POST /api/render` | On-demand lidar/radar point clouds |
 | `GET /api/coverage` | Family / weather / difficulty coverage |
 | `GET /api/coverage/odd` | Measured t-way ODD coverage |
-| `GET /api/gaps` | SGO incidents with no catalog match |
+| `GET /api/criticality` | Criticality boundaries per logical scenario |
+| `GET /api/gaps` | Incidents with no catalog match |
 | `GET /api/export/{id}` | nuScenes-style bundle with sensor frames |
 
 ## Architecture

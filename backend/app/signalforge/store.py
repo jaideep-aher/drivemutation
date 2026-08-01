@@ -169,6 +169,22 @@ def load_odd_coverage() -> dict:
     return json.loads(COVERAGE_PATH.read_text())
 
 
+CRITICALITY_PATH = DATA / "catalog" / "criticality.json"
+
+
+def save_criticality(report: dict) -> Path:
+    """Persist the criticality-boundary search report."""
+    ensure_dirs()
+    CRITICALITY_PATH.write_text(json.dumps(report, indent=2))
+    return CRITICALITY_PATH
+
+
+def load_criticality() -> dict:
+    if not CRITICALITY_PATH.exists():
+        return {}
+    return json.loads(CRITICALITY_PATH.read_text())
+
+
 def save_gaps(gaps: list[GapItem]) -> None:
     ensure_dirs()
     GAPS_PATH.write_text(json.dumps([g.model_dump(mode="json") for g in gaps], indent=2))

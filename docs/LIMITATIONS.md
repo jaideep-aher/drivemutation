@@ -56,6 +56,47 @@ Three deliberate reinterpretations, applied consistently and documented in
   flagged `simulable=False` and excluded from expansion rather than given
   meaningless metrics.
 
+## The reference driver, and what it is sensitive to
+
+Criticality is measured against a fixed reference driver (UNECE R157 Annex 4
+App.3: 0.4 s risk perception, 0.75 s reaction, 7 m/s² braking bound), never
+against a system under test. That choice is what keeps the benchmark neutral.
+Three caveats:
+
+- **Hazard onset is approximated by a TTC threshold.** The driver is taken to
+  perceive a risk when time-to-collision first drops below 2.5 s. R157 describes
+  perception beginning when the hazard becomes *apparent* — brake lights, lateral
+  drift — which is generally earlier and cue-dependent. A fixed TTC threshold is
+  a stand-in, and it is the single most influential assumption in every
+  criticality number this project reports.
+- **It makes most sampled scenarios unavoidable.** With correct reaction timing,
+  about 65% of randomly-sampled concrete scenarios come out `unpreventable`. That
+  is the honest output of the model rather than a tuned distribution, but it does
+  mean the difficulty label carries less information than its four tiers suggest.
+  Narrowing the sampled ranges, or a later perception threshold, would change it.
+- **A previous version reacted before the hazard existed.** The reaction delay
+  used to be measured from the start of the scenario, so a hazard appearing at
+  t = 3 s was reacted to instantly. Metrics and difficulty labels published before
+  that fix are not comparable with current ones.
+
+`scripts/search_criticality.py` exposes `--reaction` and `--max-decel` precisely
+so the sensitivity of a boundary to these assumptions can be measured rather than
+assumed.
+
+## Incident mining limitations
+
+- Classification is keyword matching over free text. It will both miss and
+  mislabel, and it cannot resolve narratives that do not state a geometry.
+- **Most disengagement narratives cannot be mined.** Roughly 48% of CA DMV
+  narratives are boilerplate reporting that an interaction went wrong without
+  saying what the other road user did. These are counted separately from gaps;
+  see `scripts/gap_report.py`.
+- Disengagement counts are not crash frequencies. They are confounded by fleet
+  size, testing policy and how conservatively each operator sets handover
+  thresholds, so they are never mixed into the crash-frequency weights.
+- A candidate gap is a hypothesis, not a validated missing scenario. Each needs
+  human review before becoming a catalog entry.
+
 ## Technical limitations
 
 - Planar 2D kinematics only. No elevation, no vehicle dynamics, no tyre model.

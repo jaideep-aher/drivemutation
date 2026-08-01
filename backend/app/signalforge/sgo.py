@@ -29,10 +29,26 @@ RULES: list[tuple[ScenarioFamily, list[str]]] = [
     (ScenarioFamily.CROSSING_PATHS, ["intersection", "left turn", "ran red", "t-bone", "broadside", "crossing path"]),
     (ScenarioFamily.LANE_CHANGE, ["lane change", "side-swipe", "sideswipe", "adjacent lane"]),
     (ScenarioFamily.OPPOSITE_DIRECTION, ["wrong way", "oncoming", "head-on", "opposite direction"]),
-    (ScenarioFamily.ROAD_DEPARTURE, ["left roadway", "road departure", "ran off", "shoulder", "curb"]),
+    (ScenarioFamily.ROAD_DEPARTURE, [
+        "left roadway", "road departure", "ran off", "shoulder", "curb",
+        "lane boundary", "road edge", "lane marking", "drifting", "drifted",
+    ]),
     (ScenarioFamily.CONTROL_LOSS, ["loss of control", "skid", "spin", "yaw"]),
     (ScenarioFamily.ANIMAL, ["deer", "animal", "dog in road", "wildlife"]),
     (ScenarioFamily.SENSOR_DEGRADATION, ["sensor", "lidar", "camera blocked", "perception", "visibility", "fog", "glare"]),
+    # Families added with the full NHTSA typology. Without rules for these the
+    # classifier could never assign them, and every matching narrative fell into
+    # "unknown" and was reported as a catalog gap it is not.
+    (ScenarioFamily.OBJECT, [
+        "debris", "derbis", "object in the road", "object in road", "obstacle", "traffic cone",
+        "cone in", "pothole", "tire tread", "foreign object", "fallen", "dropped load",
+    ]),
+    (ScenarioFamily.BACKING, ["backing", "reversing", "in reverse", "backed into", "reverse gear"]),
+    (ScenarioFamily.EVASIVE_ACTION, ["evasive", "swerve", "swerved", "sudden maneuver", "abrupt maneuver"]),
+    (ScenarioFamily.VEHICLE_FAILURE, [
+        "tire blowout", "blowout", "mechanical failure", "component failure",
+        "brake failure", "tire failure",
+    ]),
 ]
 
 
