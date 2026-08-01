@@ -143,6 +143,24 @@ def coverage() -> CoverageStats:
     return store.coverage_stats(gap_count=len(store.load_gaps()))
 
 
+@app.get("/api/coverage/odd")
+def odd_coverage() -> dict:
+    """Measured t-way ODD coverage of the generated scenarios.
+
+    Reports what the generated set actually covers, not what was requested:
+    ``coverage_pct`` counts the parameter combinations that are reachable given
+    the physical constraints, and ``unreachable_tuples`` counts the ones ruled
+    out by them (an icy road under clear skies, say) rather than folding those
+    into the score.
+    """
+    report = store.load_odd_coverage()
+    if not report:
+        raise HTTPException(
+            404, "no coverage report; run scripts/generate_signalforge.py"
+        )
+    return report
+
+
 @app.get("/api/gaps", response_model=list[GapItem])
 def gaps(limit: int = 50) -> list[GapItem]:
     return store.load_gaps()[:limit]

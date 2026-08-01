@@ -94,6 +94,12 @@ def _apply_behavior(body: Body, t: float, dt: float, odd: dict) -> None:
         body.vy = 0.0
         return
 
+    if body.behavior == "accelerate" and body.triggered:
+        accel = float(odd.get("lead_accel_mps2", 2.0))
+        body.vx += accel * dt
+        body.vy = 0.0
+        return
+
     if body.behavior in ("cut_in", "cut_out", "swerve") and body.triggered:
         if body.target_y is not None and body.lateral_speed:
             dy = body.target_y - body.y

@@ -153,6 +153,22 @@ def coverage_stats(gap_count: int = 0) -> CoverageStats:
     )
 
 
+COVERAGE_PATH = DATA / "catalog" / "odd_coverage.json"
+
+
+def save_odd_coverage(report: dict) -> Path:
+    """Persist the measured t-way ODD coverage of the generated set."""
+    ensure_dirs()
+    COVERAGE_PATH.write_text(json.dumps(report, indent=2))
+    return COVERAGE_PATH
+
+
+def load_odd_coverage() -> dict:
+    if not COVERAGE_PATH.exists():
+        return {}
+    return json.loads(COVERAGE_PATH.read_text())
+
+
 def save_gaps(gaps: list[GapItem]) -> None:
     ensure_dirs()
     GAPS_PATH.write_text(json.dumps([g.model_dump(mode="json") for g in gaps], indent=2))

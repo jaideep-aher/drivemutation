@@ -17,6 +17,7 @@ class SourceType(str, Enum):
 
 
 class ScenarioFamily(str, Enum):
+    # The nine NHTSA crash groups (DOT HS 812 745, 2019).
     CONTROL_LOSS = "control_loss"
     ROAD_DEPARTURE = "road_departure"
     ANIMAL = "animal"
@@ -26,6 +27,14 @@ class ScenarioFamily(str, Enum):
     OPPOSITE_DIRECTION = "opposite_direction"
     REAR_END = "rear_end"
     CROSSING_PATHS = "crossing_paths"
+    # Typology scenarios outside the nine groups, counted by NHTSA under
+    # "remaining scenarios".
+    BACKING = "backing"
+    OBJECT = "object"
+    EVASIVE_ACTION = "evasive_action"
+    NON_COLLISION = "non_collision"
+    VEHICLE_FAILURE = "vehicle_failure"
+    # Regulation- and HAZOP-derived families that have no NHTSA equivalent.
     CUT_IN = "cut_in"
     CUT_OUT = "cut_out"
     DECELERATION = "deceleration"
@@ -94,6 +103,22 @@ class LogicalScenario(BaseModel):
     provenance: Provenance
     crash_frequency_weight: float = Field(
         1.0, description="Relative weight from NHTSA national crash stats"
+    )
+    nhtsa_scenario_number: int | None = Field(
+        None, description="Position in the NHTSA pre-crash typology (1-37), if applicable"
+    )
+    annual_crashes: int | None = Field(
+        None, description="Published annual crash count (DOT HS 810 767 Table 13, 2004 GES)"
+    )
+    crash_share_pct: float | None = Field(
+        None, description="Published share of all light-vehicle crashes, percent"
+    )
+    simulable: bool = Field(
+        True,
+        description=(
+            "False when the kinematic layer cannot faithfully represent the "
+            "scenario, so it is catalogued but not expanded into concrete variants"
+        ),
     )
     road_geometries: list[RoadGeometry]
     weathers: list[Weather]

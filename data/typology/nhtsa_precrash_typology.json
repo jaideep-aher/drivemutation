@@ -1,0 +1,398 @@
+{
+  "typology": "NHTSA pre-crash scenario typology",
+  "scenario_count": 37,
+  "substantive_count": 36,
+  "count_note": "DOT HS 810 767 (2007) enumerates 37 pre-crash scenarios 'including other'; scenario 37 is a residual 'Other' bucket worth 0.6% of crashes, so 36 are substantive. DOT HS 812 745 (2019) later revised the typology to 36 scenarios organised into nine groups.",
+  "primary_source": "Najm, W. G., Smith, J. D., & Yanagisawa, M. (2007). Pre-Crash Scenario Typology for Crash Avoidance Research (Report No. DOT HS 810 767; performing organization report DOT-VNTSC-NHTSA-06-02). Washington, DC: National Highway Traffic Safety Administration. Prepared by the U.S. DOT Research and Innovative Technology Administration, John A. Volpe National Transportation Systems Center, Cambridge, MA. April 2007, 132 pp. Retrieved from https://rosap.ntl.bts.gov/view/dot/6281/dot_6281_DS1.pdf",
+  "sources": [
+    "Najm, W. G., Smith, J. D., & Yanagisawa, M. (2007). Pre-Crash Scenario Typology for Crash Avoidance Research. DOT HS 810 767. https://rosap.ntl.bts.gov/view/dot/6281",
+    "Najm, W. G., et al. (2013). Description of Light-Vehicle Pre-Crash Scenarios for Safety Applications Based on Vehicle-to-Vehicle Communications. DOT HS 811 731. https://rosap.ntl.bts.gov/view/dot/9980",
+    "Swanson, E. D., et al. (2019). Statistics of Light-Vehicle Pre-Crash Scenarios Based on 2011-2015 National Crash Data. DOT HS 812 745. https://rosap.ntl.bts.gov/view/dot/41932"
+  ],
+  "verification": "Scenario names transcribed independently by two researchers from the primary PDFs on the NTL ROSA-P repository; all 37 names matched exactly.",
+  "frequency_note": "annual_crashes_2004_ges is from DOT HS 810 767 Table 13 (2004 GES). group_share_2011_2015 is from DOT HS 812 745 Table 5 (2011-2015 GES) and is the basis for catalog crash-frequency weights.",
+  "group_share_2011_2015": {
+    "rear_end": 31,
+    "crossing_paths": 21,
+    "lane_change": 12,
+    "road_departure": 10,
+    "control_loss": 9,
+    "animal": 5,
+    "opposite_direction": 2,
+    "pedestrian": 1,
+    "pedalcyclist": 1,
+    "remaining_scenarios": 8
+  },
+  "scenarios": [
+    {
+      "number": 1,
+      "name": "Vehicle Failure",
+      "group_2019": "vehicle failure",
+      "description": "A crash results from a vehicle component or mechanical problem or failure (e.g., tire blowout, steering or brake failure) rather than from a driver-initiated critical event.",
+      "ego_role": "Experiencing a component/mechanical failure that makes the crash imminent",
+      "other_role": "none (single-vehicle initiating event)",
+      "annual_crashes_2004_ges": "42,000 (0.71%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 2,
+      "name": "Control Loss With Prior Vehicle Action",
+      "group_2019": "control loss",
+      "description": "The subject vehicle loses control while performing a vehicle action such as decelerating, accelerating, starting, passing, parking, turning, backing up, changing lanes, or merging.",
+      "ego_role": "Losing control during a maneuver/vehicle action",
+      "other_role": "none (single-vehicle initiating event)",
+      "annual_crashes_2004_ges": "103,000 (1.73%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 3,
+      "name": "Control Loss Without Prior Vehicle Action",
+      "group_2019": "control loss",
+      "description": "The subject vehicle loses control while travelling straight or negotiating a curve, typically due to a wet or slippery road, and runs off the road. In the 2007 data 42 percent of these crashes occurred while negotiating a curve.",
+      "ego_role": "Going straight or negotiating a curve, then losing control",
+      "other_role": "none (single-vehicle initiating event)",
+      "annual_crashes_2004_ges": "529,000 (8.90%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 4,
+      "name": "Running Red Light",
+      "group_2019": "crossing paths",
+      "description": "The subject vehicle runs a red light, crosses an intersection, and collides with another vehicle crossing the intersection from a lateral direction. A dynamic variation is running the red light while turning left.",
+      "ego_role": "Violating a red signal while crossing or turning at a signalized intersection",
+      "other_role": "Crossing the intersection straight from a lateral direction with right of way",
+      "annual_crashes_2004_ges": "254,000 (4.27%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 5,
+      "name": "Running Stop Sign",
+      "group_2019": "crossing paths",
+      "description": "The subject vehicle runs a stop sign at an intersection and conflicts with laterally crossing traffic. A dynamic variation is running the stop sign while turning left or right.",
+      "ego_role": "Violating a stop sign at a stop-controlled intersection",
+      "other_role": "Crossing from a lateral direction with right of way",
+      "annual_crashes_2004_ges": "48,000 (0.81%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 6,
+      "name": "Road Edge Departure With Prior Vehicle Maneuver",
+      "group_2019": "road departure",
+      "description": "The subject vehicle departs the roadway edge while performing a maneuver such as passing, parking, turning, changing lanes, or merging.",
+      "ego_role": "Departing the road edge during a maneuver",
+      "other_role": "none (single-vehicle initiating event)",
+      "annual_crashes_2004_ges": "68,000 (1.14%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 7,
+      "name": "Road Edge Departure Without Prior Vehicle Maneuver",
+      "group_2019": "road departure",
+      "description": "The subject vehicle departs the roadway edge while travelling straight or negotiating a curve, with no preceding maneuver.",
+      "ego_role": "Departing the road edge while going straight or on a curve",
+      "other_role": "none (single-vehicle initiating event)",
+      "annual_crashes_2004_ges": "334,000 (5.62%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 8,
+      "name": "Road Edge Departure While Backing Up",
+      "group_2019": "backing",
+      "description": "The subject vehicle departs the roadway edge while backing.",
+      "ego_role": "Backing and departing the road edge",
+      "other_role": "none (single-vehicle initiating event)",
+      "annual_crashes_2004_ges": "66,000 (1.11%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 9,
+      "name": "Animal Crash With Prior Vehicle Maneuver",
+      "group_2019": "animal",
+      "description": "The subject vehicle strikes an animal while performing a maneuver such as passing or turning.",
+      "ego_role": "Performing a maneuver, then striking an animal",
+      "other_role": "Animal in or entering the vehicle path",
+      "annual_crashes_2004_ges": "23,000 (0.39%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 10,
+      "name": "Animal Crash Without Prior Vehicle Maneuver",
+      "group_2019": "animal",
+      "description": "The subject vehicle strikes an animal while travelling straight or negotiating a curve.",
+      "ego_role": "Going straight or on a curve, then striking an animal",
+      "other_role": "Animal in or entering the vehicle path",
+      "annual_crashes_2004_ges": "305,000 (5.13%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 11,
+      "name": "Pedestrian Crash With Prior Vehicle Maneuver",
+      "group_2019": "pedestrian",
+      "description": "The subject vehicle strikes a pedestrian while performing a maneuver such as passing or turning.",
+      "ego_role": "Performing a maneuver, then striking a pedestrian",
+      "other_role": "Pedestrian in or entering the vehicle path",
+      "annual_crashes_2004_ges": "17,000 (0.29%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 12,
+      "name": "Pedestrian Crash Without Prior Vehicle Maneuver",
+      "group_2019": "pedestrian",
+      "description": "The subject vehicle strikes a pedestrian while travelling straight or negotiating a curve.",
+      "ego_role": "Going straight or on a curve, then striking a pedestrian",
+      "other_role": "Pedestrian in or entering the vehicle path",
+      "annual_crashes_2004_ges": "39,000 (0.66%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 13,
+      "name": "Pedalcyclist Crash With Prior Vehicle Maneuver",
+      "group_2019": "pedalcyclist",
+      "description": "The subject vehicle strikes a pedalcyclist while performing a maneuver such as passing or turning.",
+      "ego_role": "Performing a maneuver, then striking a pedalcyclist",
+      "other_role": "Pedalcyclist in or entering the vehicle path",
+      "annual_crashes_2004_ges": "18,000 (0.31%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 14,
+      "name": "Pedalcyclist Crash Without Prior Vehicle Maneuver",
+      "group_2019": "pedalcyclist",
+      "description": "The subject vehicle strikes a pedalcyclist while travelling straight or negotiating a curve.",
+      "ego_role": "Going straight or on a curve, then striking a pedalcyclist",
+      "other_role": "Pedalcyclist in or entering the vehicle path",
+      "annual_crashes_2004_ges": "24,000 (0.41%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 15,
+      "name": "Backing Up Into Another Vehicle",
+      "group_2019": "backing",
+      "description": "The subject vehicle collides with another vehicle while backing.",
+      "ego_role": "Backing into another vehicle",
+      "other_role": "Vehicle behind, typically stopped or passing to the rear",
+      "annual_crashes_2004_ges": "131,000 (2.20%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 16,
+      "name": "Vehicle(s) Turning \u2013 Same Direction",
+      "group_2019": "lane change",
+      "description": "The subject vehicle turns (typically left at an intersection) and cuts across the path of another vehicle that was initially travelling in the same direction.",
+      "ego_role": "Turning and cutting across the path of a same-direction vehicle",
+      "other_role": "Travelling in the same direction, initially behind or alongside",
+      "annual_crashes_2004_ges": "222,000 (3.73%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 17,
+      "name": "Vehicle(s) Parking \u2013 Same Direction",
+      "group_2019": "lane change",
+      "description": "The subject vehicle is entering or leaving a parked position and collides with another vehicle travelling in the same direction.",
+      "ego_role": "Entering or leaving a parking position",
+      "other_role": "Travelling in the same direction along the adjacent lane",
+      "annual_crashes_2004_ges": "48,000 (0.81%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 18,
+      "name": "Vehicle(s) Changing Lanes \u2013 Same Direction",
+      "group_2019": "lane change",
+      "description": "The subject vehicle changes lanes and encroaches into another vehicle travelling in the same direction.",
+      "ego_role": "Deliberately changing lanes into an occupied adjacent lane",
+      "other_role": "Travelling in the same direction in the adjacent lane",
+      "annual_crashes_2004_ges": "338,000 (5.69%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 19,
+      "name": "Vehicle(s) Drifting \u2013 Same Direction",
+      "group_2019": "lane change",
+      "description": "The subject vehicle drifts laterally into an adjacent vehicle travelling in the same direction, without an intentional lane change.",
+      "ego_role": "Drifting out of lane into an adjacent same-direction vehicle",
+      "other_role": "Travelling in the same direction in the adjacent lane",
+      "annual_crashes_2004_ges": "98,000 (1.65%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 20,
+      "name": "Vehicle(s) Making a Maneuver \u2013 Opposite Direction",
+      "group_2019": "opposite direction",
+      "description": "The subject vehicle makes a maneuver (e.g., passing) and encroaches into a vehicle travelling in the opposite direction.",
+      "ego_role": "Maneuvering across the centerline into opposing traffic",
+      "other_role": "Travelling in the opposite direction, oncoming",
+      "annual_crashes_2004_ges": "15,000 (0.26%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 21,
+      "name": "Vehicle(s) Not Making a Maneuver \u2013 Opposite Direction",
+      "group_2019": "opposite direction",
+      "description": "The subject vehicle drifts across the centerline and encroaches into a vehicle travelling in the opposite direction, without an intentional maneuver.",
+      "ego_role": "Drifting across the centerline into opposing traffic",
+      "other_role": "Travelling in the opposite direction, oncoming",
+      "annual_crashes_2004_ges": "124,000 (2.08%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 22,
+      "name": "Following Vehicle Making a Maneuver",
+      "group_2019": "rear-end",
+      "description": "The subject vehicle changes lanes or passes another vehicle and closes in on a lead vehicle ahead in the same lane. Full body-section title: Following Vehicle Making a Maneuver and Approaching Lead Vehicle.",
+      "ego_role": "Following vehicle changing lanes or passing, then closing on a lead vehicle",
+      "other_role": "Lead vehicle ahead in the same lane",
+      "annual_crashes_2004_ges": "85,000 (1.44%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 23,
+      "name": "Lead Vehicle Accelerating",
+      "group_2019": "rear-end",
+      "description": "The subject vehicle closes in on an accelerating lead vehicle ahead in the same lane. Full body-section title: Following Vehicle Approaching an Accelerating Lead Vehicle.",
+      "ego_role": "Following vehicle closing on the lead vehicle",
+      "other_role": "Lead vehicle accelerating in the same lane",
+      "annual_crashes_2004_ges": "19,000 (0.32%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 24,
+      "name": "Lead Vehicle Moving at Lower Constant Speed",
+      "group_2019": "rear-end",
+      "description": "The subject vehicle closes in on a lead vehicle moving at a lower constant speed ahead in the same lane. Full body-section title: Following Vehicle Approaching Lead Vehicle Moving at Lower Constant Speed.",
+      "ego_role": "Following vehicle closing on a slower-moving lead vehicle",
+      "other_role": "Lead vehicle moving at a lower constant speed in the same lane",
+      "annual_crashes_2004_ges": "210,000 (3.53%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 25,
+      "name": "Lead Vehicle Decelerating",
+      "group_2019": "rear-end",
+      "description": "The subject vehicle follows a lead vehicle in the same lane and the lead vehicle suddenly decelerates. Full body-section title: Following Vehicle Approaching a Decelerating Lead Vehicle.",
+      "ego_role": "Following vehicle going straight behind the lead vehicle",
+      "other_role": "Lead vehicle suddenly decelerating in the same lane",
+      "annual_crashes_2004_ges": "428,000 (7.20%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 26,
+      "name": "Lead Vehicle Stopped",
+      "group_2019": "rear-end",
+      "description": "The subject vehicle closes in on a stopped lead vehicle ahead in the same lane, typically at an intersection-related location. Full body-section title: Following Vehicle Approaching a Stopped Lead Vehicle. This is the single most frequent scenario in the 2007 typology.",
+      "ego_role": "Following vehicle going straight and closing on a stopped lead vehicle",
+      "other_role": "Lead vehicle stopped in the same lane",
+      "annual_crashes_2004_ges": "975,000 (16.41%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 27,
+      "name": "Left Turn Across Path From Opposite Directions at Signalized Junctions",
+      "group_2019": "crossing paths",
+      "description": "The subject vehicle turns left at a signalized intersection and crosses the path of a vehicle approaching from the opposite direction. Abbreviated in the report's ranking tables as LTAP/OD at Signalized Junctions.",
+      "ego_role": "Turning left across the path of opposing traffic at a signal",
+      "other_role": "Approaching straight from the opposite direction",
+      "annual_crashes_2004_ges": "220,000 (3.71%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 28,
+      "name": "Vehicle Turning Right at Signalized Junctions",
+      "group_2019": "crossing paths",
+      "description": "The subject vehicle turns right at a signalized intersection and turns into the same direction of another vehicle that was crossing straight from a lateral direction.",
+      "ego_role": "Turning right at a signal into the path of laterally crossing traffic",
+      "other_role": "Crossing straight from a lateral direction",
+      "annual_crashes_2004_ges": "35,000 (0.59%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 29,
+      "name": "Left Turn Across Path From Opposite Directions at Non-Signalized Junctions",
+      "group_2019": "crossing paths",
+      "description": "The subject vehicle turns left at a non-signalized (stop-controlled or uncontrolled) junction and crosses the path of a vehicle approaching from the opposite direction. Abbreviated as LTAP/OD at Non-Signalized Junctions.",
+      "ego_role": "Turning left across the path of opposing traffic at a non-signalized junction",
+      "other_role": "Approaching straight from the opposite direction",
+      "annual_crashes_2004_ges": "190,000 (3.19%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 30,
+      "name": "Straight Crossing Paths at Non-Signalized Junctions",
+      "group_2019": "crossing paths",
+      "description": "The subject vehicle is going straight and collides with another straight-crossing vehicle approaching from a lateral direction at a non-signalized junction.",
+      "ego_role": "Going straight through a non-signalized junction",
+      "other_role": "Crossing straight from a lateral direction",
+      "annual_crashes_2004_ges": "264,000 (4.44%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 31,
+      "name": "Vehicle(s) Turning at Non-Signalized Junctions",
+      "group_2019": "crossing paths",
+      "description": "The subject vehicle stops at a stop sign and then proceeds to turn (typically left) against laterally crossing traffic at a non-signalized junction.",
+      "ego_role": "Turning from a stop against laterally crossing traffic",
+      "other_role": "Crossing from a lateral direction with right of way",
+      "annual_crashes_2004_ges": "435,000 (7.32%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 32,
+      "name": "Evasive Action With Prior Vehicle Maneuver",
+      "group_2019": "evasive action",
+      "description": "The subject vehicle takes an evasive action to avoid an obstacle while turning, passing, or otherwise performing a maneuver. Full body-section title: Vehicle Taking Evasive Action With Prior Vehicle Maneuver.",
+      "ego_role": "Taking evasive action during a maneuver",
+      "other_role": "Unspecified obstacle prompting the evasive action",
+      "annual_crashes_2004_ges": "13,000 (0.22%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 33,
+      "name": "Evasive Action Without Prior Vehicle Maneuver",
+      "group_2019": "evasive action",
+      "description": "The subject vehicle takes an evasive action to avoid an obstacle while travelling straight or negotiating a curve. Full body-section title: Vehicle Taking Evasive Action Without Prior Vehicle Maneuver.",
+      "ego_role": "Taking evasive action while going straight or on a curve",
+      "other_role": "Unspecified obstacle prompting the evasive action",
+      "annual_crashes_2004_ges": "56,000 (0.95%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 34,
+      "name": "Non-Collision Incident",
+      "group_2019": "non-collision",
+      "description": "The subject vehicle makes no contact with another vehicle but experiences a damaging or injury-producing event such as a fire, or an occupant falling or jumping from the vehicle.",
+      "ego_role": "Experiencing a damaging or injury-producing non-impact event",
+      "other_role": "none",
+      "annual_crashes_2004_ges": "46,000 (0.77%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 35,
+      "name": "Object Crash With Prior Vehicle Maneuver",
+      "group_2019": "object",
+      "description": "The subject vehicle strikes an object while performing a maneuver such as passing or turning.",
+      "ego_role": "Performing a maneuver, then striking an object",
+      "other_role": "Fixed or non-fixed object in the vehicle path",
+      "annual_crashes_2004_ges": "30,000 (0.51%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 36,
+      "name": "Object Crash Without Prior Vehicle Maneuver",
+      "group_2019": "object",
+      "description": "The subject vehicle strikes an object while travelling straight or negotiating a curve.",
+      "ego_role": "Going straight or on a curve, then striking an object",
+      "other_role": "Fixed or non-fixed object in the vehicle path",
+      "annual_crashes_2004_ges": "55,000 (0.92%)",
+      "crosscheck_name_match": true
+    },
+    {
+      "number": 37,
+      "name": "Other",
+      "group_2019": "other",
+      "description": "Residual bin covering crashes where details are missing to accurately define the scenario, plus sub-categories enumerated in DOT HS 811 731 Table 3: no driver present, rollover (untripped), hit and run, other rear-end, other sideswipe, other turn across path, other turn into path, and other straight paths.",
+      "ego_role": "Varies / not determinable from the crash record",
+      "other_role": "Varies / not determinable from the crash record",
+      "annual_crashes_2004_ges": "36,000 (0.60%)",
+      "crosscheck_name_match": true
+    }
+  ]
+}

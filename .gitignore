@@ -53,3 +53,8 @@ models/local/*
 *.log
 .cache/
 coverage/
+
+# esmini writes this next to wherever it is run
+log.txt
+esmini.log
+data/openscenario/
