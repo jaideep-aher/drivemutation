@@ -63,9 +63,11 @@ jobs:
           chmod +x "$RUNNER_TEMP/esmini/esmini/bin/"*
           echo "ESMINI=$RUNNER_TEMP/esmini/esmini" >> "$GITHUB_ENV"
 
+      # esmini exits 255 for --help: it treats "no scenario supplied" as an
+      # error. Check that it produced usage text rather than that it exited 0.
       - name: esmini smoke check
         run: |
-          "$ESMINI/bin/esmini" --help > /dev/null
+          "$ESMINI/bin/esmini" --help 2>&1 | grep -q -- "--osc"
           echo "esmini ${ESMINI_VERSION} ready"
 
       - name: Export every scenario family
