@@ -116,10 +116,10 @@ assumed.
   and a t=2 guarantee says nothing about three-way faults.
 - Coverage is over the *discrete* ODD. Continuous parameters are sampled, not
   covered.
-- Scenarios are not tuned for criticality — most generated variants are benign
-  by construction. Criticality search is later work.
-- SGO incident classification is keyword matching over narratives, which will
-  both miss and mislabel.
+- The *generated* set is not tuned for criticality; the covering array samples
+  the declared ranges rather than seeking hard cases. Criticality boundaries are
+  located separately by `scripts/search_criticality.py`, and only the scenarios
+  it returns sit at the edge of what the reference driver can manage.
 
 ## Ethical risks
 
