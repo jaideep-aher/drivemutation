@@ -2,15 +2,20 @@
 
 from __future__ import annotations
 
+import io
+import zipfile
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from backend.app.signalforge import store
 from backend.app.signalforge.export import export_scenario_bundle
+# Aliased: the /api/export route handler below is also called export_scenario,
+# and would otherwise shadow this import.
+from backend.app.signalforge.openscenario import export_scenario as build_openscenario_bundle
 from backend.app.signalforge.render import render_scenario
 from backend.app.signalforge.schema import (
     CoverageStats,
@@ -83,11 +88,24 @@ def scenarios_count(
     family: str | None = None,
     weather: str | None = None,
     difficulty: str | None = None,
+    lighting: str | None = None,
+    q: str | None = None,
 ) -> dict:
-    all_s = store.list_summaries(
-        family=family, weather=weather, difficulty=difficulty, limit=100000
+    """How many scenarios match a filter, so the UI can page through them.
+
+    Takes the same filters as ``/api/scenarios``; without that the list has no
+    way to tell "these are all of them" from "this is the first page of
+    thousands".
+    """
+    matches = store.list_summaries(
+        family=family,
+        weather=weather,
+        difficulty=difficulty,
+        lighting=lighting,
+        q=q,
+        limit=1_000_000,
     )
-    return {"count": len(all_s)}
+    return {"count": len(matches)}
 
 
 @app.get("/api/scenarios/{scenario_id}")
@@ -181,6 +199,53 @@ def export_scenario(scenario_id: str, max_frames: int = 8) -> dict:
     if cached:
         frames = [PointCloudFrame.model_validate(f) for f in cached[:max_frames]]
     return export_scenario_bundle(sc, frames, max_frames=max_frames)
+
+
+@app.get("/api/scenarios/{scenario_id}/openscenario")
+def download_openscenario(
+    scenario_id: str,
+    trajectory_mode: bool = False,
+    reference_driver: bool = False,
+) -> Response:
+    """Download a scenario as a runnable OpenSCENARIO bundle.
+
+    Returns a zip holding the ``.xosc`` and the ``.xodr`` road it references —
+    the two files together are self-contained, so the download runs in esmini
+    as-is with nothing else installed.
+    """
+    scenario = store.load_concrete(scenario_id)
+    if not scenario:
+        raise HTTPException(404, f"scenario {scenario_id} not found")
+
+    bundle = build_openscenario_bundle(
+        scenario,
+        trajectory_mode=trajectory_mode,
+        reference_driver=reference_driver,
+    )
+
+    buffer = io.BytesIO()
+    with zipfile.ZipFile(buffer, "w", zipfile.ZIP_DEFLATED) as archive:
+        archive.writestr(f"{scenario.id}.xosc", bundle.xosc)
+        archive.writestr(bundle.xodr_filename, bundle.xodr)
+        archive.writestr(
+            "README.txt",
+            (
+                f"{scenario.name}\n\n"
+                f"Provenance: {scenario.provenance.citation}\n"
+                f"Source: {scenario.provenance.source.value}\n\n"
+                "Run with:\n"
+                f"    esmini --window 60 60 1000 600 --osc {scenario.id}.xosc\n\n"
+                "Both files must stay in the same directory; the scenario "
+                "references the road by relative path.\n"
+            ),
+        )
+
+    filename = f"{scenario.id}.zip"
+    return Response(
+        content=buffer.getvalue(),
+        media_type="application/zip",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
 
 
 @app.get("/api/weights")

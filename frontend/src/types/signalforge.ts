@@ -1,19 +1,8 @@
-export type ScenarioFamily =
-  | "control_loss"
-  | "road_departure"
-  | "animal"
-  | "pedestrian"
-  | "pedalcyclist"
-  | "lane_change"
-  | "opposite_direction"
-  | "rear_end"
-  | "crossing_paths"
-  | "cut_in"
-  | "cut_out"
-  | "deceleration"
-  | "vru_crossing"
-  | "sensor_degradation"
-  | "unknown";
+// Families come from the backend catalog and grow with it (the NHTSA typology
+// added backing, object, evasive_action, non_collision and vehicle_failure), so
+// this stays a string rather than a closed union the UI would silently fall
+// behind on. The filter list is built from the live coverage response.
+export type ScenarioFamily = string;
 
 export interface ScenarioSummary {
   id: string;
@@ -102,6 +91,17 @@ export interface CoverageStats {
   by_difficulty: Record<string, number>;
   by_road: Record<string, number>;
   gap_count: number;
+}
+
+export interface OddCoverage {
+  strength: number;
+  covered_tuples: number;
+  reachable_tuples: number;
+  unreachable_tuples: number;
+  coverage_pct: number;
+  complete: boolean;
+  incomplete_logicals: string[];
+  by_logical: Record<string, Record<string, unknown>>;
 }
 
 export interface GapItem {
