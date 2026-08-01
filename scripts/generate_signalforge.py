@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from backend.app.signalforge.catalog import build_catalog
-from backend.app.signalforge.expand import expand_catalog
+from backend.app.signalforge.expand import catalog_coverage, expand_catalog
 from backend.app.signalforge.sgo import run_sgo_pipeline
 from backend.app.signalforge.sim import annotate_scenario
 from backend.app.signalforge import store
@@ -19,7 +19,7 @@ from backend.app.signalforge import store
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Generate SignalForge scenario dataset")
-    parser.add_argument("--target", type=int, default=2500, help="Target concrete scenarios")
+    parser.add_argument("--target", type=int, default=5000, help="Target concrete scenarios")
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--skip-sgo", action="store_true")
     parser.add_argument("--skip-sim", action="store_true", help="Skip criticality annotation (faster)")
@@ -61,6 +61,16 @@ def main() -> None:
 
     n = store.save_concrete(concrete)
     print(f"Saved {n} concrete scenarios to {store.CONCRETE_DIR}")
+
+    coverage = catalog_coverage(logicals, concrete)
+    store.save_odd_coverage(coverage)
+    print(
+        f"Pairwise ODD coverage: {coverage['coverage_pct']}% of "
+        f"{coverage['reachable_tuples']} reachable combinations "
+        f"({coverage['unreachable_tuples']} ruled out by constraints)"
+    )
+    if not coverage["complete"]:
+        print(f"  INCOMPLETE for: {coverage['incomplete_logicals']}")
     stats = store.coverage_stats(gap_count=len(store.load_gaps()))
     print(
         f"Coverage: logical={stats.total_logical} concrete={stats.total_concrete} "

@@ -1,5 +1,10 @@
 # Architecture
 
+> **Note:** this diagram describes the earlier DriveMutation LLM scenario-mutation
+> pipeline, which SignalForge supersedes. Its endpoints (`/api/presets`,
+> `/api/simulate`, `/api/compile/*`) no longer exist. For the current system see
+> the README and [OPENSCENARIO.md](OPENSCENARIO.md).
+
 ```mermaid
 flowchart TB
   subgraph ui [React_Lab]

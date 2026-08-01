@@ -53,6 +53,11 @@ BENIGN_PATTERN = re.compile(
     re.IGNORECASE,
 )
 
+#: esmini echoes every ParameterDeclaration as ``name = value``.  Those lines
+#: carry our own provenance text, so a scenario legitimately named "Vehicle
+#: Failure" would otherwise be reported as a failure by its own citation.
+PARAMETER_ECHO_PATTERN = re.compile(r"^\s*[\w.\-]+\s*=\s")
+
 #: Position tolerance for a default (semantic) export, in metres.
 #:
 #: Trajectory-driven actors reproduce to well under a millimetre.  The slack
@@ -140,6 +145,8 @@ def _classify_output(text: str) -> list[str]:
     """Extract genuine error lines, ignoring missing-3D-model chatter."""
     problems = []
     for line in text.splitlines():
+        if PARAMETER_ECHO_PATTERN.match(line):
+            continue
         if ERROR_PATTERN.search(line) and not BENIGN_PATTERN.search(line):
             problems.append(line.strip())
     return problems

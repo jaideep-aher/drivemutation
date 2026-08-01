@@ -12,7 +12,7 @@ import xml.etree.ElementTree as ET
 
 import pytest
 
-from backend.app.signalforge.catalog import build_catalog
+from backend.app.signalforge.catalog import simulable_catalog
 from backend.app.signalforge.esmini import (
     TRAJECTORY_POSITION_TOLERANCE_M,
     check_fidelity,
@@ -30,9 +30,13 @@ needs_esmini = pytest.mark.skipif(
 
 
 def sample_scenarios():
-    """One concrete scenario per logical scenario, covering every family."""
+    """One concrete scenario per logical scenario, covering every family.
+
+    Only the simulable ones: a scenario with no conflict partner has no actor
+    motion to export or compare.
+    """
     out = []
-    for logical in build_catalog():
+    for logical in simulable_catalog():
         batch = expand_logical(logical, samples_per_combo=1, seed=5, max_per_logical=1)
         if batch:
             out.append(annotate_scenario(batch[0]))

@@ -72,15 +72,54 @@ def _actor_layout(
         target_y = None
         behavior = spec.behavior
 
-        if family in ("rear_end", "deceleration") or spec.behavior == "brake":
+        if family in ("rear_end", "deceleration") or spec.behavior in (
+            "brake",
+            "accelerate",
+        ):
+            # The rear-end group covers five distinct lead-vehicle behaviours in
+            # the NHTSA typology — stopped, slower, accelerating, decelerating,
+            # and a following vehicle manoeuvring — so dispatch on the declared
+            # behaviour rather than forcing every one of them into a brake.
             x, y = distance_m, 0.0
-            vx, vy = av, 0.0
-            trigger_t = 1.0 + rng.uniform(0, 1.5)
-            decel = float(odd.get("lead_decel_mps2", 6.0))
-            post_vx = max(0.0, av - decel)  # will be applied as continuous brake in sim
-            behavior = "brake"
-            # Encode decel in odd for sim
-            odd.setdefault("lead_decel_mps2", decel)
+            vy = 0.0
+            if spec.behavior == "static":
+                vx = 0.0
+                behavior = "static"
+            elif spec.behavior == "accelerate":
+                vx = av
+                trigger_t = 1.0 + rng.uniform(0, 1.0)
+                behavior = "accelerate"
+                odd.setdefault("lead_accel_mps2", 2.0)
+            elif spec.behavior == "constant_velocity":
+                vx = av
+                behavior = "constant_velocity"
+            else:
+                vx = av
+                trigger_t = 1.0 + rng.uniform(0, 1.5)
+                decel = float(odd.get("lead_decel_mps2", 6.0))
+                post_vx = max(0.0, av - decel)  # applied as continuous brake in sim
+                behavior = "brake"
+                odd.setdefault("lead_decel_mps2", decel)
+
+        elif family in ("object", "evasive_action", "backing", "vehicle_failure"):
+            # A hazard sitting in, or moving into, the ego's path.  Placed on the
+            # lane centre rather than scattered laterally, because an object the
+            # ego drives past is not the scenario the typology describes.
+            x = distance_m
+            y = rng.uniform(-0.6, 0.6)
+            if spec.actor_type == "static" or spec.behavior == "static":
+                vx = vy = 0.0
+                behavior = "static"
+            elif spec.behavior == "swerve":
+                y = 3.5
+                vx = av
+                trigger_t = 0.8 + rng.uniform(0, 0.8)
+                lateral_speed = 2.0 + rng.uniform(0, 1.5)
+                target_y = 0.0
+                behavior = "swerve"
+            else:
+                vx = av
+                behavior = "constant_velocity"
 
         elif family in ("cut_in", "lane_change") or spec.behavior == "cut_in":
             lane_offset = 3.5 if rng.random() > 0.5 else -3.5
@@ -423,6 +462,10 @@ def expand_catalog(
     The remaining budget is distributed by crash-frequency weight, which puts
     more concrete variants behind the scenarios that cause more real crashes.
     """
+    # Some catalogued scenarios have no conflict partner the kinematic layer can
+    # represent. They stay in the catalog for typology completeness but must not
+    # be expanded into concrete variants carrying meaningless metrics.
+    logicals = [s for s in logicals if s.simulable]
     if not logicals:
         return []
 
@@ -507,7 +550,9 @@ def catalog_coverage(
     per: dict[str, dict[str, Any]] = {}
     covered = reachable = unreachable = 0
     incomplete: list[str] = []
-    for logical in logicals:
+    # Scenarios that are never expanded cannot have ODD coverage; counting them
+    # would report a permanent shortfall that no amount of generation can fix.
+    for logical in [s for s in logicals if s.simulable]:
         report = achieved_coverage(
             logical, by_logical.get(logical.id, []), strength=strength
         )
