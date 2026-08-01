@@ -112,12 +112,17 @@ describe("scenario browsing", () => {
     const familySelect = await screen.findByLabelText<HTMLSelectElement>("Family", {
       exact: false,
     });
-    const values = Array.from(familySelect.options).map((o) => o.value);
-    // These families were added with the NHTSA typology and are unreachable if
-    // the filter list is hardcoded.
-    expect(values).toContain("backing");
-    expect(values).toContain("evasive_action");
-    expect(values).toContain("object");
+
+    // The select renders with just "all" and is repopulated when the coverage
+    // request resolves, so the options must be awaited rather than read once.
+    await waitFor(() => {
+      const values = Array.from(familySelect.options).map((o) => o.value);
+      // These families were added with the NHTSA typology and are unreachable
+      // if the filter list is hardcoded.
+      expect(values).toContain("backing");
+      expect(values).toContain("evasive_action");
+      expect(values).toContain("object");
+    });
   });
 
   it("requests the next page with an offset when loading more", async () => {
